@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Modeling</name>
+    </assembly>
+    <members>
+        <member name="M:OldW.Modeling.FormSetWarning.getFormValve">
+            <summary>
+            读取界面上的值，创建WarningValue对象
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:OldW.Modeling.FormSetWarning.updatecbInput">
+            <summary>
+            更新cbInput
+            </summary>
+        </member>
+        <member name="M:OldW.Modeling.FormSetWarning.checkNum(System.Windows.Forms.TextBox@,System.Windows.Forms.KeyPressEventArgs@)">
+            <summary>
+            判断输入是否合理
+            </summary>
+            <param name="tb"></param>
+            <param name="e"></param>
+        </member>
+        <member name="F:OldW.Modeling.FormSetWarning.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:OldW.Modeling.FormSetWarning.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:OldW.Modeling.FormSetWarning.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:OldW.Modeling.SetFamilyForce">
+            <summary>
+            轴力测点建模
+            </summary>
+        </member>
+        <member name="T:OldW.Modeling.SetFamilyIncli">
+            <summary>
+            沉降测点建模
+            </summary>
+        </member>
+        <member name="T:OldW.Modeling.SetFamilySettlement">
+            <summary>
+            沉降测点建模
+            </summary>
+        </member>
+        <member name="T:OldW.Modeling.SetWarning">
+            <summary>
+            test command
+            </summary>
+        </member>
+        <member name="F:OldW.Modeling.WarningSumVelo.sum">
+            <summary>
+            累计值
+            </summary>
+        </member>
+        <member name="F:OldW.Modeling.WarningSumVelo.velo">
+            <summary>
+            速率
+            </summary>
+        </member>
+        <member name="T:OldW.Modeling.WarningIncli">
+            <summary>
+            测斜警戒值
+            </summary>
+        </member>
+        <member name="T:OldW.Modeling.WarningGSetle">
+            <summary>
+            地表沉降警戒值
+            </summary>
+        </member>
+        <member name="T:OldW.Modeling.WarningForce">
+            <summary>
+            轴力警戒值
+            </summary>
+        </member>
+        <member name="F:OldW.Modeling.WarningForce.ratio">
+            <summary>
+            系数
+            </summary>
+        </member>
+        <member name="T:OldW.Modeling.WarningValue">
+            <summary>
+            警戒值设定类
+            </summary>
+        </member>
+        <member name="F:OldW.Modeling.WarningValue.name">
+            <summary>
+            警戒值设定的名称
+            </summary>
+        </member>
+        <member name="F:OldW.Modeling.WarningValue.rate">
+            <summary>
+            警戒值设定的等级
+            </summary>
+        </member>
+        <member name="F:OldW.Modeling.WarningValue.warningForc">
+            <summary>
+            轴力警戒值
+            </summary>
+        </member>
+        <member name="F:OldW.Modeling.WarningValue.warningGSetle">
+            <summary>
+            地表沉降警戒值
+            </summary>
+        </member>
+        <member name="F:OldW.Modeling.WarningValue.warningIncli">
+            <summary>
+            测斜警戒值
+            </summary>
+        </member>
+        <member name="M:OldW.Modeling.WarningValue.getId">
+            <summary>
+            返回该警戒值设定的ID
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,14 @@
+D:\temp\Revit\OldW\bin\eZstd.dll
+D:\temp\Revit\OldW\bin\eZstd.pdb
+D:\temp\Revit\OldW\Projects\eZstd\obj\x64\Debug\eZstd.Resources.resources
+D:\temp\Revit\OldW\Projects\eZstd\obj\x64\Debug\eZstd.myDataGridView.resources
+D:\temp\Revit\OldW\Projects\eZstd\obj\x64\Debug\eZstd.vbproj.GenerateResource.Cache
+D:\temp\Revit\OldW\Projects\eZstd\obj\x64\Debug\eZstd.dll
+D:\temp\Revit\OldW\Projects\eZstd\obj\x64\Debug\eZstd.pdb
+F:\Software\Revit\RevitDevelop\OldW\bin\eZstd.dll
+F:\Software\Revit\RevitDevelop\OldW\bin\eZstd.pdb
+F:\Software\Revit\RevitDevelop\OldW\Projects\eZstd\obj\x64\Debug\eZstd.Resources.resources
+F:\Software\Revit\RevitDevelop\OldW\Projects\eZstd\obj\x64\Debug\eZstd.myDataGridView.resources
+F:\Software\Revit\RevitDevelop\OldW\Projects\eZstd\obj\x64\Debug\eZstd.vbproj.GenerateResource.Cache
+F:\Software\Revit\RevitDevelop\OldW\Projects\eZstd\obj\x64\Debug\eZstd.dll
+F:\Software\Revit\RevitDevelop\OldW\Projects\eZstd\obj\x64\Debug\eZstd.pdb

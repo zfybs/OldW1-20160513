@@ -1,0 +1,14 @@
+D:\temp\Revit\OldW\bin\GlobalSettings.dll
+D:\temp\Revit\OldW\bin\GlobalSettings.pdb
+D:\temp\Revit\OldW\Projects\GlobalSettings\obj\Debug\OldW.Resources.resources
+D:\temp\Revit\OldW\Projects\GlobalSettings\obj\Debug\GlobalSettings.vbproj.GenerateResource.Cache
+D:\temp\Revit\OldW\Projects\GlobalSettings\obj\Debug\GlobalSettings.dll
+D:\temp\Revit\OldW\Projects\GlobalSettings\obj\Debug\GlobalSettings.pdb
+D:\temp\Revit\OldW\Projects\GlobalSettings\obj\Debug\GlobalSettings.vbprojResolveAssemblyReference.cache
+F:\Software\Revit\RevitDevelop\OldW\bin\GlobalSettings.dll
+F:\Software\Revit\RevitDevelop\OldW\bin\GlobalSettings.pdb
+F:\Software\Revit\RevitDevelop\OldW\Projects\GlobalSettings\obj\Debug\GlobalSettings.vbprojResolveAssemblyReference.cache
+F:\Software\Revit\RevitDevelop\OldW\Projects\GlobalSettings\obj\Debug\OldW.Resources.resources
+F:\Software\Revit\RevitDevelop\OldW\Projects\GlobalSettings\obj\Debug\GlobalSettings.vbproj.GenerateResource.Cache
+F:\Software\Revit\RevitDevelop\OldW\Projects\GlobalSettings\obj\Debug\GlobalSettings.dll
+F:\Software\Revit\RevitDevelop\OldW\Projects\GlobalSettings\obj\Debug\GlobalSettings.pdb

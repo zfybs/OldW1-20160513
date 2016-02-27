@@ -1,0 +1,10 @@
+D:\temp\Revit\OldW\bin\RevitRibbonTab.dll
+D:\temp\Revit\OldW\bin\RevitRibbonTab.pdb
+D:\temp\Revit\OldW\RevitRibbonTab\obj\x64\Debug\RevitRibbonTab.dll
+D:\temp\Revit\OldW\RevitRibbonTab\obj\x64\Debug\RevitRibbonTab.pdb
+D:\temp\Revit\OldW\RevitRibbonTab\obj\x64\Debug\OldW.vbprojResolveAssemblyReference.cache
+F:\Software\Revit\RevitDevelop\OldW\bin\RevitRibbonTab.dll
+F:\Software\Revit\RevitDevelop\OldW\bin\RevitRibbonTab.pdb
+F:\Software\Revit\RevitDevelop\OldW\RevitRibbonTab\obj\x64\Debug\OldW.vbprojResolveAssemblyReference.cache
+F:\Software\Revit\RevitDevelop\OldW\RevitRibbonTab\obj\x64\Debug\RevitRibbonTab.dll
+F:\Software\Revit\RevitDevelop\OldW\RevitRibbonTab\obj\x64\Debug\RevitRibbonTab.pdb

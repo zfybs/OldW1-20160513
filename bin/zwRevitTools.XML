@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>zwRevitTools</name>
+    </assembly>
+    <members>
+        <member name="T:zwRevitTools.ExtensionRevitLib">
+            <summary>
+            扩展方法
+            </summary>
+        </member>
+        <member name="M:zwRevitTools.ExtensionRevitLib.getElementById(Autodesk.Revit.DB.ElementId,Autodesk.Revit.DB.Document)">
+            <summary>
+            从elementId获得element
+            </summary>
+            <param name="eleId"></param>
+            <param name="uidoc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zwRevitTools.FilterTools.existFamliyByName(Autodesk.Revit.DB.Document,System.String,Autodesk.Revit.DB.ElementId@)">
+            <summary>
+            通过族的名称判断document是否包含该族
+            </summary>
+            <param name="doc">搜索的document</param>
+            <param name="name">族名称</param>
+            <param name="foundId">输出族Id</param>
+            <returns>返回是否包含</returns>
+        </member>
+        <member name="M:zwRevitTools.FilterTools.existFamliyByName(Autodesk.Revit.DB.Document,System.String)">
+            <summary>
+            通过族的名称判断document是否包含该族
+            </summary>
+            <param name="doc">搜索的document</param>
+            <param name="name">族名称</param>
+            <returns>返回是否包含</returns>
+        </member>
+        <member name="M:zwRevitTools.FilterTools.getFamilyByName(Autodesk.Revit.DB.Document,System.String)">
+            <summary>
+            通过族名称获得该族
+            </summary>
+            <param name="doc"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zwRevitTools.FilterTools.getFamilyInstancesByFamilyName(Autodesk.Revit.DB.Document,System.String)">
+            <summary>
+            通过族名称获得该族的所有实例
+            </summary>
+            <param name="doc"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zwRevitTools.FilterTools.getFamilySymbolsByFamilyName(Autodesk.Revit.DB.Document,System.String)">
+            <summary>
+            通过族名称获得该族的类型
+            </summary>
+            <param name="doc"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zwRevitTools.FilterTools.getFamilyInsancesByFamilySymbolId(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId)">
+            <summary>
+            通过族类型id获得该族类型的实例
+            </summary>
+            <param name="doc"></param>
+            <param name="FamilySymbolId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zwRevitTools.FilterTools.getFamilyInsancesByFamilySymbolIds(Autodesk.Revit.DB.Document,System.Collections.Generic.ISet{Autodesk.Revit.DB.ElementId})">
+            <summary>
+            通过族类型ids获得该族类型的实例
+            </summary>
+            <param name="doc"></param>
+            <param name="FamilySymbolIds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zwRevitTools.FilterTools.intersect(Autodesk.Revit.DB.Document,System.Collections.Generic.ICollection{Autodesk.Revit.DB.ElementId},System.Collections.Generic.ICollection{Autodesk.Revit.DB.ElementId})">
+            <summary>
+            返回两个集合交集
+            </summary>
+            <param name="doc"></param>
+            <param name="col1"></param>
+            <param name="col2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zwRevitTools.FilterTools.union(Autodesk.Revit.DB.Document,System.Collections.Generic.ICollection{Autodesk.Revit.DB.ElementId},System.Collections.Generic.ICollection{Autodesk.Revit.DB.ElementId})">
+            <summary>
+            返回两个集合并集
+            </summary>
+            <param name="doc"></param>
+            <param name="col1"></param>
+            <param name="col2"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
