@@ -158,7 +158,7 @@ Public Class MP_Incline
         ' 整体选择所有与梁相交的墙
         sel.SetElementIds(Ge)
         trans.Commit()
-
+        ' Change
         Return Result.Succeeded
     End Function
 End Class
