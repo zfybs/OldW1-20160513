@@ -7,3 +7,4 @@ F:\Software\Revit\RevitDevelop\OldW\bin\zwstd.dll
 F:\Software\Revit\RevitDevelop\OldW\bin\zwstd.pdb
 F:\Software\Revit\RevitDevelop\OldW\Projects\zwstd\obj\Debug\zwstd.dll
 F:\Software\Revit\RevitDevelop\OldW\Projects\zwstd\obj\Debug\zwstd.pdb
+F:\Software\Revit\RevitDevelop\OldW\Projects\zwstd\obj\Debug\zwstd.csprojResolveAssemblyReference.cache

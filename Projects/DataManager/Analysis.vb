@@ -8,6 +8,8 @@ Imports System.Windows.Forms
 Imports eZRevtiTools.ExtensionMethods
 Imports OldW.Modeling
 Imports System.IO
+Imports eZRevtiTools.rvtTools
+
 Public Class Analysis
 
     Private uidoc As UIDocument
@@ -16,7 +18,7 @@ Public Class Analysis
     Private ViolateList As List(Of ElementId)
     Public Sub New(ByVal eleIds As ICollection(Of ElementId), document As UIDocument)
 
-        ' --------------------------------
+        ' --------------------
         Me.uidoc = document
         Me.doc = Me.uidoc.Document
         Me.SelectedElements = eleIds
@@ -77,7 +79,7 @@ Public Class Analysis
         With Dt
             For i As UInt32 = 0 To .arrDate.Length - 1
                 v = .arrValue(i)
-                Dim WV As WarningValue = eZRevtiTools.Class1.GetWarningValue(GlobalSettings.Path_WarningValueUsing)
+                Dim WV As WarningValue = GetWarningValue(GlobalSettings.Path_WarningValueUsing)
                 '
                 If (v IsNot Nothing) AndAlso (v > WV.warningGSetle.sum) Then
                     Return True

@@ -7,7 +7,7 @@ Imports eZstd
 ''' 
 ''' </summary>
 ''' <remarks></remarks>
-Public Class Class1
+Public Class rvtTools
 
     ''' <summary>
     ''' 提取WarningValueUsing.dat中的WarningValue类
@@ -23,4 +23,6 @@ Public Class Class1
         '
         Return WV
     End Function
+
+
 End Class
