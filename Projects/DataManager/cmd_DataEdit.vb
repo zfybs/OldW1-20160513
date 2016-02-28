@@ -29,7 +29,7 @@ Public Class cmd_Analyse
         Dim inclineEle As Element = doc.GetElement(New ElementId(460115))
         Dim earth As Element = doc.GetElement(New ElementId(460116))
         '   Dim Incline As New MP_Incline(inclineEle, uiApp.ActiveUIDocument) With {.eleEarht = earth}
-        Dim Incline As New MP_Incline(uiApp.ActiveUIDocument)
+        Dim Incline As New MP_Inclinometer(uiApp.ActiveUIDocument, inclineEle)
         '
         Incline.FindAdjacentEarthElevation()
         Exit Function
