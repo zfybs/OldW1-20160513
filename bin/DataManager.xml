@@ -58,6 +58,10 @@ DataManager
 	<summary>
  测斜管所对应的图元
  </summary>
+</member><member name="F:OldW.DataManager.MP_Inclinometer.IsInsideEarth">
+	<summary> 测斜管的位置是在模型中的开挖土体的内部还是外部，即测斜管与开挖土体的Element是否相交。 </summary>
+	<remarks>True if the inclinometer is inside the excavation earth, 
+ and False if the inclinometer is outside the excavation earth.</remarks>
 </member><member name="M:OldW.DataManager.MP_Inclinometer.#ctor(Autodesk.Revit.UI.UIDocument,Autodesk.Revit.DB.FamilyInstance)">
 	<summary>
  构造函数
@@ -70,6 +74,18 @@ DataManager
  </summary>
 	<returns></returns>
 	<remarks></remarks>
+</member><member name="M:OldW.DataManager.MP_Inclinometer.FindBottomPoint(Autodesk.Revit.DB.XYZ,System.Boolean,Autodesk.Revit.DB.FamilyInstance,Autodesk.Revit.DB.ReferenceIntersector)">
+	<summary>
+ 搜索一个底部坐标点，有了此点后，只要向上发射一条射线，即可以找到此时的开挖面
+ </summary>
+	<param name="ptInclinometerBottom">测斜管的底部坐标点</param>
+	<param name="IsInside">测斜管是否在开挖土体Element的内部</param>
+	<param name="Earth">开挖墙体单元</param>
+	<param name="IntersectedEarth">用来搜索相交面的开挖土体</param>
+	<returns></returns>
+	<remarks>  如果测斜管就在土体内部，那么测斜管的底部点就可以直接用来向上发射射线了。
+ 如果测斜管在土体外部，那么需要以测斜管的底部点为中心，向四周发射多条射线，
+ 这些射线分别都与土体相交，找到距离土体最近的那一条射线所对应的相交点与相交面，然后将相交点向面内偏移一点点，即可以作为寻找开挖面的射线的原点了。</remarks>
 </member><member name="T:OldW.DataManager.MP_Inclinometer">
 	<summary>
  测点_测斜管
