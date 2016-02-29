@@ -62,13 +62,14 @@ Public Class MP_Inclinometer
         ' 将土体单元作为搜索相交面的目标，搜索其中所有的相交面
         Dim IntersectedEarth As New ReferenceIntersector(eleEarht.Id, FindReferenceTarget.Face, view3d)
 
+
         ' Dim references As IList(Of ReferenceWithContext) = ReferenceIntersector1.Find(origin:=ptStart, direction:=(ptEnd - ptStart))
         Dim PtBottom = FindBottomPoint(ptOrigin, Me.IsInsideEarth, eleEarht, IntersectedEarth)
 
         ' 将测点附近的那个底部点（开挖土体内部）向上发出一条射线，以得到真实的土体开挖面
-        Dim reference As ReferenceWithContext = IntersectedEarth.FindNearest(origin:=PtBottom, direction:=New XYZ(0, 0, 1))
-        Dim ExcavFace As Face = eleEarht.GetGeometryObjectFromReference(reference.GetReference)
-        Dim Elevation As XYZ = reference.GetReference.GlobalPoint
+        Dim refContext As ReferenceWithContext = IntersectedEarth.FindNearest(origin:=PtBottom, direction:=New XYZ(0, 0, 1))
+        Dim ExcavFace As Face = eleEarht.GetGeometryObjectFromReference(refContext.GetReference)
+        Dim Elevation As XYZ = refContext.GetReference.GlobalPoint
         TaskDialog.Show("哈哈", "找到了开挖面 " & Elevation.ToString)
         Return 0
 
@@ -109,15 +110,17 @@ Public Class MP_Inclinometer
             For angle As Single = 0 To 2 * Math.PI Step Math.PI / 6
                 ' 创建一个水平面上的方向向量，此向量与x轴的夹角为angle
                 dire = New XYZ(Cos(angle), Sin(angle), 0)
-                Dim reference As ReferenceWithContext = IntersectedEarth.FindNearest(origin:=ptInclinometerBottom, direction:=dire)
-                If (reference IsNot Nothing) AndAlso (reference.Proximity < NearestDist) Then
-                    NearestDist = reference.Proximity
-                    NearestRef = reference.GetReference()
+                Dim refContext As ReferenceWithContext = IntersectedEarth.FindNearest(origin:=ptInclinometerBottom, direction:=dire)
+                If (refContext IsNot Nothing) AndAlso (refContext.Proximity < NearestDist) Then
+                    NearestDist = refContext.Proximity
+                    NearestRef = refContext.GetReference()
                     NearestDir = dire
                 End If
             Next
+
             If NearestRef IsNot Nothing Then
                 ' 找到最近的那个相交射线所对应的相交面，此面即为此离测斜管最近的那个土体的侧面（竖向）
+                '
                 Dim VerticalFace As Face = Earth.GetGeometryObjectFromReference(NearestRef)
 
                 ' 测斜管底部点到找到的最近的面的垂足点
