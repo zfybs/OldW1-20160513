@@ -13,8 +13,14 @@ eZRevtiTools
 </member><member name="M:eZRevtiTools.ExtensionMethods.FindFamily(Autodesk.Revit.DB.Document,System.String)">
 	<summary> 返回项目文档中指定名称的族Family对象 </summary>
 	<param name="FamilyName">在此文档中，所要搜索的族对象的名称</param>
+</member><member name="M:eZRevtiTools.ExtensionMethods.Instances(Autodesk.Revit.DB.Family)">
+	<summary> 返回项目文档中某族Family的所有实例 </summary>
+	<param name="Family"></param>
 </member><member name="M:eZRevtiTools.ExtensionMethods.Instances(Autodesk.Revit.DB.FamilySymbol)">
 	<summary> 返回项目文档中某族类型FamilySymbol的所有实例 </summary>
+	<param name="FamilySymbol"></param>
+</member><member name="M:eZRevtiTools.ExtensionMethods.ToMatrix(Autodesk.Revit.DB.Transform)">
+	<summary> 以矩阵的形式返回变换矩阵，仅作显示之用 </summary>
 	<param name="FamilySymbol"></param>
 </member><member name="T:eZRevtiTools.ExtensionMethods">
 	<summary>

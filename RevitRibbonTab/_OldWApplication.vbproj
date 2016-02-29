@@ -102,7 +102,6 @@
     <ProjectReference Include="..\Projects\GlobalSettings\_GlobalSettings.vbproj">
       <Project>{cea033be-8fec-48c5-98dc-785ced58b5fb}</Project>
       <Name>_GlobalSettings</Name>
-      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

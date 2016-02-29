@@ -47,8 +47,6 @@ Public Class cmd_Analyse
 
 End Class
 
-
-
 <System.Serializable()>
 Friend Class MonitorData
     Public arrDate As Date()

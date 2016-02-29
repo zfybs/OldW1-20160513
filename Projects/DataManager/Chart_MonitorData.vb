@@ -21,7 +21,7 @@ Public Class Chart_MonitorData
     ''' <summary>
     ''' 构造函数
     ''' </summary>
-    ''' <param name="Title">窗口的标题：监测类型</param>
+    ''' <param name="Type">窗口的标题：监测类型</param>
     ''' <remarks></remarks>
     Public Sub New(Type As OldW.GlobalConstant.FamilyName)
 

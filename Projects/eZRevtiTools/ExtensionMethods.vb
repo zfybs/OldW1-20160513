@@ -44,7 +44,7 @@ Public Module ExtensionMethods
 #Region "  ---  Family"
 
     ''' <summary> 返回项目文档中某族Family的所有实例 </summary>
-    ''' <param name="FamilySymbol"></param>
+    ''' <param name="Family"></param>
     <System.Runtime.CompilerServices.Extension()>
     Function Instances(Family As Family) As FilteredElementCollector
         Dim doc As Document = Family.Document
@@ -91,4 +91,17 @@ Public Module ExtensionMethods
 
 #End Region
 
+#Region "  ---  Transform"
+    ''' <summary> 以矩阵的形式返回变换矩阵，仅作显示之用 </summary>
+    ''' <param name="FamilySymbol"></param>
+    <System.Runtime.CompilerServices.Extension()>
+    Function ToMatrix(FamilySymbol As Transform) As String
+        Dim str As String = ""
+
+
+
+        Return str
+    End Function
+
+#End Region
 End Module

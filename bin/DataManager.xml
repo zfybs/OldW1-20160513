@@ -8,6 +8,12 @@ DataManager
 <members>
 <member name="F:OldW.DataManager.Chart_MonitorData.Chart">
 	<summary> 数据图表 </summary>
+</member><member name="M:OldW.DataManager.Chart_MonitorData.#ctor(OldW.GlobalConstant.FamilyName)">
+	<summary>
+ 构造函数
+ </summary>
+	<param name="Type">窗口的标题：监测类型</param>
+	<remarks></remarks>
 </member><member name="M:OldW.DataManager.Chart_MonitorData.SetupChart">
 	<summary>
  图表的初始化
@@ -74,6 +80,8 @@ DataManager
  </summary>
 	<returns></returns>
 	<remarks></remarks>
+</member><member name="M:OldW.DataManager.MP_Inclinometer.AdjacentEarth">
+	<summary> 此测斜管附近的开挖土体单元 </summary>
 </member><member name="M:OldW.DataManager.MP_Inclinometer.FindBottomPoint(Autodesk.Revit.DB.XYZ,System.Boolean,Autodesk.Revit.DB.FamilyInstance,Autodesk.Revit.DB.ReferenceIntersector)">
 	<summary>
  搜索一个底部坐标点，有了此点后，只要向上发射一条射线，即可以找到此时的开挖面
