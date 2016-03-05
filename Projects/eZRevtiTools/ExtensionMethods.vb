@@ -93,15 +93,32 @@ Public Module ExtensionMethods
 
 #Region "  ---  Transform"
     ''' <summary> 以矩阵的形式返回变换矩阵，仅作显示之用 </summary>
-    ''' <param name="FamilySymbol"></param>
+    ''' <param name="Trans"></param>
     <System.Runtime.CompilerServices.Extension()>
-    Function ToMatrix(FamilySymbol As Transform) As String
+    Function ToString_Matrix(Trans As Transform) As String
         Dim str As String = ""
-
-
-
+        With Trans
+            str = "(" & .BasisX.X.ToString("0.000") & "  ,  " & .BasisY.X.ToString("0.000") & "  ,  " & .BasisZ.X.ToString("0.000") & "  ,  " & .Origin.X.ToString("0.000") & ")" & vbCrLf &
+                  "(" & .BasisX.Y.ToString("0.000") & "  ,  " & .BasisY.Y.ToString("0.000") & "  ,  " & .BasisZ.Y.ToString("0.000") & "  ,  " & .Origin.Y.ToString("0.000") & ")" & vbCrLf &
+                  "(" & .BasisX.Z.ToString("0.000") & "  ,  " & .BasisY.Z.ToString("0.000") & "  ,  " & .BasisZ.Z.ToString("0.000") & "  ,  " & .Origin.Z.ToString("0.000") & ")"
+        End With
+        Return str
         Return str
     End Function
 
 #End Region
+
+#Region "  ---  Double"
+    ''' <summary> 长度单位转换：将英尺转换为毫米 1英尺=304.8mm </summary>
+    ''' <param name="value_foot"></param>
+    ''' <remarks> 1 foot = 12 inches = 304.8 mm</remarks>
+    <System.Runtime.CompilerServices.Extension()>
+    Function Foot2mm(value_foot As Double) As Double
+        ' 1 foot = 12 inches = 304.8 mm
+        Return value_foot * 304.8
+    End Function
+#End Region
+
+
+
 End Module

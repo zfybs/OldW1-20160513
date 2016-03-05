@@ -19,9 +19,13 @@ eZRevtiTools
 </member><member name="M:eZRevtiTools.ExtensionMethods.Instances(Autodesk.Revit.DB.FamilySymbol)">
 	<summary> 返回项目文档中某族类型FamilySymbol的所有实例 </summary>
 	<param name="FamilySymbol"></param>
-</member><member name="M:eZRevtiTools.ExtensionMethods.ToMatrix(Autodesk.Revit.DB.Transform)">
+</member><member name="M:eZRevtiTools.ExtensionMethods.ToString_Matrix(Autodesk.Revit.DB.Transform)">
 	<summary> 以矩阵的形式返回变换矩阵，仅作显示之用 </summary>
-	<param name="FamilySymbol"></param>
+	<param name="Trans"></param>
+</member><member name="M:eZRevtiTools.ExtensionMethods.Foot2mm(System.Double)">
+	<summary> 长度单位转换：将英尺转换为毫米 1英尺=304.8mm </summary>
+	<param name="value_foot"></param>
+	<remarks> 1 foot = 12 inches = 304.8 mm</remarks>
 </member><member name="T:eZRevtiTools.ExtensionMethods">
 	<summary>
  Revit中对象的扩展方法
@@ -63,7 +67,17 @@ eZRevtiTools
 </member><member name="M:eZRevtiTools.ExamplesCodes.FindIntersectWallsByElement">
 	<summary> 找到与某Element的几何实体相交的Elements </summary>
 </member><member name="M:eZRevtiTools.ExamplesCodes.FindIntersectWallsByGeometry">
-	<summary> 找到与某Solid相交的Elements </summary>
+	<summary>ElementIntersectsSolidFilter: 找到与某Solid相交的Elements </summary>
+</member><member name="M:eZRevtiTools.ExamplesCodes.ElementParameterFilter_FindOjbectsInSpecificRoom(Autodesk.Revit.UI.ExternalCommandData)">
+	<summary>
+ ElementParameterFilter 参数过滤器：找到一个房间内的所有对象
+ </summary>
+	<remarks>提示: 参数过滤条件可能比其他的类型过滤条件要快，但是这要视条件而定。毕竟这是一个慢过，使用时请按照过滤标准的复杂程度而异。</remarks>
+</member><member name="M:eZRevtiTools.ExamplesCodes.ElementParameterFilter_FindRooms(Autodesk.Revit.DB.Document)">
+	<summary>
+ ElementParameterFilter参数过滤器 Creates an ElementParameter filter to find rooms whose area is greater than specified value
+ </summary>
+	<remarks>提示: 参数过滤条件可能比其他的类型过滤条件要快，但是这要视条件而定。毕竟这是一个慢过，使用时请按照过滤标准的复杂程度而异。</remarks>
 </member><member name="T:eZRevtiTools.ExamplesCodes">
 	<summary>
  一些效果实现的示例代码

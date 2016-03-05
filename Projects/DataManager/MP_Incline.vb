@@ -41,7 +41,6 @@ Public Class MP_Inclinometer
         Me.Doc = UIDoc.Document
         Me.App = UIDoc.Application.Application
         '
-
     End Sub
 
 #Region "   ---   测斜点附近的土体开挖面"
@@ -54,9 +53,14 @@ Public Class MP_Inclinometer
     Public Function FindAdjacentEarthElevation() As Double
 
         ' 将测斜管的底部端点作为原点
+
+        Dim Length As Double = Inclinometer.Symbol.LookupParameter("深度").AsDouble  ' 测斜管长度
+
         Dim lc As LocationPoint = TryCast(Me.Inclinometer.Location, LocationPoint)
-        Dim ptOrigin As XYZ = lc.Point
-        ' 土体
+        Dim ptOrigin As XYZ = lc.Point  ' 测斜管的顶点
+        ptOrigin = ptOrigin.Add(New XYZ(0, 0, -Length))  ' 测斜管的底部点
+
+        ' 土体单元
         Dim eleEarht As FamilyInstance = AdjacentEarth()
 
         ' 将当前3D视图作为ReferenceIntersector的构造参数

@@ -4,6 +4,7 @@ Imports Autodesk.Revit.DB
 Imports OldW.GlobalSettings
 Imports System.IO
 Imports Autodesk.Revit.UI.Selection
+Imports Autodesk.Revit.DB.Architecture
 
 
 ''' <summary>
@@ -15,7 +16,6 @@ Public Class ExamplesCodes
     Private UIDoc As UIDocument
     Private Doc As Document
     Private App As Autodesk.Revit.ApplicationServices.Application
-
 
     ''' <summary>
     ''' 返回Element的几何数据
@@ -128,16 +128,16 @@ Public Class ExamplesCodes
     ''' <summary> 找到与某Element的几何实体相交的Elements </summary>
     Public Sub FindIntersectWallsByElement()
 
-        Dim trans As New Transaction(doc, "ExComm")
+        Dim trans As New Transaction(Doc, "ExComm")
         trans.Start()
 
         ' 选择一个柱子
         Dim sel As Selection = UIDoc.Selection
         Dim ref1 As Reference = sel.PickObject(ObjectType.Element, "Please pick a column")
-        Dim column As Element = doc.GetElement(ref1)
+        Dim column As Element = Doc.GetElement(ref1)
 
         ' 应用过滤器，在整个文档中搜索与指定Element相交的Element
-        Dim collector As New FilteredElementCollector(doc)
+        Dim collector As New FilteredElementCollector(Doc)
         Dim elementFilter As New ElementIntersectsElementFilter(column, False)
         collector.WherePasses(elementFilter)
 
@@ -157,10 +157,10 @@ Public Class ExamplesCodes
 
     End Sub
 
-    ''' <summary> 找到与某Solid相交的Elements </summary>
+    ''' <summary>ElementIntersectsSolidFilter: 找到与某Solid相交的Elements </summary>
     Public Sub FindIntersectWallsByGeometry()
 
-        Dim trans As New Transaction(doc, "ExComm")
+        Dim trans As New Transaction(Doc, "ExComm")
         trans.Start()
 
         ' ---------------- 在API内存中创建一个拉伸Solid的定义（但是并不包含在Document中） ----------------
@@ -200,7 +200,7 @@ Public Class ExamplesCodes
         Dim solid As Solid = GeometryCreationUtilities.CreateExtrusionGeometry(loops, vector, 10)
 
         ' 在整个文档中搜索与此虚拟定义的Solid相交的Element
-        Dim collector As New FilteredElementCollector(doc)
+        Dim collector As New FilteredElementCollector(Doc)
         Dim solidFilter As New ElementIntersectsSolidFilter(solid)
         collector.WherePasses(solidFilter)
 
@@ -214,4 +214,67 @@ Public Class ExamplesCodes
         trans.Commit()
     End Sub
 
+    ''' <summary>
+    ''' ElementParameterFilter 参数过滤器：找到一个房间内的所有对象
+    ''' </summary>
+    ''' <remarks>提示: 参数过滤条件可能比其他的类型过滤条件要快，但是这要视条件而定。毕竟这是一个慢过，使用时请按照过滤标准的复杂程度而异。</remarks>
+    Public Sub ElementParameterFilter_FindOjbectsInSpecificRoom(commandData As ExternalCommandData)
+        Dim app As UIApplication = commandData.Application
+        Dim document As Document = app.ActiveUIDocument.Document
+        'pick a room
+        Dim sel As Selection = app.ActiveUIDocument.Selection
+        Dim ref1 As Reference = sel.PickObject(ObjectType.Element, "Please pick a room")
+        Dim room As Room = TryCast(document.GetElement(ref1), Room)
+
+        ' 定义要过滤哪个参数 ParameterValueProvider ：表示Element的房间Id的参数。
+        Dim provider As New ParameterValueProvider(New ElementId(BuiltInParameter.ELEM_ROOM_ID))
+        ' 定义过滤规则的表达式 FilterNumericRuleEvaluator 或者 FilterStringRuleEvaluator
+        Dim evaluator As FilterNumericRuleEvaluator = New FilterNumericEquals()
+        ' 定义要过滤的类型 FilterRule
+        Dim rule As New FilterElementIdRule(provider, evaluator, room.Id)
+        ' 最终得到参数过滤器 ElementParameterFilter
+        Dim filter As New ElementParameterFilter(rule)
+
+        ' 在什么范围内进行过滤
+        Dim collector As New FilteredElementCollector(document)
+        ' 执行过滤操作，并得到过滤后的结果
+        collector.WherePasses(filter)
+
+    End Sub
+
+
+    ''' <summary>
+    ''' ElementParameterFilter参数过滤器 Creates an ElementParameter filter to find rooms whose area is greater than specified value
+    ''' </summary>
+    ''' <remarks>提示: 参数过滤条件可能比其他的类型过滤条件要快，但是这要视条件而定。毕竟这是一个慢过，使用时请按照过滤标准的复杂程度而异。</remarks>
+    Public Sub ElementParameterFilter_FindRooms(Document As Document)
+
+        ' 以下5个步骤演示了要进行参数过滤的完整过程。
+        ' provider
+        Dim pvp As New ParameterValueProvider(New ElementId(BuiltInParameter.ROOM_AREA))
+        ' evaluator
+        Dim fnrv As FilterNumericRuleEvaluator = New FilterNumericGreater()
+
+        ' 过滤规则 : 参数“房间面积”的值“大于”“100 Square Foot”。（浮点数比较的容差为0.000001）
+        Dim fRule As FilterRule = New FilterDoubleRule(valueProvider:=pvp, evaluator:=fnrv, ruleValue:=100, epsilon:=0.000001)
+
+        ' Create an ElementParameter filter
+        Dim filter As New ElementParameterFilter(fRule)
+
+        ' Apply the filter to the elements in the active document
+        Dim collector As New FilteredElementCollector(Document)
+        Dim rooms As IList(Of Element) = collector.WherePasses(filter).ToElements()
+
+        ' 反转过滤条件
+        ' Find rooms whose area is less than or equal to 100: 
+        ' Use inverted filter to match elements
+        Dim lessOrEqualFilter As New ElementParameterFilter(filterRule:=fRule, inverted:=True)
+        collector = New FilteredElementCollector(Document)
+        Dim lessOrEqualFounds As IList(Of Element) = collector.WherePasses(lessOrEqualFilter).ToElements()
+
+    End Sub
+
+    Public Sub Test()
+
+    End Sub
 End Class
