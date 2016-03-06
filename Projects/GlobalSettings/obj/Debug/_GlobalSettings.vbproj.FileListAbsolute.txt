@@ -1,8 +1,0 @@
-F:\Software\Revit\RevitDevelop\OldW\bin\GlobalSettings.dll
-F:\Software\Revit\RevitDevelop\OldW\bin\GlobalSettings.pdb
-F:\Software\Revit\RevitDevelop\OldW\bin\GlobalSettings.xml
-F:\Software\Revit\RevitDevelop\OldW\Projects\GlobalSettings\obj\Debug\OldW.Resources.resources
-F:\Software\Revit\RevitDevelop\OldW\Projects\GlobalSettings\obj\Debug\_GlobalSettings.vbproj.GenerateResource.Cache
-F:\Software\Revit\RevitDevelop\OldW\Projects\GlobalSettings\obj\Debug\GlobalSettings.dll
-F:\Software\Revit\RevitDevelop\OldW\Projects\GlobalSettings\obj\Debug\GlobalSettings.xml
-F:\Software\Revit\RevitDevelop\OldW\Projects\GlobalSettings\obj\Debug\GlobalSettings.pdb
