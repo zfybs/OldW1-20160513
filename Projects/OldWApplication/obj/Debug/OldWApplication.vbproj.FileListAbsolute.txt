@@ -1,0 +1,11 @@
+F:\Software\Revit\RevitDevelop\OldW\bin\OldWApplication.dll
+F:\Software\Revit\RevitDevelop\OldW\bin\OldWApplication.pdb
+F:\Software\Revit\RevitDevelop\OldW\bin\OldWApplication.xml
+F:\Software\Revit\RevitDevelop\OldW\Projects\_OldWApplication\obj\Debug\OldWApplication.vbprojResolveAssemblyReference.cache
+F:\Software\Revit\RevitDevelop\OldW\Projects\_OldWApplication\obj\Debug\OldWApplication.dll
+F:\Software\Revit\RevitDevelop\OldW\Projects\_OldWApplication\obj\Debug\OldWApplication.xml
+F:\Software\Revit\RevitDevelop\OldW\Projects\_OldWApplication\obj\Debug\OldWApplication.pdb
+F:\Software\Revit\RevitDevelop\OldW\Projects\OldWApplication\obj\Debug\OldWApplication.vbprojResolveAssemblyReference.cache
+F:\Software\Revit\RevitDevelop\OldW\Projects\OldWApplication\obj\Debug\OldWApplication.dll
+F:\Software\Revit\RevitDevelop\OldW\Projects\OldWApplication\obj\Debug\OldWApplication.xml
+F:\Software\Revit\RevitDevelop\OldW\Projects\OldWApplication\obj\Debug\OldWApplication.pdb
