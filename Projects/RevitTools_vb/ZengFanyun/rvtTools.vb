@@ -20,11 +20,13 @@ Namespace rvtTools_ez
             Dim strData1 As String = fsr.ReadLine
             fsr.Close()
             '
-            Dim a = GlobalSettings.FamilyName.测斜测点
+            Dim a = GlobalSettings.InstrumentationType.墙体测斜
             Dim WV As WarningValue = BinarySerializer.Decode64(strData1)
             '
             Return WV
         End Function
 
     End Class
+
+
 End Namespace

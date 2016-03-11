@@ -6,7 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{EBE1727C-7F5A-4574-827E-E954FCB8D75E}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>OldW.DataManager</RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <AssemblyName>Projects_vb</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
@@ -74,6 +75,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="RevitAPI">
       <HintPath>D:\Program Files (x86)\Civil Engineering\Autodesk Revit 2016\RevitAPI.dll</HintPath>
       <Private>False</Private>
@@ -105,7 +107,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ZengFanyun\Analysis.vb" />
+    <Compile Include="ZengFanyun\Instrumentations\Analysis.vb" />
     <Compile Include="ZengFanyun\Chart_MonitorData.Designer.vb">
       <DependentUpon>Chart_MonitorData.vb</DependentUpon>
     </Compile>
@@ -119,7 +121,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ZengFanyun\cmd_DataEdit.vb" />
-    <Compile Include="ZengFanyun\MP_Incline.vb" />
+    <Compile Include="ZengFanyun\Instrumentations\Instru_StrutAxialForce.vb" />
+    <Compile Include="ZengFanyun\Instrumentations\Instru_ColumnHeave.vb" />
+    <Compile Include="ZengFanyun\Instrumentations\Instru_GroundSettlement.vb" />
+    <Compile Include="ZengFanyun\Instrumentations\Instru_Point.vb" />
+    <Compile Include="ZengFanyun\Instrumentations\Instrumentation.vb" />
+    <Compile Include="ZengFanyun\Instrumentations\Instru_Incline.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -135,6 +142,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="ZengFanyun\Instrumentations\Instru_Line.vb" />
+    <Compile Include="ZengFanyun\Miscellaneous.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ZengFanyun\Chart_MonitorData.resx">

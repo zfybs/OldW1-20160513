@@ -11,7 +11,7 @@ Public Class GlobalSettings
     ''' </summary>
     ''' <returns>测点元素中表示监测数据的共享参数的Guid值。</returns>
     ''' <remarks>如果要用扩展方法，请加上标签：System.Runtime.CompilerServices.Extension() </remarks>
-    Public Shared ReadOnly Property GuidMonitor As Guid
+    Public Shared ReadOnly Property Guid_Monitor As Guid
         Get
             Return New Guid("c3d04d9e-aa78-4328-90c5-cf58167d1f09")
         End Get
@@ -55,16 +55,20 @@ Public Class GlobalSettings
 #Region "   ---   监测模型名称"
 
     ''' <summary>
-    ''' 族类型的名称
+    ''' 监测仪器的族名称（也是族文件的名称），同时也作为监测仪器的类型判断
     ''' </summary>
-    ''' <remarks></remarks>
-    Public Enum FamilyName
-        'Public Const FamilyName_Incli As String = "测斜测点"
-        'Public Const FamilyName_Settlement As String = "沉降测点"
-        'Public Const FamilyName_Force As String = "轴力测点"
-        测斜测点
-        沉降测点
-        轴力测点
+    ''' <remarks>从枚举值返回对应的枚举字符的方法：GlobalSettings.InstrumentationType.沉降测点.ToString</remarks>
+    Public Enum InstrumentationType
+        ''' <summary> 比如地下连续墙的水平位移 </summary>
+        墙体测斜
+        ''' <summary> 比如基坑外地表的垂直位移 </summary>
+        地表隆沉
+        ''' <summary> 比如基坑中支撑的轴力 </summary>
+        支撑轴力
+        ''' <summary> 比如基坑中立柱的垂直位移 </summary>
+        立柱隆沉
+
+        其他
     End Enum
 
 
