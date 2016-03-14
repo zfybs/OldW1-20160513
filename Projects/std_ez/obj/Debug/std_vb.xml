@@ -6,15 +6,7 @@ std_vb
 </name>
 </assembly>
 <members>
-<member name="T:std_ez.BinarySerializer.ZengfyLinkBinder">
-	<summary>
- Resolve System.Runtime.Serialization.SerializationException, Message = 
- "Unable to find assembly 'StoreData, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'."
- One solution is to ensure that assembly resides in same directory as acad.exe or revit.exe,
- the other is to implement a class such as this, cf. 
- http://www.codeproject.com/soap/Serialization_Samples.asp
- </summary>
-</member><member name="M:std_ez.BinarySerializer.Encode64(System.Object)">
+<member name="M:std_ez.BinarySerializer.Encode64(System.Object)">
 	<summary>
  Encode arbitrary .NET serialisable object 
  into binary data encodes as base64 string.
@@ -23,6 +15,14 @@ std_vb
 	<summary>
  Decode arbitrary .NET serialisable object 
  from binary data encoded as base64 string.
+ </summary>
+</member><member name="T:std_ez.BinarySerializer.ZengfyLinkBinder">
+	<summary>
+ Resolve System.Runtime.Serialization.SerializationException, Message = 
+ "Unable to find assembly 'StoreData, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'."
+ One solution is to ensure that assembly resides in same directory as acad.exe or revit.exe,
+ the other is to implement a class such as this, cf. 
+ http://www.codeproject.com/soap/Serialization_Samples.asp
  </summary>
 </member><member name="T:std_ez.BinarySerializer">
 	<summary>

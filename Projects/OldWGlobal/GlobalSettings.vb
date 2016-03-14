@@ -4,7 +4,17 @@ Imports System.IO
 
 Public Class GlobalSettings
 
+
+#Region "   ---   Constants"
     Public Const AppName As String = "OldW"
+    ''' <summary>
+    ''' 基坑中的土体族文件的名称
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public Const FamilyName_Soil As String = "基坑土体"
+#End Region
+
+
 
     ''' <summary>
     ''' 监测数据点的Element中，用一个共享参数来存储此测点的监测数据。此共享参数的Guid值。
@@ -59,6 +69,8 @@ Public Class GlobalSettings
     ''' </summary>
     ''' <remarks>从枚举值返回对应的枚举字符的方法：GlobalSettings.InstrumentationType.沉降测点.ToString</remarks>
     Public Enum InstrumentationType
+        其他
+
         ''' <summary> 比如地下连续墙的水平位移 </summary>
         墙体测斜
         ''' <summary> 比如基坑外地表的垂直位移 </summary>
@@ -67,8 +79,6 @@ Public Class GlobalSettings
         支撑轴力
         ''' <summary> 比如基坑中立柱的垂直位移 </summary>
         立柱隆沉
-
-        其他
     End Enum
 
 

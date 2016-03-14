@@ -4,14 +4,13 @@ Imports rvtTools_ez.ExtensionMethods
 Imports System.Math
 Imports OldW.GlobalSettings
 
-
-Namespace OldW.DataManager
+Namespace OldW.Instrumentation
     ''' <summary>
     ''' 测点_支撑轴力
     ''' </summary>
     ''' <remarks></remarks>
-    Public Class Instru_StrutAxialForce
-        Inherits Instru_Point
+    Public Class Instrum_StrutAxialForce
+        Inherits Instrum_Point
         ''' <summary> 构造函数 </summary>
         ''' <param name="StrutAxialForceElement"> 支撑轴力测点所对应的图元</param>
         Public Sub New(StrutAxialForceElement As FamilyInstance)
@@ -21,4 +20,4 @@ Namespace OldW.DataManager
         End Sub
 
     End Class
-End Namespace
+    End Namespace

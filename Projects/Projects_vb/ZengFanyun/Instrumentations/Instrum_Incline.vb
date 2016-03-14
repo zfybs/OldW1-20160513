@@ -5,13 +5,13 @@ Imports System.Math
 Imports OldW.GlobalSettings
 
 
-Namespace OldW.DataManager
+Namespace OldW.Instrumentation
     ''' <summary>
     ''' 测点_测斜管
     ''' </summary>
     ''' <remarks></remarks>
-    Public Class MP_Inclinometer
-        Inherits Instru_Line
+    Public Class Instrum_Incline
+        Inherits Instrum_Line
 #Region "   ---   Properties"
 
 #End Region

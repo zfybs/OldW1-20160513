@@ -2,7 +2,7 @@
 Imports Autodesk.Revit.UI
 Imports Autodesk.Revit.DB
 Imports OldW.GlobalSettings
-Imports OldW.DataManager
+Imports OldW.Instrumentation
 Imports std_ez
 Imports System.Windows.Forms
 Imports rvtTools_ez.ExtensionMethods
@@ -17,10 +17,10 @@ Namespace OldW.DataManager
         Private doc As Document
         Private SelectedElements As List(Of ElementId)
         Private ViolateList As List(Of ElementId)
-        Public Sub New(ByVal eleIds As ICollection(Of ElementId), document As UIDocument)
+        Public Sub New(ByVal eleIds As ICollection(Of ElementId), UIDocument As UIDocument)
 
             ' --------------------
-            Me.uidoc = document
+            Me.uidoc = UIDocument
             Me.doc = Me.uidoc.Document
             Me.SelectedElements = eleIds
         End Sub

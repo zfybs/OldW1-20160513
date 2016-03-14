@@ -5,13 +5,13 @@ Imports System.Math
 Imports OldW.GlobalSettings
 
 
-Namespace OldW.DataManager
+Namespace OldW.Instrumentation
     ''' <summary>
     ''' 测点_地表垂直位移
     ''' </summary>
     ''' <remarks></remarks>
-    Public Class Instru_GroundSettlement
-        Inherits Instru_Point
+    Public Class Instrum_GroundSettlement
+        Inherits Instrum_Point
         ''' <summary> 构造函数 </summary>
         ''' <param name="GroundSettlementElement">地表垂直位移测点所对应的图元</param>
         Public Sub New(GroundSettlementElement As FamilyInstance)

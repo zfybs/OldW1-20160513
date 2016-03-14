@@ -19,6 +19,11 @@ OldWGlobal
 	<summary>
   A strongly-typed resource class, for looking up localized strings, etc.
 </summary>
+</member><member name="F:OldW.GlobalSettings.FamilyName_Soil">
+	<summary>
+ 基坑中的土体族文件的名称
+ </summary>
+	<remarks></remarks>
 </member><member name="P:OldW.GlobalSettings.Guid_Monitor">
 	<summary>
  监测数据点的Element中，用一个共享参数来存储此测点的监测数据。此共享参数的Guid值。

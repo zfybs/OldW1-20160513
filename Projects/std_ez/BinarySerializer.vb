@@ -9,22 +9,6 @@ Namespace std_ez
     Public Class BinarySerializer
 
         ''' <summary>
-        ''' Resolve System.Runtime.Serialization.SerializationException, Message = 
-        ''' "Unable to find assembly 'StoreData, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'."
-        ''' One solution is to ensure that assembly resides in same directory as acad.exe or revit.exe,
-        ''' the other is to implement a class such as this, cf. 
-        ''' http://www.codeproject.com/soap/Serialization_Samples.asp
-        ''' </summary>
-        Private NotInheritable Class ZengfyLinkBinder
-            Inherits System.Runtime.Serialization.SerializationBinder
-
-            Public Overrides Function BindToType(ByVal assemblyName As String, ByVal typeName As String) As System.Type
-                Return Type.GetType(String.Format("{0}, {1}", typeName, assemblyName))
-            End Function
-
-        End Class
-
-        ''' <summary>
         ''' Encode arbitrary .NET serialisable object 
         ''' into binary data encodes as base64 string.
         ''' </summary>
@@ -59,12 +43,22 @@ Namespace std_ez
             Return f.Deserialize(s)
         End Function
 
-    End Class
+        ''' <summary>
+        ''' Resolve System.Runtime.Serialization.SerializationException, Message = 
+        ''' "Unable to find assembly 'StoreData, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'."
+        ''' One solution is to ensure that assembly resides in same directory as acad.exe or revit.exe,
+        ''' the other is to implement a class such as this, cf. 
+        ''' http://www.codeproject.com/soap/Serialization_Samples.asp
+        ''' </summary>
+        Private NotInheritable Class ZengfyLinkBinder
+            Inherits System.Runtime.Serialization.SerializationBinder
 
-    Public Class Test
-        Public Shared Function testFun() As Boolean
-            Return True
-        End Function
+            Public Overrides Function BindToType(ByVal assemblyName As String, ByVal typeName As String) As System.Type
+                Return Type.GetType(String.Format("{0}, {1}", typeName, assemblyName))
+            End Function
+
+        End Class
+
     End Class
 
     ''' <summary>

@@ -5,8 +5,7 @@ Imports OldW.DataManager
 Imports std_ez
 
 
-
-Namespace OldW.DataManager
+Namespace OldW.Instrumentation
 
     ''' <summary>
     ''' 监测测点：包括线测点（测斜管）或点测点（地表沉降、立柱隆起、支撑轴力）等
@@ -47,13 +46,6 @@ Namespace OldW.DataManager
             End Get
         End Property
 
-        Private F_Name As String
-        ''' <summary> 测点所对应的族类型（FamilySymbol）的名称 </summary>
-        Public ReadOnly Property Name As String
-            Get
-                Return Me.F_name
-            End Get
-        End Property
 
         Private F_Type As InstrumentationType
         ''' <summary> 监测点的测点类型，也是测点所属的族的名称 </summary>
@@ -65,28 +57,31 @@ Namespace OldW.DataManager
 
 #End Region
 
+#Region "   ---   构造函数"
+
+
         ''' <summary>
         ''' 构造函数
         ''' </summary>
         ''' <param name="Instrumentation">所有类型的监测仪器，包括线测点（测斜管）或点测点（地表沉降、立柱隆起、支撑轴力）等</param>
         ''' <param name="Type">监测点的测点类型，也是测点所属的族的名称</param>
         ''' <remarks></remarks>
-        Public Sub New(Instrumentation As FamilyInstance, Optional ByVal Type As InstrumentationType = InstrumentationType.其他)
+        Friend Sub New(Instrumentation As FamilyInstance, ByVal Type As InstrumentationType)
 
             If Instrumentation IsNot Nothing Then
                 Me.F_Monitor = Instrumentation
                 Me.F_Doc = Instrumentation.Document
                 Me.F_UIDoc = New UIDocument(Me.Doc)
                 Me.F_Type = Type
-                Me.F_Name = Instrumentation.Symbol.Name
                 '
 
-
             Else
-                Throw New NullReferenceException("请指定有效的测斜管元素。")
+                Throw New NullReferenceException("The specified element is not valid as an instrumentation.")
             End If
 
         End Sub
+#End Region
+
 
 #Region "   ---   从Element集合中过滤出监测点对象"
 
@@ -98,6 +93,46 @@ Namespace OldW.DataManager
         ''' <remarks></remarks>
         Public Shared Function FilterInstrumentations(ByVal Doc As Document, ByVal Elements As ICollection(Of ElementId)) As List(Of Instrumentation)
             Dim Instrus As New List(Of Instrumentation)
+            Dim Coll As FilteredElementCollector = New FilteredElementCollector(Doc, Elements)
+            ' 集合中的族实例
+            Coll = Coll.OfClass(GetType(FamilyInstance))
+
+            ' 找到指定的Element集合中，所有的族实例
+            Dim FEI As FilteredElementIterator = Coll.GetElementIterator()
+            Dim strName As String
+            FEI.Reset()
+            Do While FEI.MoveNext()
+                'add level to list
+                Dim fi As FamilyInstance = TryCast(FEI.Current, FamilyInstance)
+                If fi IsNot Nothing Then
+                    ' 一个Element所对应的族的名称
+                    strName = fi.Symbol.FamilyName
+                    Dim Tp As InstrumentationType
+                    If [Enum].TryParse(value:=strName, result:=Tp) Then
+                        Select Case Tp
+                            Case InstrumentationType.墙体测斜
+                                Instrus.Add(New Instrum_Incline(fi))
+                            Case InstrumentationType.支撑轴力
+                                Instrus.Add(New Instrum_StrutAxialForce(fi))
+                            Case InstrumentationType.地表隆沉
+                                Instrus.Add(New Instrum_GroundSettlement(fi))
+                            Case InstrumentationType.立柱隆沉
+                                Instrus.Add(New Instrum_ColumnHeave(fi))
+                        End Select
+                    End If
+                End If
+            Loop
+            Return Instrus
+        End Function
+
+        ''' <summary>
+        ''' 从指定的Element集合中，找出所有的点测点元素
+        ''' </summary>
+        ''' <param name="Elements"> 要进行搜索过滤的Element集合</param>
+        ''' <returns></returns>
+        ''' <remarks></remarks>
+        Public Shared Function FilterInstru_Point(ByVal Doc As Document, ByVal Elements As ICollection(Of ElementId)) As List(Of Instrum_Point)
+            Dim Instrus As New List(Of Instrum_Point)
             Dim Coll As FilteredElementCollector = New FilteredElementCollector(Doc, Elements)
             ' 找到指定的Element集合中，所有的族实例
             Dim FEI As FilteredElementIterator = Coll.OfClass(GetType(FamilyInstance)).GetElementIterator()
@@ -112,14 +147,12 @@ Namespace OldW.DataManager
                     Dim Tp As InstrumentationType
                     If [Enum].TryParse(value:=strName, result:=Tp) Then
                         Select Case Tp
-                            Case InstrumentationType.墙体测斜
-                                Instrus.Add(New MP_Inclinometer(fi))
                             Case InstrumentationType.支撑轴力
-                                Instrus.Add(New Instru_StrutAxialForce(fi))
+                                Instrus.Add(New Instrum_StrutAxialForce(fi))
                             Case InstrumentationType.地表隆沉
-                                Instrus.Add(New Instru_GroundSettlement(fi))
+                                Instrus.Add(New Instrum_GroundSettlement(fi))
                             Case InstrumentationType.立柱隆沉
-                                Instrus.Add(New Instru_ColumnHeave(fi))
+                                Instrus.Add(New Instrum_ColumnHeave(fi))
                         End Select
                     End If
                 End If
@@ -129,9 +162,7 @@ Namespace OldW.DataManager
 
 #End Region
 
-
     End Class
-
 
 End Namespace
 

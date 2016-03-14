@@ -3,7 +3,8 @@ Imports Autodesk.Revit.UI
 Imports OldW.GlobalSettings
 Imports OldW.DataManager
 Imports std_ez
-Namespace OldW.DataManager
+
+Namespace OldW.Instrumentation
 
 #Region "  ---   监测数据类"
     ''' <summary>

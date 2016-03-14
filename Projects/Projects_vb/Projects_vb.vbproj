@@ -96,6 +96,8 @@
     <Reference Include="System.Data.DataSetExtensions" />
   </ItemGroup>
   <ItemGroup>
+    <Import Include="Autodesk.Revit.DB" />
+    <Import Include="Autodesk.Revit.UI" />
     <Import Include="Microsoft.VisualBasic" />
     <Import Include="System" />
     <Import Include="System.Collections" />
@@ -103,11 +105,12 @@
     <Import Include="System.Data" />
     <Import Include="System.Diagnostics" />
     <Import Include="System.Linq" />
+    <Import Include="System.Windows.Forms" />
     <Import Include="System.Xml.Linq" />
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ZengFanyun\Instrumentations\Analysis.vb" />
+    <Compile Include="ZengFanyun\Analysis.vb" />
     <Compile Include="ZengFanyun\Chart_MonitorData.Designer.vb">
       <DependentUpon>Chart_MonitorData.vb</DependentUpon>
     </Compile>
@@ -121,12 +124,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ZengFanyun\cmd_DataEdit.vb" />
-    <Compile Include="ZengFanyun\Instrumentations\Instru_StrutAxialForce.vb" />
-    <Compile Include="ZengFanyun\Instrumentations\Instru_ColumnHeave.vb" />
-    <Compile Include="ZengFanyun\Instrumentations\Instru_GroundSettlement.vb" />
-    <Compile Include="ZengFanyun\Instrumentations\Instru_Point.vb" />
+    <Compile Include="ZengFanyun\Instrumentations\Instrum_StrutAxialForce.vb" />
+    <Compile Include="ZengFanyun\Instrumentations\Instrum_ColumnHeave.vb" />
+    <Compile Include="ZengFanyun\Instrumentations\Instrum_GroundSettlement.vb" />
+    <Compile Include="ZengFanyun\Instrumentations\Instrum_Point.vb" />
     <Compile Include="ZengFanyun\Instrumentations\Instrumentation.vb" />
-    <Compile Include="ZengFanyun\Instrumentations\Instru_Incline.vb" />
+    <Compile Include="ZengFanyun\Instrumentations\Instrum_Incline.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -142,8 +145,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="ZengFanyun\Instrumentations\Instru_Line.vb" />
+    <Compile Include="ZengFanyun\Instrumentations\Instrum_Line.vb" />
     <Compile Include="ZengFanyun\Miscellaneous.vb" />
+    <Compile Include="ZengFanyun\Instrumentations\Soil.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ZengFanyun\Chart_MonitorData.resx">

@@ -3,6 +3,7 @@ Imports Autodesk.Revit.UI
 Imports Autodesk.Revit.DB
 Imports Autodesk.Revit.UI.Selection
 Imports Autodesk.Revit.DB.Architecture
+Imports OldW.Instrumentation
 
 Namespace OldW.DataManager
 
@@ -27,14 +28,16 @@ Namespace OldW.DataManager
         Implements IExternalCommand
 
         Public Function Execute(commandData As ExternalCommandData, ByRef message As String, elements As ElementSet) As Result Implements IExternalCommand.Execute
+
             Dim uiApp As UIApplication = commandData.Application
             Dim doc As Document = uiApp.ActiveUIDocument.Document
             '
             Dim inclineEle As Element = doc.GetElement(New ElementId(460115))
-            Dim Incline As New MP_Inclinometer(inclineEle)
+            Dim Incline As New Instrum_Incline(inclineEle)
             '
             Dim eleEarht As FamilyInstance = doc.GetElement(New ElementId(460116))
-            Incline.FindAdjacentEarthElevation(eleEarht)
+            Dim soil As Soil = soil.SoilModel(doc)
+            Incline.FindAdjacentEarthElevation(soil.Model)
 
             Return Result.Succeeded
         End Function

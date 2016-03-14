@@ -5,6 +5,8 @@ Imports System.Windows.Forms
 Imports std_ez
 Imports OldW.GlobalSettings
 Imports System.ComponentModel
+Imports OldW.Instrumentation
+
 
 Namespace OldW.DataManager
     Public Class ElementDataManager
