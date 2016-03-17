@@ -3,6 +3,7 @@ Imports Autodesk.Revit
 Imports Autodesk.Revit.DB
 Imports Autodesk.Revit.UI
 Imports OldW.GlobalSettings
+Imports OldW.GlobalSettings.ProjectPath
 Imports System.IO.Directory
 
 ' -------------------------- OldWApplication.addin -----------------------------------------
@@ -25,7 +26,7 @@ Public Class AppAddRibbonTab
 
     Public Function OnStartup(ByVal application As UIControlledApplication) As Result Implements IExternalApplication.OnStartup
         'Create a custom ribbon tab
-        Dim tabName As String = GlobalSettings.AppName
+        Dim tabName As String = Constants.AppName
         application.CreateRibbonTab(tabName)
 
         ' 分析面板

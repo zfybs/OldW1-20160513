@@ -13,7 +13,6 @@ Namespace OldW.Instrumentation
         Inherits Instrumentation
 #Region "   ---   Properties"
 
-
         ''' <summary>
         ''' 线测点的整个施工阶段中的监测数据
         ''' </summary>

@@ -48,7 +48,7 @@ namespace OldW
                 try
                 {
                     //保存
-                    FileStream dataFile = new FileStream(Path.Combine(GlobalSettings.Path_data, "WarningValue.dat"), FileMode.Create);
+                    FileStream dataFile = new FileStream(Path.Combine(GlobalSettings.ProjectPath.Path_data, "WarningValue.dat"), FileMode.Create);
                     StreamWriter sw = new StreamWriter(dataFile);
                     foreach(var ele in listWarning)
                     {
@@ -57,7 +57,7 @@ namespace OldW
                     }
                     sw.Close();
                     //当前的选择
-                    FileStream dataFileUsing = new FileStream(Path.Combine(GlobalSettings.Path_data, "WarningValueUsing.dat"), FileMode.Create);
+                    FileStream dataFileUsing = new FileStream(Path.Combine(GlobalSettings.ProjectPath.Path_data, "WarningValueUsing.dat"), FileMode.Create);
                     StreamWriter swUsing = new StreamWriter(dataFileUsing);
                     String warningUsingEncode = BinarySerializer.Encode64(warning);
                     swUsing.WriteLine(warningUsingEncode);
@@ -129,7 +129,7 @@ namespace OldW
                 cbInput.Items.Clear();
                 try
                 {
-                    FileStream dataFile = new FileStream(Path.Combine(GlobalSettings.Path_data, "WarningValue.dat"), FileMode.Open);
+                    FileStream dataFile = new FileStream(Path.Combine(GlobalSettings.ProjectPath.Path_data, "WarningValue.dat"), FileMode.Open);
                     StreamReader sr = new StreamReader(dataFile);
                     strLine = sr.ReadLine();
                     while (strLine != null)
@@ -211,7 +211,7 @@ namespace OldW
                 listWarning.Remove(warningId);
 
                 //保存
-                FileStream dataFile = new FileStream(Path.Combine(GlobalSettings.Path_data, "WarningValue.dat"), FileMode.Create);
+                FileStream dataFile = new FileStream(Path.Combine(GlobalSettings.ProjectPath.Path_data, "WarningValue.dat"), FileMode.Create);
                 StreamWriter sw = new StreamWriter(dataFile);
                 foreach (var ele in listWarning)
                 {

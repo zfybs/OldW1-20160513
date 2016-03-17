@@ -6,7 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{CEA033BE-8FEC-48C5-98DC-785CED58B5FB}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>OldW</RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <AssemblyName>OldWGlobal</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
@@ -91,7 +92,9 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GlobalSettings.vb" />
+    <Compile Include="ProjectPath.vb" />
+    <Compile Include="Enumerations.vb" />
+    <Compile Include="Constants.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

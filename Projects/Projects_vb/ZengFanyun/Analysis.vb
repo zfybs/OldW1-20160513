@@ -74,13 +74,13 @@ Namespace OldW.DataManager
             Dim blnIsViolated As Boolean = False
             '
             Dim ele As Element = doc.GetElement(eleId)
-            Dim strData As String = ele.Parameter(Guid_Monitor).AsString
+            Dim strData As String = ele.Parameter(Constants.Guid_Monitor).AsString
             Dim Dt As MonitorData_Point = DirectCast(BinarySerializer.Decode64(strData), MonitorData_Point)
             Dim v As Object
             With Dt
                 For i As UInt32 = 0 To .arrDate.Length - 1
                     v = .arrValue(i)
-                    Dim WV As WarningValue = GetWarningValue(GlobalSettings.Path_WarningValueUsing)
+                    Dim WV As WarningValue = GetWarningValue(GlobalSettings.ProjectPath.Path_WarningValueUsing)
                     '
                     If (v IsNot Nothing) AndAlso (v > WV.warningGSetle.sum) Then
                         Return True

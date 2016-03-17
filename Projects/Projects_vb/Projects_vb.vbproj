@@ -146,8 +146,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="ZengFanyun\Instrumentations\Instrum_Line.vb" />
+    <Compile Include="ZengFanyun\Instrumentations\Soil_Remove.vb" />
     <Compile Include="ZengFanyun\Miscellaneous.vb" />
-    <Compile Include="ZengFanyun\Instrumentations\Soil.vb" />
+    <Compile Include="ZengFanyun\Instrumentations\Soil_Model.vb" />
+    <Compile Include="ZengFanyun\OldWApplication.vb" />
+    <Compile Include="ZengFanyun\OldWDocument.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ZengFanyun\Chart_MonitorData.resx">

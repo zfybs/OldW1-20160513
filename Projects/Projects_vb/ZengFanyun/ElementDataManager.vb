@@ -6,9 +6,14 @@ Imports std_ez
 Imports OldW.GlobalSettings
 Imports System.ComponentModel
 Imports OldW.Instrumentation
-
+Imports OldW.GlobalSettings.Constants
 
 Namespace OldW.DataManager
+
+    ''' <summary>
+    ''' 模型中的测点的监测数据的添加，删除，导入导出等
+    ''' </summary>
+    ''' <remarks></remarks>
     Public Class ElementDataManager
 
 #Region "  ---  Properties"

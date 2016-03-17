@@ -42,7 +42,7 @@ namespace OldW
                         //如果不存在，载入族
                         Transaction trans = new Transaction(uidoc.Document, "trans");
                         trans.Start();
-                        uidoc.Document.LoadFamily(Path.Combine(GlobalSettings.Path_family, GlobalSettings.InstrumentationType.支撑轴力.ToString() + ".rfa"), out family);
+                        uidoc.Document.LoadFamily(Path.Combine(GlobalSettings.ProjectPath.Path_family, GlobalSettings.InstrumentationType.支撑轴力.ToString() + ".rfa"), out family);
                         trans.Commit();
                     }
 
