@@ -6,7 +6,16 @@ Projects_vb
 </name>
 </assembly>
 <members>
-<member name="F:OldW.DataManager.Chart_MonitorData.Chart">
+<member name="M:OldW.Soil.Soil_Excav.#ctor(Autodesk.Revit.DB.FamilyInstance)">
+	<summary>
+ 构造函数：用来模拟分块开挖的土体元素。
+ </summary>
+	<param name="SoilRemove">用来模拟土体开挖的土体Element</param>
+	<remarks></remarks>
+</member><member name="T:OldW.Soil.Soil_Excav">
+	<summary> 用来模拟分块开挖的土体元素。 </summary>
+	<remarks></remarks>
+</member><member name="F:OldW.DataManager.Chart_MonitorData.Chart">
 	<summary> 数据图表 </summary>
 </member><member name="M:OldW.DataManager.Chart_MonitorData.#ctor(OldW.GlobalSettings.InstrumentationType)">
 	<summary>
@@ -62,6 +71,8 @@ Projects_vb
 	<remarks></remarks>
 </member><member name="P:OldW.Instrumentation.Instrumentation.Type">
 	<summary> 监测点的测点类型，也是测点所属的族的名称 </summary>
+</member><member name="P:OldW.Instrumentation.Instrumentation.Name">
+	<summary> 每一个测点的名称，比如 CX1，LZ2等 </summary>
 </member><member name="M:OldW.Instrumentation.Instrumentation.#ctor(Autodesk.Revit.DB.FamilyInstance,OldW.GlobalSettings.InstrumentationType)">
 	<summary>
  构造函数
@@ -91,6 +102,47 @@ Projects_vb
  对于点测点而言，其监测数据是在不同的时间记录的，每一个时间上都只有一个数据。所以其监测数据是一个两列的表格，第一列为时间，第二列为监测数据。
  对于线测点而言（比如测斜管），在每一个时间上都有两列数据，用来记录这一时间上，线测点中每一个位置的监测值。
  </remarks>
+</member><member name="M:Excavation.CreateModelSoil(System.Boolean)">
+	<summary>
+ 创建模型土体，此土体单元在模型中应该只有一个。
+ </summary>
+	<param name="CreateMultipli">是否要在一个族中创建多个实体</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Excavation.CreateExcavationSoil(System.Boolean)">
+	<summary>
+ 创建开挖土体，此土体单元在模型中可以有很多个。
+ </summary>
+	<param name="CreateMultipli">是否要在一个族中创建多个实体</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Excavation.GetLoopedCurveArray(System.Boolean)">
+	<summary>
+ 从模型中获取要创建开挖土体的边界线
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Excavation.GetLoopCurve">
+	<summary>
+ 获取一组连续封闭的模型线
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Excavation.CreateSoilFamily">
+	<summary>
+ 创建一个模型土体（或者是开挖土体）的族文档，并将其打开。
+ </summary>
+</member><member name="T:Excavation.CurveSelectionFilter">
+	<summary>
+ 曲线选择过滤器
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Excavation.ConnectElevation(Autodesk.Revit.DB.Document)">
+	<summary>
+ 将土体单元中的深度值与相应的参数进行关联
+ </summary>
+	<param name="FamDoc"></param>
+	<remarks></remarks>
 </member><member name="M:OldW.Instrumentation.Instrum_GroundSettlement.#ctor(Autodesk.Revit.DB.FamilyInstance)">
 	<summary> 构造函数 </summary>
 	<param name="GroundSettlementElement">地表垂直位移测点所对应的图元</param>
@@ -99,10 +151,15 @@ Projects_vb
  测点_地表垂直位移
  </summary>
 	<remarks></remarks>
+</member><member name="F:OldWDocument.Doc">
+	<summary> 每一个OldWDocument对象都绑定了一个Revit的Document对象。 </summary>
 </member><member name="P:OldWDocument.Document">
+	<summary> 每一个OldWDocument对象都绑定了一个Revit的Document对象。 </summary>
+</member><member name="F:OldWDocument.ProjectInfo">
 	<summary>
- 每一个OldWDocument对象都绑定了一个Revit的Document对象。
+ OldWDocument中保存的与基坑开挖有关的信息
  </summary>
+	<remarks></remarks>
 </member><member name="M:OldWDocument.#ctor(Autodesk.Revit.DB.Document)">
 	<summary>
  构造函数
@@ -116,9 +173,19 @@ Projects_vb
 	<remarks></remarks>
 </member><member name="M:OldWDocument.Create(OldWApplication,Autodesk.Revit.DB.Document)">
 	<summary> 不在OldWApplication.OpenedDocuments 集合中进行搜索，而直接创建一个OldWDocument对象，并添加到OpenedDocuments集合中。 </summary>
-	<param name="OldWApp">整个系统的OldWApplication对象，可以通过OldWApplication.Create方法获得。</param>
-	<param name="Doc"></param>
+	<param name="OldWApp">整个系统的OldWApplication对象</param>
+	<param name="Doc">用户应该非常确信此Doc并不在OldWApplication的OpenedDocuments集合中，
+ 否则，会将一个重复的OldWDocument对象再次添加进OpenedDocuments集合。
+ 这样虽然不会报错，但是不利于程序的高效。</param>
 	<returns>有相对应的对象，则返回之，否则则抛出异常。</returns>
+	<remarks></remarks>
+</member><member name="M:OldWDocument.CreateNew(OldWApplication,Autodesk.Revit.DB.Document)">
+	<summary>
+ 将一个非OldWDocument类型的文档创建成为一个OldWDocument对象，即在其项目信息中添加参数OldW_Project
+ </summary>
+	<param name="OldWApp"></param>
+	<param name="Doc">注意默认OldWDocument.IsOldWDocument(Doc)为false，如果此Doc的项目信息中有参数OldW_Project，则重新进行绑定可能会出错。</param>
+	<returns></returns>
 	<remarks></remarks>
 </member><member name="M:OldWDocument.IsOldWDocument(Autodesk.Revit.DB.Document)">
 	<summary>
@@ -126,6 +193,18 @@ Projects_vb
  </summary>
 	<param name="Doc">要进行判断的Revit的Document文档</param>
 	<returns></returns>
+</member><member name="M:OldWDocument.SetProjectInfo(OldWProjectInfo)">
+	<summary>
+ 将与基坑开挖有关的信息保存到Document的相关参数中
+ </summary>
+	<param name="ProjInfo"></param>
+	<remarks></remarks>
+</member><member name="M:OldWDocument.GetProjectInfo">
+	<summary>
+ 从Document中提取OldWDocument中保存的与基坑开挖有关的信息
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
 </member><member name="M:OldWDocument.Equals(Autodesk.Revit.DB.Document)">
 	<summary>
  比较指定的Document对象与此OldWDocument对象中的Document对象是否是同一个Revit文档
@@ -137,6 +216,14 @@ Projects_vb
  如果这两个Document对象是同一个Revit文档，则返回True，否则返回False。
  </summary>
 	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:OldWDocument.FindSoilElement(Autodesk.Revit.DB.Document,System.Int32)">
+	<summary>
+ 找到模型中的开挖土体单元
+ </summary>
+	<param name="doc">进行土体单元搜索的文档</param>
+	<param name="SoilElementId">可能的土体单元的ElementId值</param>
+	<returns>如果找到有效的土体单元，则返回对应的FamilyInstance，否则返回Nothing</returns>
 	<remarks></remarks>
 </member><member name="T:OldWDocument">
 	<summary>
@@ -170,33 +257,17 @@ Projects_vb
  </summary>
 	<param name="ModelSoil">模型中的开挖土体单元</param>
 	<remarks></remarks>
-</member><member name="M:OldW.Soil.Soil_Model.RemoveSoil(OldW.Soil.Soil_Remove)">
+</member><member name="M:OldW.Soil.Soil_Model.RemoveSoil(OldW.Soil.Soil_Excav)">
 	<summary>
  从当前的开挖状态中，移除指定的一块土，用来模拟土体的开挖
  </summary>
 	<param name="SoilToRemove"></param>
 	<remarks></remarks>
-</member><member name="M:OldW.Soil.Soil_Model.FillSoil(OldW.Soil.Soil_Remove)">
+</member><member name="M:OldW.Soil.Soil_Model.FillSoil(OldW.Soil.Soil_Excav)">
 	<summary>
  从当前的开挖状态中，添加进指定的一块土，用来模拟土方的回填，或者反向回滚开挖状态
  </summary>
 	<param name="SoilToRemove"></param>
-	<remarks></remarks>
-</member><member name="M:OldW.Soil.Soil_Model.FindSoilModel(Autodesk.Revit.DB.Document,System.Int32)">
-	<summary>
- 模型中的土体单元，此单元与土体
- </summary>
-	<param name="Doc">进行土体单元搜索的文档</param>
-	<param name="SoilElementId">可能的土体单元的ElementId值，如果没有待选的，可以不指定，此时程序会在整个Document中进行搜索。</param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:OldW.Soil.Soil_Model.FindSoilElement(Autodesk.Revit.DB.Document,System.Int32)">
-	<summary>
- 找到模型中的开挖土体单元
- </summary>
-	<param name="doc">进行土体单元搜索的文档</param>
-	<param name="SoilElementId">可能的土体单元的ElementId值</param>
-	<returns>如果找到有效的土体单元，则返回对应的FamilyInstance，否则返回Nothing</returns>
 	<remarks></remarks>
 </member><member name="T:OldW.Soil.Soil_Model">
 	<summary>
@@ -252,7 +323,7 @@ Projects_vb
  </summary>
 	<param name="App"></param>
 	<remarks></remarks>
-</member><member name="M:OldWApplication.FindOldWDocument(Autodesk.Revit.DB.Document,System.Int32@)">
+</member><member name="M:OldWApplication.SearchOldWDocument(Autodesk.Revit.DB.Document,System.Int32@)">
 	<summary> 在整个系统的集合中，搜索是否有与指定的Document相对应的OldWDocument对象，如果没有，则返回Nothing。 </summary>
 	<param name="Doc"></param>
 	<param name="ClosingDocumentIndex">即将删除的Document文档中程序的 OpenedDocuments 集合中的下标位置，如果此Document文档不在OpenedDocuments集合中，则其值为-1。</param>
@@ -272,6 +343,11 @@ Projects_vb
 </member><member name="T:OldWApplication">
 	<summary>
  OldW程序中的应用程序级的操作。通常用来存储或者处理Document或者Element之上的对象。比如程序中所有打开的OldWDocument对象。
+ </summary>
+	<remarks></remarks>
+</member><member name="T:OldWProjectInfo">
+	<summary>
+ 一个OldWDocument的模型中，与基坑相关的一些信息，这些信息是被序列化到模型的项目信息中的参数“OldW_Project”中的。
  </summary>
 	<remarks></remarks>
 </member><member name="M:OldW.Instrumentation.Instrum_StrutAxialForce.#ctor(Autodesk.Revit.DB.FamilyInstance)">
@@ -370,17 +446,6 @@ Projects_vb
 </member><member name="T:OldW.Instrumentation.MonitorData_Length">
 	<summary>
 	</summary>
-	<remarks></remarks>
-</member><member name="M:OldW.Soil.Soil_Remove.#ctor(Autodesk.Revit.DB.FamilyInstance)">
-	<summary>
- 构造函数：用来模拟分块开挖的土体元素。
- </summary>
-	<param name="SoilRemove">用来模拟土体开挖的土体Element</param>
-	<remarks></remarks>
-</member><member name="T:OldW.Soil.Soil_Remove">
-	<summary>
- 用来模拟分块开挖的土体元素。
- </summary>
 	<remarks></remarks>
 </member>
 </members>

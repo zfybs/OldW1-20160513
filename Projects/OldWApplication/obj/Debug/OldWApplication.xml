@@ -6,11 +6,29 @@ OldWApplication
 </name>
 </assembly>
 <members>
-<member name="M:OldW.AppAddRibbonTab.AddSplitButtonModeling(Autodesk.Revit.UI.RibbonPanel)">
-	<summary> 添加建模的下拉记忆按钮 </summary>
+<member name="F:OldW.AppAddRibbonTab.Path_Dlls">
+	<summary> Application的Dll所对应的路径，也就是“bin”文件夹的目录。 </summary>
+</member><member name="F:OldW.AppAddRibbonTab.Path_icons">
+	<summary> 存放图标的文件夹 </summary>
+</member><member name="F:OldW.AppAddRibbonTab.AppName">
+	<summary> 整个程序的标志性名称 </summary>
+</member><member name="F:OldW.AppAddRibbonTab.Dll_vb">
+	<summary> VB.NET项目的Dll的名称 </summary>
+</member><member name="F:OldW.AppAddRibbonTab.Dll_cs">
+	<summary> C#项目的Dll的名称 </summary>
+</member><member name="M:OldW.AppAddRibbonTab.AddSplitButtonModeling(Autodesk.Revit.UI.RibbonPanel)">
+	<summary> 添加“放置监测点”的下拉记忆按钮 </summary>
 	<param name="panel"> 目标RibbonPanel </param>
 </member><member name="M:OldW.AppAddRibbonTab.AddPushButtonDataEdit(Autodesk.Revit.UI.RibbonPanel)">
-	<summary> 添加测点数据编辑的下拉记忆按钮 </summary>
+	<summary> 添加“测点数据编辑”的下拉记忆按钮 </summary>
+</member><member name="M:OldW.AppAddRibbonTab.AddPushButtonAbout(Autodesk.Revit.UI.RibbonPanel)">
+	<summary> 添加“关于”的下拉记忆按钮 </summary>
+</member><member name="M:OldW.AppAddRibbonTab.AddPushButtonSetWarning(Autodesk.Revit.UI.RibbonPanel)">
+	<summary> 添加“警戒值设定”的下拉记忆按钮 </summary>
+</member><member name="M:OldW.AppAddRibbonTab.AddPushButtonAnalysis(Autodesk.Revit.UI.RibbonPanel)">
+	<summary> 添加“分析”的下拉记忆按钮 </summary>
+</member><member name="M:OldW.AppAddRibbonTab.AddPushButtonExcavation(Autodesk.Revit.UI.RibbonPanel)">
+	<summary> 添加“开挖”的下拉记忆按钮 </summary>
 </member>
 </members>
 </doc>

@@ -12,7 +12,7 @@ Imports OldW
 ''' </summary>
 ''' <remarks></remarks>
 Public Class OldWApplication
-
+    Private WithEvents uip As UIApplication
 #Region "   ---   Properties"
 
     ''' <summary>
@@ -62,7 +62,7 @@ Public Class OldWApplication
 
 #End Region
 
-#Region "   ---   构造函数：构造唯一实例的经典思路"
+#Region "   ---   构造函数：构造唯一实例的经典思路。其实例可以通过OldWApplication.Create方法获得。"
 
     ''' <summary>
     ''' 程序中已经加载进来的唯一的OldWApplication实例
@@ -117,13 +117,12 @@ Public Class OldWApplication
 
 #Region "   ---    整个程序中打开的 OldWDocument 文档的集合"
 
-
     ''' <summary> 在整个系统的集合中，搜索是否有与指定的Document相对应的OldWDocument对象，如果没有，则返回Nothing。 </summary>
     ''' <param name="Doc"></param>
     ''' <param name="ClosingDocumentIndex">即将删除的Document文档中程序的 OpenedDocuments 集合中的下标位置，如果此Document文档不在OpenedDocuments集合中，则其值为-1。</param>
     ''' <returns>有相对应的对象，则返回之，否则返回Nothing。</returns>
     ''' <remarks></remarks>
-    Public Function FindOldWDocument(ByVal Doc As Document, Optional ByRef ClosingDocumentIndex As Integer = -1) As OldWDocument
+    Public Function SearchOldWDocument(ByVal Doc As Document, Optional ByRef ClosingDocumentIndex As Integer = -1) As OldWDocument
         Dim OldWD As OldWDocument = Nothing
         ' 搜索是否有对应的 OldWDocument 对象
         Dim od As OldWDocument = Nothing
@@ -154,7 +153,7 @@ Public Class OldWApplication
 
     Private Sub App_DocumentClosing(sender As Object, e As Autodesk.Revit.DB.Events.DocumentClosingEventArgs) Handles F_Application.DocumentClosing
         DocumentIdTobeClosed = e.DocumentId
-        FindOldWDocument(e.Document, DocumentIndexTobeClosed)
+        SearchOldWDocument(e.Document, DocumentIndexTobeClosed)
     End Sub
 
     Private Sub App_DocumentClosed(sender As Object, e As Autodesk.Revit.DB.Events.DocumentClosedEventArgs) Handles F_Application.DocumentClosed

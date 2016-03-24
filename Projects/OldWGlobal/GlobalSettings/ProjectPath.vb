@@ -15,7 +15,7 @@ Namespace OldW.GlobalSettings
         ''' Application的Dll所对应的路径，也就是“bin”文件夹的目录。
         ''' </summary>
         ''' <remarks>等效于：Dim thisAssemblyPath As String = System.Reflection.Assembly.GetExecutingAssembly().Location</remarks>
-        Public Shared ReadOnly Property Path_Dlls() As String
+        Private Shared ReadOnly Property Path_Dlls() As String
             Get
                 ' 在最终的发布中，Path_Dlls的值是等于“ My.Application.Info.DirectoryPath”的，但是，在调试过程中，如果使用Revit的AddinManager插件进行调试，
                 ' 则在每次调试时，AddinManager都会将对应的dll复制到一个新的临时文件夹中，如果将此复制后的dll的路作为Path_Dlls的值，那么其后面的Path_Solution等路径都是无效路径了。
@@ -26,16 +26,20 @@ Namespace OldW.GlobalSettings
                 End If
             End Get
         End Property
-
-
         ''' <summary>
         ''' Solution文件所在的文件夹
         ''' </summary>
-        Public Shared Path_Solution As String = New DirectoryInfo(Path_Dlls).Parent.FullName
+        Private Shared Path_Solution As String = New DirectoryInfo(Path_Dlls).Parent.FullName
         ''' <summary>
         ''' 存放图标的文件夹
         ''' </summary>
-        Public Shared Path_icons As String = Path.Combine(Path_Solution, "Resources\icons")
+        Private Shared Path_icons As String = Path.Combine(Path_Solution, "Resources\icons")
+        ''' <summary>
+        ''' 存放不同项目的文件夹
+        ''' </summary>
+        Private Shared Path_Projects As String = Path.Combine(Path_Solution, "Projects")
+
+
         ''' <summary>
         ''' 存放族与族共享参数的文件夹
         ''' </summary>
@@ -51,10 +55,7 @@ Namespace OldW.GlobalSettings
         ''' </summary>
         ''' <remarks></remarks>
         Public Shared Path_data As String = Path.Combine(Path_Solution, "Resources\Data")
-        ''' <summary>
-        ''' 存放不同项目的文件夹
-        ''' </summary>
-        Public Shared Path_Projects As String = Path.Combine(Path_Solution, "Projects")
+
         ''' <summary>
         ''' 监测警戒规范的绝对文件路径
         ''' </summary>

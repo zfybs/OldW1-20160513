@@ -52,11 +52,11 @@ Namespace OldW.Instrumentation
 #End Region
 
         Private Function GetData() As MonitorData_Point
-            Dim strData As String = Monitor.Parameter(Constants.Guid_Monitor).AsString
+            Dim strData As String = Monitor.Parameter(Constants.SP_Guid_Monitor).AsString
             Dim MData As MonitorData_Point = Nothing
             If strData.Length > 0 Then
                 Try
-                    MData = DirectCast(BinarySerializer.Decode64(strData), MonitorData_Point)
+                    MData = DirectCast(StringSerializer.Decode64(strData), MonitorData_Point)
                     If (MData.arrDate Is Nothing) OrElse (MData.arrValue Is Nothing) Then
                         Throw New Exception
                     End If
@@ -77,8 +77,8 @@ Namespace OldW.Instrumentation
         Public Function SaveData() As Boolean
             If Me.MonitorData IsNot Nothing Then
                 ' 将数据序列化为字符串
-                Dim strData As String = BinarySerializer.Encode64(Me.MonitorData)
-                Dim para As Parameter = Monitor.Parameter(Constants.Guid_Monitor) ' ActiveElement.Parameter_MonitorData
+                Dim strData As String = StringSerializer.Encode64(Me.MonitorData)
+                Dim para As Parameter = Monitor.Parameter(Constants.SP_Guid_Monitor) ' ActiveElement.Parameter_MonitorData
                 Using Tran As New Transaction(Doc, "保存表格中的数据到Element的参数中")
                     Try
                         Tran.Start()

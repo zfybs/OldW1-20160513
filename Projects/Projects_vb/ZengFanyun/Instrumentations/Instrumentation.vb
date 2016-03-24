@@ -4,7 +4,6 @@ Imports OldW.GlobalSettings
 Imports OldW.DataManager
 Imports std_ez
 
-
 Namespace OldW.Instrumentation
 
     ''' <summary>
@@ -55,6 +54,9 @@ Namespace OldW.Instrumentation
             End Get
         End Property
 
+        ''' <summary> 每一个测点的名称，比如 CX1，LZ2等 </summary>
+        Public Property Name As String
+
 #End Region
 
 #Region "   ---   构造函数"
@@ -80,6 +82,7 @@ Namespace OldW.Instrumentation
             End If
 
         End Sub
+
 #End Region
 
 

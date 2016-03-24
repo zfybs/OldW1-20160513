@@ -44,8 +44,7 @@ Namespace rvtTools_ez
                 End If
             Next f
 
-            ' The bottom face is consider as which's average elevation is the lowest, except vertical
-            ' face.
+            ' The bottom face is consider as which's average elevation is the lowest, except vertical face.
             Return face
         End Function
 
@@ -143,6 +142,71 @@ Namespace rvtTools_ez
             Dim isNotEqual As Boolean = (Precision < Math.Abs(vectorA.X - vectorB.X)) OrElse (Precision < Math.Abs(vectorA.Y - vectorB.Y))
 
             Return If(isNotEqual, False, True)
+        End Function
+
+
+        ''' <summary>
+        ''' 从选择的Curve Elements中，获得连续多段曲线
+        ''' Gets a list of curves which are ordered correctly and oriented correctly to form a closed loop.
+        ''' </summary>
+        ''' <param name="doc">The document.</param>
+        ''' <param name="boundaries">The list of curve element references which are the boundaries.
+        ''' 注意，boundaries中每一条曲线都必须是有界的（IsBound），否则，其GetEndPoint会报错。</param>
+        ''' <returns>The list of curves.</returns>
+        Public Shared Function GetContiguousCurvesFromSelectedCurveElements(ByVal doc As Document, ByVal boundaries As IList(Of Reference)) As IList(Of Curve)
+            Dim curves As New List(Of Curve)()
+
+            ' Build a list of curves from the curve elements
+            For Each reference As Reference In boundaries
+                Dim curveElement As CurveElement = TryCast(doc.GetElement(reference), CurveElement)
+                curves.Add(curveElement.GeometryCurve.Clone())
+            Next reference
+
+            ' Walk through each curve (after the first) to match up the curves in order
+            For i As Integer = 0 To curves.Count - 1
+                Dim curve As Curve = curves(i)
+                Dim endPoint As XYZ = curve.GetEndPoint(1) ' 第i条线的终点
+
+                ' 从剩下的曲线中找出起点与上面的终点重合的曲线 。 find curve with start point = end point
+                For j As Integer = i + 1 To curves.Count - 1
+                    Dim tmpCurve As Curve = curves(i + 1)
+                    ' Is there a match end->start, if so this is the next curve
+                    If curves(j).GetEndPoint(0).IsAlmostEqualTo(endPoint, 0.00001) Then
+                        curves(i + 1) = curves(j)
+                        curves(j) = tmpCurve
+                        Continue For
+                        ' Is there a match end->end, if so, reverse the next curve
+                    ElseIf curves(j).GetEndPoint(1).IsAlmostEqualTo(endPoint, 0.00001) Then
+                        curves(i + 1) = curves(j).CreateReversed() ' CreateReversedCurve(curves(j))
+                        curves(j) = tmpCurve
+                        Continue For
+                    End If
+                Next j
+            Next i
+
+            Return curves
+        End Function
+
+        ''' <summary>
+        ''' 创建一个新的Curve，其几何形状是相同的，但是方向是相反的。
+        ''' Utility to create a new curve with the same geometry but in the reverse direction.
+        ''' </summary>
+        ''' <param name="orig">The original curve.</param>
+        ''' <returns>The reversed curve.</returns>
+        ''' <throws cref="NotImplementedException">If the curve type is not supported by this utility.</throws>
+        Private Shared Function CreateReversedCurve(ByVal orig As Curve) As Curve
+            If Not ((TypeOf orig Is Line) OrElse (TypeOf orig Is Arc)) Then
+                Throw New NotImplementedException("CreateReversedCurve for type " & orig.GetType().Name)
+            End If
+
+            If TypeOf orig Is Line Then
+                Return Line.CreateBound(orig.GetEndPoint(1), orig.GetEndPoint(0))
+            ElseIf TypeOf orig Is Arc Then
+                Return Arc.Create(orig.GetEndPoint(1), orig.GetEndPoint(0), orig.Evaluate(0.5, True))
+            Else
+                Throw New Exception("CreateReversedCurve - Unreachable")
+            End If
+
         End Function
 
     End Class

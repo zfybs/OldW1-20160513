@@ -45,9 +45,10 @@ Namespace rvtTools_ez
 #Region "  ---  Family"
 
         ''' <summary> 返回项目文档中某族Family的所有实例 </summary>
+        ''' <param name="Category">此族所属的 BuiltInCategory 类别，如果不确定，就不填。</param>
         ''' <param name="Family"></param>
         <System.Runtime.CompilerServices.Extension()>
-        Function Instances(Family As Family) As FilteredElementCollector
+        Function Instances(Family As Family, Optional ByVal Category As BuiltInCategory = BuiltInCategory.INVALID) As FilteredElementCollector
             Dim doc As Document = Family.Document
             Dim SymbolsId As ISet(Of ElementId) = Family.GetFamilySymbolIds
             Dim Collector1 As New FilteredElementCollector(doc)
@@ -56,6 +57,9 @@ Namespace rvtTools_ez
                 ' 创建过滤器 
                 Dim Filter As New FamilyInstanceFilter(doc, SymbolsId(0))
                 ' 执行过滤条件
+                If Category <> BuiltInCategory.INVALID Then
+                    Collector1 = Collector1.OfCategory(Category)
+                End If
                 Collector1.WherePasses(Filter)
             End If
             ' 当族类型多于一个时，才进行相交
@@ -65,6 +69,9 @@ Namespace rvtTools_ez
                     Dim Filter As New FamilyInstanceFilter(doc, SymbolsId(index))
                     Dim Collector2 As New FilteredElementCollector(doc)
                     ' 执行过滤条件
+                    If Category <> BuiltInCategory.INVALID Then
+                        Collector2 = Collector2.OfCategory(Category)
+                    End If
                     Collector2.WherePasses(Filter)
 
                     ' 将此FamilySymbol的实例添加到集合中
@@ -73,6 +80,19 @@ Namespace rvtTools_ez
             End If
             Return Collector1
         End Function
+
+        ''' <summary> 对Document中加载的族进行重命名 </summary>
+        ''' <param name="Family"></param>
+        ''' <param name="NewName">要重新命名的新名称</param>
+        <System.Runtime.CompilerServices.Extension()>
+        Sub ReName(Family As Family, ByVal NewName As String)
+            Dim doc As Document = Family.Document
+            Using tran As New Transaction(doc, "Rename family")
+                tran.Start()
+                Family.Name = NewName
+                tran.Commit()
+            End Using
+        End Sub
 
 #End Region
 

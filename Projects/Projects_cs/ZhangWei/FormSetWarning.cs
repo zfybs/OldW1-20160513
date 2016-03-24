@@ -52,14 +52,14 @@ namespace OldW
                     StreamWriter sw = new StreamWriter(dataFile);
                     foreach(var ele in listWarning)
                     {
-                        String warningEleEncode = BinarySerializer.Encode64(ele.Value);
+                        String warningEleEncode = StringSerializer.Encode64(ele.Value);
                         sw.WriteLine(warningEleEncode);
                     }
                     sw.Close();
                     //当前的选择
                     FileStream dataFileUsing = new FileStream(Path.Combine(GlobalSettings.ProjectPath.Path_data, "WarningValueUsing.dat"), FileMode.Create);
                     StreamWriter swUsing = new StreamWriter(dataFileUsing);
-                    String warningUsingEncode = BinarySerializer.Encode64(warning);
+                    String warningUsingEncode = StringSerializer.Encode64(warning);
                     swUsing.WriteLine(warningUsingEncode);
                     swUsing.Close();
 
@@ -134,7 +134,7 @@ namespace OldW
                     strLine = sr.ReadLine();
                     while (strLine != null)
                     {
-                        WarningValue warning = BinarySerializer.Decode64(strLine) as WarningValue;
+                        WarningValue warning = StringSerializer.Decode64(strLine) as WarningValue;
                         String warningId = warning.getId();
                         this.cbInput.Items.Add(warningId);
                         listWarning.Add(warningId, warning);
@@ -215,7 +215,7 @@ namespace OldW
                 StreamWriter sw = new StreamWriter(dataFile);
                 foreach (var ele in listWarning)
                 {
-                    String warningEleEncode = BinarySerializer.Encode64(ele.Value);
+                    String warningEleEncode = StringSerializer.Encode64(ele.Value);
                     sw.WriteLine(warningEleEncode);
                 }
                 sw.Close();

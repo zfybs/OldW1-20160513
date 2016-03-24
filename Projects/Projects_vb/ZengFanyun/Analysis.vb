@@ -74,8 +74,8 @@ Namespace OldW.DataManager
             Dim blnIsViolated As Boolean = False
             '
             Dim ele As Element = doc.GetElement(eleId)
-            Dim strData As String = ele.Parameter(Constants.Guid_Monitor).AsString
-            Dim Dt As MonitorData_Point = DirectCast(BinarySerializer.Decode64(strData), MonitorData_Point)
+            Dim strData As String = ele.Parameter(Constants.SP_Guid_Monitor).AsString
+            Dim Dt As MonitorData_Point = DirectCast(StringSerializer.Decode64(strData), MonitorData_Point)
             Dim v As Object
             With Dt
                 For i As UInt32 = 0 To .arrDate.Length - 1

@@ -6,35 +6,7 @@ std_vb
 </name>
 </assembly>
 <members>
-<member name="M:std_ez.BinarySerializer.Encode64(System.Object)">
-	<summary>
- Encode arbitrary .NET serialisable object 
- into binary data encodes as base64 string.
- </summary>
-</member><member name="M:std_ez.BinarySerializer.Decode64(System.String)">
-	<summary>
- Decode arbitrary .NET serialisable object 
- from binary data encoded as base64 string.
- </summary>
-</member><member name="T:std_ez.BinarySerializer.ZengfyLinkBinder">
-	<summary>
- Resolve System.Runtime.Serialization.SerializationException, Message = 
- "Unable to find assembly 'StoreData, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'."
- One solution is to ensure that assembly resides in same directory as acad.exe or revit.exe,
- the other is to implement a class such as this, cf. 
- http://www.codeproject.com/soap/Serialization_Samples.asp
- </summary>
-</member><member name="T:std_ez.BinarySerializer">
-	<summary>
- 将任意一个有 Serializable标记的类以二进制转换器进行类中所有数据与字符串间的相互序列化。
- 即可以将类中的数据（包括数组）序列化为字符，还可以将序列化的字符反序列化为一个类。
- </summary>
-</member><member name="T:std_ez.BinarySerializerTest">
-	<summary>
- 一个测试序列化与反序列化的模块，可以删除。
- </summary>
-	<remarks></remarks>
-</member><member name="F:std_ez.LstbxDisplayAndItem.DisplayMember">
+<member name="F:std_ez.LstbxDisplayAndItem.DisplayMember">
 	<summary>
  在列表框中进行显示的文本
  </summary>
@@ -100,6 +72,53 @@ std_vb
 	<summary>
   A strongly-typed resource class, for looking up localized strings, etc.
 </summary>
+</member><member name="M:std_ez.StringSerializer.Encode64(System.Object)">
+	<summary>
+ Encode arbitrary .NET serialisable object 
+ into binary data encodes as base64 string.
+ </summary>
+</member><member name="M:std_ez.StringSerializer.Decode64(System.String)">
+	<summary>
+ Decode arbitrary .NET serialisable object 
+ from binary data encoded as base64 string.
+ </summary>
+</member><member name="T:std_ez.StringSerializer.ZengfyLinkBinder">
+	<summary>
+ 为了解决SerializationException，方法之一是确保此assembly放置在与acad.exe 或 revit.exe相同的文件夹中，
+ 另一个方法就是实现一个像这样的类。
+ </summary>
+	<remarks>
+  Resolve System.Runtime.Serialization.SerializationException, Message = 
+ "Unable to find assembly 'StoreData, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'."
+ One solution is to ensure that assembly resides in same directory as acad.exe or revit.exe,
+ the other is to implement a class such as this, cf. 
+ http://www.codeproject.com/soap/Serialization_Samples.asp
+ </remarks>
+</member><member name="T:std_ez.StringSerializer">
+	<summary>
+ 将任意一个有 Serializable标记的类以二进制转换器将类中所有数据与字符串间的相互序列化。
+ 即可以将类中的数据（包括数组）序列化为字符，还可以将序列化的字符反序列化为一个类。
+ </summary>
+</member><member name="M:std_ez.BinarySerializer.EnCode(System.IO.Stream,System.Object)">
+	<summary>
+ 将任意一个声明为Serializable的类或者其List等集合中的数据，以二进制的格式保存到对应的流文件中。
+ </summary>
+	<param name="fs">推荐使用FileStream对象。此方法中不会对Stream对象进行Close。</param>
+	<param name="Data"></param>
+	<remarks></remarks>
+</member><member name="M:std_ez.BinarySerializer.DeCode(System.IO.Stream)">
+	<summary>
+ 从二进制流文件中，将其中的二进制数据反序列化为对应的类或集合对象。
+ </summary>
+	<param name="fs">推荐使用FileStream对象。此方法中不会对Stream对象进行Close。</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="T:std_ez.BinarySerializer">
+	<summary>
+ 在.NET中，我们可以将对象序列化从而保存对象的状态到内存或者磁盘文件中，或者分布式应用程序中用于系统通信，，这样就有可能做出一个“对象数据库”了。
+ 一般来说，二进制序列化的效率要高，所获得的字节数最小。
+ </summary>
+	<remarks></remarks>
 </member><member name="M:std_ez.eZDataGridView.myDataGridView_RowsNumberChanged(System.Object,System.Object)">
 	<summary>
  行数改变时的事件：显示行号

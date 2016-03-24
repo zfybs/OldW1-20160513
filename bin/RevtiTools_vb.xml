@@ -60,6 +60,23 @@ RevtiTools_vb
 	<param name="vectorA">The vector A.</param>
 	<param name="vectorB">The vector B.</param>
 	<returns>Return true if two vector are equals, or else return false.</returns>
+</member><member name="M:rvtTools_ez.GeoHelper.GetContiguousCurvesFromSelectedCurveElements(Autodesk.Revit.DB.Document,System.Collections.Generic.IList{Autodesk.Revit.DB.Reference})">
+	<summary>
+ 从选择的Curve Elements中，获得连续多段曲线
+ Gets a list of curves which are ordered correctly and oriented correctly to form a closed loop.
+ </summary>
+	<param name="doc">The document.</param>
+	<param name="boundaries">The list of curve element references which are the boundaries.
+ 注意，boundaries中每一条曲线都必须是有界的（IsBound），否则，其GetEndPoint会报错。</param>
+	<returns>The list of curves.</returns>
+</member><member name="M:rvtTools_ez.GeoHelper.CreateReversedCurve(Autodesk.Revit.DB.Curve)">
+	<summary>
+ 创建一个新的Curve，其几何形状是相同的，但是方向是相反的。
+ Utility to create a new curve with the same geometry but in the reverse direction.
+ </summary>
+	<param name="orig">The original curve.</param>
+	<returns>The reversed curve.</returns>
+	<throws cref="T:System.NotImplementedException">If the curve type is not supported by this utility.</throws>
 </member><member name="T:rvtTools_ez.GeoHelper">
 	<summary>
  A object to help locating with geometry data.
@@ -95,6 +112,12 @@ RevtiTools_vb
  提取WarningValueUsing.dat中的WarningValue类
  </summary>
 	<param name="FullPath">WarningValueUsing.dat的绝对路径</param>
+</member><member name="M:rvtTools_ez.rvtTools.GetOldWDefinitionGroup(Autodesk.Revit.ApplicationServices.Application)">
+	<summary>
+ 获取外部共享参数文件中的参数组“OldW”，然后可以通过DefinitionGroup.Definitions.Item(name As String)来索引其中的共享参数，
+ 也可以通过DefinitionGroup.Definitions.Create(name As String)来创建新的共享参数。
+ </summary>
+	<param name="App"></param>
 </member><member name="T:rvtTools_ez.rvtTools">
 	<summary>
 	</summary>
@@ -106,9 +129,14 @@ RevtiTools_vb
 </member><member name="M:rvtTools_ez.ExtensionMethods.FindFamily(Autodesk.Revit.DB.Document,System.String)">
 	<summary> 返回项目文档中指定名称的族Family对象 </summary>
 	<param name="FamilyName">在此文档中，所要搜索的族对象的名称</param>
-</member><member name="M:rvtTools_ez.ExtensionMethods.Instances(Autodesk.Revit.DB.Family)">
+</member><member name="M:rvtTools_ez.ExtensionMethods.Instances(Autodesk.Revit.DB.Family,Autodesk.Revit.DB.BuiltInCategory)">
 	<summary> 返回项目文档中某族Family的所有实例 </summary>
+	<param name="Category">此族所属的 BuiltInCategory 类别，如果不确定，就不填。</param>
 	<param name="Family"></param>
+</member><member name="M:rvtTools_ez.ExtensionMethods.ReName(Autodesk.Revit.DB.Family,System.String)">
+	<summary> 对Document中加载的族进行重命名 </summary>
+	<param name="Family"></param>
+	<param name="NewName">要重新命名的新名称</param>
 </member><member name="M:rvtTools_ez.ExtensionMethods.Instances(Autodesk.Revit.DB.FamilySymbol)">
 	<summary> 返回项目文档中某族类型FamilySymbol的所有实例 </summary>
 	<param name="FamilySymbol"></param>

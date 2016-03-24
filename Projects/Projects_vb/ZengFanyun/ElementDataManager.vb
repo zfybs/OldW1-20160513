@@ -98,12 +98,12 @@ Namespace OldW.DataManager
                     Next
                 Next
                 Dim moniData As New MonitorData_Point(arrDate, arrValue)
-                strData = BinarySerializer.Encode64(moniData)
+                strData = StringSerializer.Encode64(moniData)
             End With
 
-            Dim aa As Parameter = ActiveElement.Parameter(Guid_Monitor)
+            Dim aa As Parameter = ActiveElement.Parameter(SP_Guid_Monitor)
 
-            Dim para As Parameter = ActiveElement.Parameter(Guid_Monitor) ' ActiveElement.Parameter_MonitorData
+            Dim para As Parameter = ActiveElement.Parameter(SP_Guid_Monitor) ' ActiveElement.Parameter_MonitorData
             Using Tran As New Transaction(doc, "保存表格中的数据到Element的参数中")
                 Tran.Start()
                 Try
@@ -125,11 +125,11 @@ Namespace OldW.DataManager
         ''' <remarks></remarks>
         Private Function FillTableWithElementData(ele As Element, Table As DataGridView) As Boolean
             Dim blnSucceed As Boolean = True
-            Dim strData As String = ele.Parameter(Guid_Monitor).AsString
+            Dim strData As String = ele.Parameter(SP_Guid_Monitor).AsString
             If strData.Length > 0 Then
                 Dim Dt As MonitorData_Point
                 Try
-                    Dt = DirectCast(BinarySerializer.Decode64(strData), MonitorData_Point)
+                    Dt = DirectCast(StringSerializer.Decode64(strData), MonitorData_Point)
                     If (Dt.arrDate Is Nothing) OrElse (Dt.arrValue Is Nothing) Then
                         Throw New Exception
                     End If

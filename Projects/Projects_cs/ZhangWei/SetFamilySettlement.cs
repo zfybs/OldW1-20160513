@@ -45,6 +45,7 @@ namespace OldW
                         trans.Start();
                         uidoc.Document.LoadFamily(Path.Combine(GlobalSettings.ProjectPath.Path_family, GlobalSettings.InstrumentationType.地表隆沉.ToString() + ".rfa"), out family);
                         trans.Commit();
+
                     }
 
                     //获得该族的族类型，并且放置族实例
