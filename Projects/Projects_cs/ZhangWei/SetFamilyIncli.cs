@@ -30,7 +30,7 @@ namespace OldW
                     ElementId foundId = null;
 
                     //是否存在族
-                    Boolean found = FilterTools.existFamliyByName(uidoc.Document, GlobalSettings.FamilyName.测斜测点.ToString(), out foundId);
+                    Boolean found = FilterTools.existFamliyByName(uidoc.Document, GlobalSettings.InstrumentationType.墙体测斜.ToString(), out foundId);
 
                     Family family = null;
                     if (found == true)
@@ -43,7 +43,7 @@ namespace OldW
                         //如果不存在，载入族
                         Transaction trans = new Transaction(uidoc.Document, "trans");
                         trans.Start();
-                        uidoc.Document.LoadFamily(Path.Combine(GlobalSettings.Path_family, GlobalSettings.FamilyName.测斜测点.ToString() + ".rfa"), out family);
+                        uidoc.Document.LoadFamily(Path.Combine(GlobalSettings.ProjectPath.Path_family, GlobalSettings.InstrumentationType.墙体测斜.ToString() + ".rfa"), out family);
                         trans.Commit();
                     }
 

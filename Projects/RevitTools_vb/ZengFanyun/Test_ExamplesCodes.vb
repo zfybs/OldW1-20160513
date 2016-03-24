@@ -11,7 +11,7 @@ Namespace rvtTools_ez
     ''' 一些效果实现的示例代码
     ''' </summary>
     ''' <remarks></remarks>
-    Public Class ExamplesCodes
+    Public Class Test_ExamplesCodes
 
         Private UIDoc As UIDocument
         Private Doc As Document

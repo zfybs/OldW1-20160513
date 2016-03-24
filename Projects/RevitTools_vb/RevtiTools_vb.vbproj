@@ -93,8 +93,9 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ZengFanyun\GeoHelper.vb" />
     <Compile Include="ZengFanyun\rvtTools.vb" />
-    <Compile Include="ZengFanyun\ExamplesCodes.vb" />
+    <Compile Include="ZengFanyun\Test_ExamplesCodes.vb" />
     <Compile Include="ZengFanyun\ExtensionMethods.vb" />
     <Compile Include="ZengFanyun\Test_Addin.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />

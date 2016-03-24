@@ -27,7 +27,6 @@ namespace OldW
             {
                 try
                 {
-                    bool b = Test.testFun();
                     FormSetWarning formSet = new FormSetWarning();
                     formSet.Show();
                 }

@@ -5,3 +5,4 @@ F:\Software\Revit\RevitDevelop\OldW\Projects\zwstd\obj\Debug\std_cs.dll
 F:\Software\Revit\RevitDevelop\OldW\Projects\zwstd\obj\Debug\std_cs.pdb
 F:\Software\Revit\RevitDevelop\OldW\Projects\std_cs\obj\Debug\std_cs.dll
 F:\Software\Revit\RevitDevelop\OldW\Projects\std_cs\obj\Debug\std_cs.pdb
+F:\Software\Revit\RevitDevelop\OldW\Projects\std_cs\obj\Debug\std_cs.csprojResolveAssemblyReference.cache
