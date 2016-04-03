@@ -24,20 +24,47 @@ Namespace rvtTools_ez
 
         ''' <summary> 返回项目文档中指定名称的族Family对象 </summary>
         ''' <param name="FamilyName">在此文档中，所要搜索的族对象的名称</param>
+        ''' <param name="Category">此族所属的 BuiltInCategory 类别，如果不确定，就不填。</param>
         <System.Runtime.CompilerServices.Extension()>
-        Function FindFamily(Doc As Document, FamilyName As String) As Family
+        Function FindFamily(Doc As Document, FamilyName As String, Optional ByVal Category As BuiltInCategory = BuiltInCategory.INVALID) As Family
             Dim fam As Family = Nothing
             ' 文档中所有的族对象
             Dim cols As New FilteredElementCollector(Doc)
             Dim Familys As IList(Of Element) = cols.OfClass(GetType(Family)).ToElements
             ' 按名称搜索族（Linq语句）
-            Dim Q = From ff As Family In Familys
-                  Where ff.Name = FamilyName
-                  Select ff
+            Dim Q As IEnumerable(Of Family)
+            If Category = BuiltInCategory.INVALID Then  ' 只搜索族的名称
+                Q = From ff As Family In Familys
+                            Where ff.Name = FamilyName
+                            Select ff
+            Else  ' 同时搜索族对象的类别，注意，族的类别信息保存在属性中。
+                Q = From ff As Family In Familys
+                                        Where (ff.Name = FamilyName) AndAlso (ff.FamilyCategory.Id = New ElementId(BuiltInCategory.OST_Site))
+                                        Select ff
+
+            End If
             If Q.Count > 0 Then
                 fam = Q.First
             End If
             Return fam
+        End Function
+
+        ''' <summary> 返回项目文档中指定类别的族对象。在函数中会对所有族对象的FamilyCategory进行判断。</summary>
+        ''' <param name="Category">此族所属的 BuiltInCategory 类别，即FamilyCategory属性所对应的类别。</param>
+        <System.Runtime.CompilerServices.Extension()>
+        Function FindFamilies(Doc As Document, ByVal Category As BuiltInCategory) As List(Of Family)
+            Dim fams As New List(Of Family)
+            ' 文档中所有的族对象
+            Dim cols As New FilteredElementCollector(Doc)
+            Dim Familys As IList(Of Element) = cols.OfClass(GetType(Family)).ToElements
+            ' 按类别搜索族（Linq语句）
+            If Category <> BuiltInCategory.INVALID Then  ' 只搜索族类别
+                Dim Q As IEnumerable(Of Family) = From ff As Family In Familys
+                                        Where ff.FamilyCategory.Id = New ElementId(BuiltInCategory.OST_Site)
+                                        Select ff
+                fams = Q.ToList
+            End If
+            Return fams
         End Function
 
 #End Region

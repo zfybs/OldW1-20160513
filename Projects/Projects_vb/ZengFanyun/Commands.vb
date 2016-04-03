@@ -45,8 +45,9 @@ Namespace OldW.Commands
             Dim Incline As New Instrum_Incline(inclineEle)
             '
             Dim eleEarht As FamilyInstance = doc.GetElement(New ElementId(460116))
+            Dim exca As New ExcavationDoc(WDoc)
 
-            Dim soil As Soil_Model = WDoc.FindSoilModel()
+            Dim soil As Soil_Model = exca.GetSoilModel()
             Incline.FindAdjacentEarthElevation(soil.Soil)
 
             Return Result.Succeeded
@@ -63,24 +64,24 @@ Namespace OldW.Commands
             Dim doc As Document = uiApp.ActiveUIDocument.Document
             '
             Dim WApp As OldWApplication = OldWApplication.Create(uiApp.Application)
-            Dim WDoc As OldWDocument = OldWDocument.SearchOrCreate(WApp, uiApp.ActiveUIDocument.Document)
+            Dim WDoc As OldWDocument = OldWDocument.SearchOrCreate(WApp, doc)
             '
-            Dim exca As New Excavation(WDoc)
-            exca.CreateExcavationSoil(True)
+   
 
 
+            Dim exca As New ExcavationDoc(WDoc)
+            '  exca.DeleteEmptySoilFamily()
+            Dim ex As Soil_Excav = exca.CreateExcavationSoil(10, True)
 
-            Dim soil As Soil_Model = WDoc.FindSoilModel()
+            Dim soil As Soil_Model = exca.GetSoilModel()
 
+            soil.RemoveSoil(ex)
 
-            Dim a = New List(Of ElementId)
-            a.Add(soil.Soil.Id)
-            uiApp.ActiveUIDocument.Selection.SetElementIds(a)
             '
-
-
             Return Result.Succeeded
         End Function
+
+
     End Class
 
 End Namespace

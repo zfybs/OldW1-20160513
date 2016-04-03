@@ -69,14 +69,24 @@ RevtiTools_vb
 	<param name="boundaries">The list of curve element references which are the boundaries.
  注意，boundaries中每一条曲线都必须是有界的（IsBound），否则，其GetEndPoint会报错。</param>
 	<returns>The list of curves.</returns>
-</member><member name="M:rvtTools_ez.GeoHelper.CreateReversedCurve(Autodesk.Revit.DB.Curve)">
+</member><member name="M:rvtTools_ez.GeoHelper.FindFace(Autodesk.Revit.DB.Extrusion,Autodesk.Revit.DB.XYZ,Autodesk.Revit.DB.ReferencePlane)">
 	<summary>
- 创建一个新的Curve，其几何形状是相同的，但是方向是相反的。
- Utility to create a new curve with the same geometry but in the reverse direction.
+ 找到Extrusion中指定法向的平面。如果有多个平面的法向都是指定的法向，则返回第一个找到的平面。
+ Given a solid, find a planar face with the given normal (version 2)
+ this is a slightly enhanced version which checks if the face is on the given reference plane.
  </summary>
-	<param name="orig">The original curve.</param>
-	<returns>The reversed curve.</returns>
-	<throws cref="T:System.NotImplementedException">If the curve type is not supported by this utility.</throws>
+	<param name="refPlane">除了验证平面的法向外，还可以额外验证一下指定法向的平面是否是在指定的参考平面上。即要同时满足normal与ReferencePlane两个条件。
+ additionally, we want to check if the face is on the reference plane</param>
+	<remarks></remarks>
+</member><member name="M:rvtTools_ez.GeoHelper.IsAlmostEqual(System.Double,System.Double)">
+	<summary>
+ test if a given point lies on the given reference plane. 
+ linear equation of plane: ax + by + cz = d 
+ the normal is orthogonal to any vector on the plane: 
+     n.(p1 - p0) = 0 
+ compare two double values and judges if it is "almost equal".
+ </summary>
+	<remarks>Note: you may need to adjust the tolorance to fit your needs. </remarks>
 </member><member name="T:rvtTools_ez.GeoHelper">
 	<summary>
  A object to help locating with geometry data.
@@ -118,6 +128,11 @@ RevtiTools_vb
  也可以通过DefinitionGroup.Definitions.Create(name As String)来创建新的共享参数。
  </summary>
 	<param name="App"></param>
+</member><member name="M:rvtTools_ez.rvtTools.FindElements(Autodesk.Revit.DB.Document,System.Type,System.String,Autodesk.Revit.DB.BuiltInCategory)">
+	<summary>
+ Helper function: find a list of element with the given Class, Name and Category (optional). 
+ </summary>
+	<remarks></remarks>
 </member><member name="T:rvtTools_ez.rvtTools">
 	<summary>
 	</summary>
@@ -126,9 +141,13 @@ RevtiTools_vb
 	<summary> 从ElementId返回其所在的Document中的Element对象 </summary>
 	<param name="elementId"></param>
 	<param name="Doc">此elementId所位于的文档</param>
-</member><member name="M:rvtTools_ez.ExtensionMethods.FindFamily(Autodesk.Revit.DB.Document,System.String)">
+</member><member name="M:rvtTools_ez.ExtensionMethods.FindFamily(Autodesk.Revit.DB.Document,System.String,Autodesk.Revit.DB.BuiltInCategory)">
 	<summary> 返回项目文档中指定名称的族Family对象 </summary>
 	<param name="FamilyName">在此文档中，所要搜索的族对象的名称</param>
+	<param name="Category">此族所属的 BuiltInCategory 类别，如果不确定，就不填。</param>
+</member><member name="M:rvtTools_ez.ExtensionMethods.FindFamilies(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.BuiltInCategory)">
+	<summary> 返回项目文档中指定类别的族对象。在函数中会对所有族对象的FamilyCategory进行判断。</summary>
+	<param name="Category">此族所属的 BuiltInCategory 类别，即FamilyCategory属性所对应的类别。</param>
 </member><member name="M:rvtTools_ez.ExtensionMethods.Instances(Autodesk.Revit.DB.Family,Autodesk.Revit.DB.BuiltInCategory)">
 	<summary> 返回项目文档中某族Family的所有实例 </summary>
 	<param name="Category">此族所属的 BuiltInCategory 类别，如果不确定，就不填。</param>

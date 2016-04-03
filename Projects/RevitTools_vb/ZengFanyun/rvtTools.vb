@@ -61,6 +61,55 @@ Namespace rvtTools_ez
             Next
             TaskDialog.Show("集合", str, TaskDialogCommonButtons.Ok)
         End Sub
+
+
+        ''' <summary>
+        ''' Helper function: find a list of element with the given Class, Name and Category (optional). 
+        ''' </summary>
+        ''' <remarks></remarks>
+        Public Shared Function FindElements(ByVal rvtDoc As Document, _
+                              ByVal targetType As Type, ByVal targetName As String, _
+                              Optional ByVal targetCategory As BuiltInCategory = Nothing) As IList(Of Element)
+
+            ''  first, narrow down to the elements of the given type and category 
+            Dim collector = New FilteredElementCollector(rvtDoc).OfClass(targetType)
+            If Not (targetCategory = Nothing) Then
+                collector.OfCategory(targetCategory)
+            End If
+
+            ''  parse the collection for the given names
+            ''  using LINQ query here.
+            Dim elems = _
+                From element In collector _
+                Where element.Name.Equals(targetName) _
+                Select element
+
+            ''  put the result as a list of element for accessibility. 
+            Return elems.ToList()
+
+        End Function
+
+        ''  Helper function: searches elements with given Class, Name and Category (optional),  
+        ''  and returns the first in the elements found. 
+        ''  This gets handy when trying to find, for example, Level and View 
+        ''  e.g., FindElement(m_rvtDoc, GetType(Level), "Level 1")
+        ''
+        Public Shared Function FindElement(ByVal rvtDoc As Document, _
+                             ByVal targetType As Type, ByVal targetName As String, _
+                             Optional ByVal targetCategory As BuiltInCategory = Nothing) As Element
+
+            ''  find a list of elements using the overloaded method. 
+            Dim elems As IList(Of Element) = FindElements(rvtDoc, targetType, targetName, targetCategory)
+
+            ''  return the first one from the result. 
+            If elems.Count > 0 Then
+                Return elems(0)
+            End If
+
+            Return Nothing
+
+        End Function
+
     End Class
 
 

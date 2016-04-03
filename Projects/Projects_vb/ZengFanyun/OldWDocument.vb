@@ -19,7 +19,7 @@ Public Class OldWDocument
 #Region "   ---    Properties"
 
     ''' <summary> 每一个OldWDocument对象都绑定了一个Revit的Document对象。 </summary>
-    Private Doc As Document
+    Protected Doc As Document
     ''' <summary> 每一个OldWDocument对象都绑定了一个Revit的Document对象。 </summary>
     Public ReadOnly Property Document As Document
         Get
@@ -144,7 +144,7 @@ Public Class OldWDocument
         Dim bln As Boolean = False
         Dim proInfo As ProjectInfo = Doc.ProjectInformation  ' 族文件中的ProjectInformation属性为Nothing
         If proInfo IsNot Nothing Then
-            Dim pa As Parameter = proInfo.Parameter(Constants.SP_Guid_OldWProjectInfo)
+            Dim pa As Parameter = proInfo.Parameter(Constants.SP_OldWProjectInfo_Guid)
             If pa IsNot Nothing Then
                 bln = True
             End If
@@ -162,7 +162,7 @@ Public Class OldWDocument
     ''' <param name="ProjInfo"></param>
     ''' <remarks></remarks>
     Public Sub SetProjectInfo(ByVal ProjInfo As OldWProjectInfo)
-        Dim pa As Parameter = Me.Doc.ProjectInformation.Parameter(Constants.SP_Guid_OldWProjectInfo)
+        Dim pa As Parameter = Me.Doc.ProjectInformation.Parameter(Constants.SP_OldWProjectInfo_Guid)
         Dim Info As String = StringSerializer.Encode64(Me.ProjectInfo)
         Using tran As New Transaction(Doc, "将OldW项目信息保存到Document中")
             tran.Start()
@@ -178,7 +178,7 @@ Public Class OldWDocument
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public Function GetProjectInfo() As OldWProjectInfo
-        Dim pa As Parameter = Me.Doc.ProjectInformation.Parameter(Constants.SP_Guid_OldWProjectInfo)
+        Dim pa As Parameter = Me.Doc.ProjectInformation.Parameter(Constants.SP_OldWProjectInfo_Guid)
         Dim info As String = pa.AsString()
         Dim proinfo As OldWProjectInfo = DirectCast(StringSerializer.Decode64(info), OldWProjectInfo)
         Return proinfo
@@ -218,87 +218,6 @@ Public Class OldWDocument
             End If
         End If
         Return IsEqual
-    End Function
-
-#End Region
-
-#Region "   ---    基坑开挖与回筑"
-
-    Private F_SoilElement As Soil_Model
-    ''' <summary>
-    ''' 模型中的土体单元，此单元与土体
-    ''' </summary>
-    ''' <param name="Doc">进行土体单元搜索的文档</param>
-    ''' <param name="SoilElementId">可能的土体单元的ElementId值，如果没有待选的，可以不指定，此时程序会在整个Document中进行搜索。</param>
-    ''' <returns>如果成功搜索到，则返回对应的土体单元，如果没有找到，则返回Nothing</returns>
-    ''' <remarks></remarks>
-    Public Function FindSoilModel(Optional SoilElementId As Integer = -1) As Soil_Model
-        If F_SoilElement Is Nothing Then
-            Dim SE As FamilyInstance
-            SE = FindSoilElement(Doc, SoilElementId)
-            If SE IsNot Nothing Then
-                F_SoilElement = New Soil_Model(SE)
-            Else
-                F_SoilElement = Nothing
-            End If
-        Else
-            If Not F_SoilElement.Soil.IsValidObject Then
-                MessageBox.Show("土体单元无效，请重新构造土体单元。")
-                F_SoilElement = Nothing
-            End If
-        End If
-        Return F_SoilElement
-    End Function
-
-    ''' <summary>
-    ''' 找到模型中的开挖土体单元
-    ''' </summary>
-    ''' <param name="doc">进行土体单元搜索的文档</param>
-    ''' <param name="SoilElementId">可能的土体单元的ElementId值</param>
-    ''' <returns>如果找到有效的土体单元，则返回对应的FamilyInstance，否则返回Nothing</returns>
-    ''' <remarks></remarks>
-    Private Function FindSoilElement(ByVal doc As Document, SoilElementId As Integer) As FamilyInstance
-        Dim Soil As FamilyInstance = Nothing
-        If SoilElementId <> -1 Then  ' 说明用户手动指定了土体单元的ElementId，此时需要检测此指定的土体单元是否是有效的土体单元
-            Try
-                Soil = DirectCast(New ElementId(SoilElementId).Element(doc), FamilyInstance)
-                ' 进行更细致的检测
-                If String.Compare(Soil.Symbol.FamilyName, Constants.FamilyName_Soil, True) <> 0 Then
-                    Throw New TypeUnloadedException(String.Format("指定的ElementId所对应的单元的族名称与全局的土体族的名称""{0}""不相同。", Constants.FamilyName_Soil))
-                End If
-            Catch ex As Exception
-                MessageBox.Show(String.Format("指定的元素Id ({0})不是有效的土体单元。", SoilElementId), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Soil = Nothing
-            End Try
-        Else  ' 说明用户根本没有指定任何可能的土体单元，此时需要在模型中按特定的方式来搜索出土体单元
-            Dim SoilFamily As Family = doc.FindFamily(Constants.FamilyName_Soil)
-            If SoilFamily IsNot Nothing Then
-                Dim soils As List(Of ElementId) = SoilFamily.Instances(BuiltInCategory.OST_Site).ToElementIds
-
-                ' 整个模型中只能有一个模型土体对象
-                If soils.Count = 0 Then
-                    MessageBox.Show("模型中没有土体单元", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                ElseIf soils.Count > 1 Then
-                    Dim UIDoc As UIDocument = New UIDocument(doc)
-                    UIDoc.Selection.SetElementIds(soils)
-                    MessageBox.Show(String.Format("模型中的土体单元数量多于一个，请删除多余的土体单元 ( 族""{0}""的实例对象 )。", Constants.FamilyName_Soil), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Else
-                    Soil = DirectCast(soils.Item(0).Element(doc), FamilyInstance)   ' 找到有效且唯一的土体单元 ^_^
-                End If
-
-            End If
-        End If
-        Return Soil
-    End Function
-
-
-    Public Function FindSoilRemove() As List(Of Family)
-        Dim collector As New FilteredElementCollector(Doc)
-
-        collector.OfClass(GetType(FamilySymbol)).OfCategory(BuiltInCategory.OST_Site)
-        For Each f As FamilySymbol In collector
-            MessageBox.Show(f.Name & vbCrLf & f.FamilyName)
-        Next
     End Function
 
 #End Region
