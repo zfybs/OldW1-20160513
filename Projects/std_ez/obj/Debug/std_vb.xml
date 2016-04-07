@@ -6,7 +6,59 @@ std_vb
 </name>
 </assembly>
 <members>
-<member name="F:std_ez.LstbxDisplayAndItem.DisplayMember">
+<member name="M:std_ez.eZDataGridView.myDataGridView_RowsNumberChanged(System.Object,System.Object)">
+	<summary>
+ 行数改变时的事件：显示行号
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:std_ez.eZDataGridView.RowsResizable(System.Object,System.Windows.Forms.DataGridViewRowsAddedEventArgs)">
+	<summary>
+ 设置新添加的一行的Resizable属性为False
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:std_ez.eZDataGridView.InsertRow(System.Object,System.EventArgs)">
+	<summary>
+ 插入一行
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:std_ez.eZDataGridView.RemoveRow(System.Object,System.EventArgs)">
+	<summary>
+ 移除一行
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:std_ez.eZDataGridView.ToolStripMenuItemRemoveRows_Click(System.Object,System.EventArgs)">
+	<summary>
+ 移除多行
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:std_ez.eZDataGridView.myDataGridView_KeyDown(System.Object,System.Windows.Forms.KeyEventArgs)">
+	<summary>
+ 如下按下Ctrl+V，则将表格中的数据粘贴到DataGridView控件中
+ </summary>
+	<remarks>DataGridView表格的索引：行号：表头为-1，第一行为0，列号：表示行编号的列为-1，第一个数据列的列号为0.
+ DataGridView.Rows.Count与DataGridView.Columns.Count均只计算数据区域，而不包含表头与列头。</remarks>
+</member><member name="M:std_ez.eZDataGridView.PasteFromTable(System.Int32,System.Int32)">
+	<summary> 将表格中的数据粘贴到DataGridView控件中 </summary>
+	<param name="startRow">粘贴的起始单元格的行位置</param>
+	<param name="startCol">粘贴的起始单元格的列位置</param>
+	<remarks>DataGridView表格的索引：行号：表头为-1，第一行为0，列号：表示行编号的列为-1，第一个数据列的列号为0.
+ DataGridView.Rows.Count与DataGridView.Columns.Count均只计算数据区域，而不包含表头与列头。总行数包括最后一行空数据行。</remarks>
+</member><member name="T:std_ez.eZDataGridView">
+	<summary>
+ 自定义控件：DataGridView，向其中增加了：插入行、删除行、显示行号等功能
+ </summary>
+	<remarks></remarks>
+</member><member name="F:std_ez.LstbxDisplayAndItem.DisplayMember">
 	<summary>
  在列表框中进行显示的文本
  </summary>
@@ -72,6 +124,24 @@ std_vb
 	<summary>
   A strongly-typed resource class, for looking up localized strings, etc.
 </summary>
+</member><member name="M:std_ez.Utils.ShowEnumerable(System.Collections.IEnumerable)">
+	<summary>
+ 将集合中的每一个元素的ToString函数的结果组合到一个字符串中进行显示
+ </summary>
+	<param name="V"></param>
+	<remarks></remarks>
+</member><member name="M:std_ez.Utils.String2Date(System.String,System.DateTime@)">
+	<summary>
+ 将字符转换为日期。除了.NET能够识别的日期格式外，
+ 还增加了20160406（ 即 2016/04/06），以及 201604061330（即 2016/04/06 13:30）
+ </summary>
+	<param name="text">要转换为日期的字符。</param>
+	<returns></returns>
+</member><member name="T:std_ez.Utils">
+	<summary>
+ 提供一些基础性的操作工具
+ </summary>
+	<remarks></remarks>
 </member><member name="M:std_ez.StringSerializer.Encode64(System.Object)">
 	<summary>
  Encode arbitrary .NET serialisable object 
@@ -104,71 +174,19 @@ std_vb
  将任意一个声明为Serializable的类或者其List等集合中的数据，以二进制的格式保存到对应的流文件中。
  </summary>
 	<param name="fs">推荐使用FileStream对象。此方法中不会对Stream对象进行Close。</param>
-	<param name="Data"></param>
+	<param name="Data">要进行保存的可序列化对象</param>
 	<remarks></remarks>
 </member><member name="M:std_ez.BinarySerializer.DeCode(System.IO.Stream)">
 	<summary>
  从二进制流文件中，将其中的二进制数据反序列化为对应的类或集合对象。
  </summary>
 	<param name="fs">推荐使用FileStream对象。此方法中不会对Stream对象进行Close。</param>
-	<returns></returns>
+	<returns>此二进制流文件所对应的可序列化对象</returns>
 	<remarks></remarks>
 </member><member name="T:std_ez.BinarySerializer">
 	<summary>
  在.NET中，我们可以将对象序列化从而保存对象的状态到内存或者磁盘文件中，或者分布式应用程序中用于系统通信，，这样就有可能做出一个“对象数据库”了。
  一般来说，二进制序列化的效率要高，所获得的字节数最小。
- </summary>
-	<remarks></remarks>
-</member><member name="M:std_ez.eZDataGridView.myDataGridView_RowsNumberChanged(System.Object,System.Object)">
-	<summary>
- 行数改变时的事件：显示行号
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:std_ez.eZDataGridView.RowsResizable(System.Object,System.Windows.Forms.DataGridViewRowsAddedEventArgs)">
-	<summary>
- 设置新添加的一行的Resizable属性为False
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:std_ez.eZDataGridView.InsertRow(System.Object,System.EventArgs)">
-	<summary>
- 插入一行
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:std_ez.eZDataGridView.RemoveRow(System.Object,System.EventArgs)">
-	<summary>
- 移除一行
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:std_ez.eZDataGridView.ToolStripMenuItemRemoveRows_Click(System.Object,System.EventArgs)">
-	<summary>
- 移除多行
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:std_ez.eZDataGridView.myDataGridView_KeyDown(System.Object,System.Windows.Forms.KeyEventArgs)">
-	<summary>
- 如下按下Ctrl+V，则将表格中的数据粘贴到DataGridView控件中
- </summary>
-	<remarks>DataGridView表格的索引：行号：表头为-1，第一行为0，列号：表示行编号的列为-1，第一个数据列的列号为0.
- DataGridView.Rows.Count与DataGridView.Columns.Count均只计算数据区域，而不包含表头与列头。</remarks>
-</member><member name="M:std_ez.eZDataGridView.PasteFromTable(System.Int32,System.Int32)">
-	<summary> 将表格中的数据粘贴到DataGridView控件中 </summary>
-	<param name="startRow">粘贴的起始单元格的行位置</param>
-	<param name="startCol">粘贴的起始单元格的列位置</param>
-	<remarks>DataGridView表格的索引：行号：表头为-1，第一行为0，列号：表示行编号的列为-1，第一个数据列的列号为0.
- DataGridView.Rows.Count与DataGridView.Columns.Count均只计算数据区域，而不包含表头与列头。总行数包括最后一行空数据行。</remarks>
-</member><member name="T:std_ez.eZDataGridView">
-	<summary>
- 自定义控件：DataGridView，向其中增加了：插入行、删除行、显示行号等功能
  </summary>
 	<remarks></remarks>
 </member>

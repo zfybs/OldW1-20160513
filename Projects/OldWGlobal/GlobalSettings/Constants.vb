@@ -66,7 +66,7 @@ Namespace OldW.GlobalSettings
         ''' </summary>
         ''' <returns>测点元素中表示监测数据的共享参数的Guid值。</returns>
         ''' <remarks>如果要用扩展方法，请加上标签：System.Runtime.CompilerServices.Extension() </remarks>
-        Public Shared ReadOnly Property SP_Guid_Monitor As Guid
+        Public Shared ReadOnly Property SP_Monitor_Guid As Guid
             Get
                 Return New Guid("c3d04d9e-aa78-4328-90c5-cf58167d1f09")
             End Get
@@ -78,7 +78,7 @@ Namespace OldW.GlobalSettings
         ''' 在此OldWDocument中，可以在Revit的Document中进行与基坑相关的操作，比如搜索基坑开挖土体，记录测点信息等。
         ''' </summary>
         ''' <returns>标识OldWDocument对象的项目信息（共享参数）OldW_Project的Guid值。</returns>
-        Public Shared ReadOnly Property SP_Guid_OldWProjectInfo As Guid
+        Public Shared ReadOnly Property SP_OldWProjectInfo_Guid As Guid
             Get
                 Return New Guid("2284a656-0770-481e-b251-496cde4e7f6d")
             End Get
@@ -92,22 +92,26 @@ Namespace OldW.GlobalSettings
         ''' <remarks></remarks>
         Public Const SP_OldWProjectInfo As String = "OldW_Project"
 
-
-        ''' <summary>
-        ''' 每一个开挖土体单元，都有一个对应的开挖完成的日期数据。
-        ''' </summary>
-        ''' <returns></returns>
-        Public Shared ReadOnly Property SP_Guid_ExcavationCompleted As Guid
+        ''' <summary> 每一个开挖土体单元，都有一个对应的开挖完成的日期数据。 </summary>
+        Public Shared ReadOnly Property SP_ExcavationCompleted_Guid As Guid
             Get
                 Return New Guid("0948fd00-11d6-4ee1-beb7-66ee43fecf75")
             End Get
         End Property
 
-        ''' <summary>
-        ''' 每一个开挖土体单元，都有一个对应的开挖完成的日期数据。
-        ''' </summary>
-        ''' <remarks></remarks>
+        ''' <summary> 每一个开挖土体单元，都有一个对应的开挖完成的日期数据。 </summary>
         Public Const SP_ExcavationCompleted As String = "开挖完成"
+
+        ''' <summary> 每一个开挖土体单元，都有一个对应的开始开挖的日期数据。 </summary>
+        Public Shared ReadOnly Property SP_ExcavationStarted_Guid As Guid
+            Get
+                Return New Guid("ee7193d1-e388-4053-bd6b-d903fad4ad8e")
+            End Get
+        End Property
+
+        ''' <summary> 每一个开挖土体单元，都有一个对应的开始开挖的日期数据。 </summary>
+        Public Const SP_ExcavationStarted As String = "开挖开始"
+
 
 #End Region
 

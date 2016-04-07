@@ -1,7 +1,7 @@
 ﻿Imports Autodesk.Revit.DB
 Imports Autodesk.Revit.UI
 
-Namespace rvtTools_ez.Test_Addin
+Namespace rvtTools_ez.Test
 
     <Autodesk.Revit.Attributes.Transaction(Autodesk.Revit.Attributes.TransactionMode.Manual)>
     Public Class ExternalCommand

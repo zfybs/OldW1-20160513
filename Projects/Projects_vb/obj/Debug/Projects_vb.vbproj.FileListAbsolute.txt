@@ -3,7 +3,6 @@ F:\Software\Revit\RevitDevelop\OldW\Projects\DataManager\obj\Debug\OldW.DataMana
 F:\Software\Revit\RevitDevelop\OldW\Projects\DataManager\obj\Debug\OldW.DataManager.ElementDataManager.resources
 F:\Software\Revit\RevitDevelop\OldW\Projects\DataManager\obj\Debug\OldW.DataManager.Resources.resources
 F:\Software\Revit\RevitDevelop\OldW\Projects\DataManager\obj\Debug\Projects_vb.vbproj.GenerateResource.Cache
-F:\Software\Revit\RevitDevelop\OldW\bin\Projects_vb.dll.config
 F:\Software\Revit\RevitDevelop\OldW\bin\Projects_vb.dll
 F:\Software\Revit\RevitDevelop\OldW\bin\Projects_vb.pdb
 F:\Software\Revit\RevitDevelop\OldW\bin\Projects_vb.xml
@@ -18,3 +17,5 @@ F:\Software\Revit\RevitDevelop\OldW\Projects\Projects_vb\obj\Debug\Projects_vb.d
 F:\Software\Revit\RevitDevelop\OldW\Projects\Projects_vb\obj\Debug\Projects_vb.xml
 F:\Software\Revit\RevitDevelop\OldW\Projects\Projects_vb\obj\Debug\Projects_vb.pdb
 F:\Software\Revit\RevitDevelop\OldW\Projects\Projects_vb\obj\Debug\Resources.resources
+F:\Software\Revit\RevitDevelop\OldW\Projects\Projects_vb\obj\Debug\frm_ExcavationInfo.resources
+F:\Software\Revit\RevitDevelop\OldW\Projects\Projects_vb\obj\Debug\frm_DrawExcavation.resources

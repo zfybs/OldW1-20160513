@@ -11,7 +11,7 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Projects_vb", "Projects\Pro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RevitTools_cs", "Projects\RevitTools_cs\RevitTools_cs.csproj", "{13378FF8-0B99-4A4E-8529-DB04F4B8EC4D}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "RevtiTools_vb", "Projects\RevitTools_vb\RevtiTools_vb.vbproj", "{3FA144C1-2391-45DA-B1B2-2BA8E2651712}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "RevitTools_vb", "Projects\RevitTools_vb\RevitTools_vb.vbproj", "{3FA144C1-2391-45DA-B1B2-2BA8E2651712}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "std_cs", "Projects\std_cs\std_cs.csproj", "{74D48009-1ECE-4791-BA11-111ED062879C}"
 EndProject
