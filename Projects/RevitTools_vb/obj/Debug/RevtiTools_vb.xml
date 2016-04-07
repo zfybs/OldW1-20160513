@@ -135,7 +135,8 @@ RevtiTools_vb
 	<remarks></remarks>
 </member><member name="T:rvtTools_ez.rvtTools">
 	<summary>
-	</summary>
+ Revit中的一些常规性操作工具
+ </summary>
 	<remarks></remarks>
 </member><member name="M:rvtTools_ez.ExtensionMethods.Element(Autodesk.Revit.DB.ElementId,Autodesk.Revit.DB.Document)">
 	<summary> 从ElementId返回其所在的Document中的Element对象 </summary>

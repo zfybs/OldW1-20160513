@@ -82,12 +82,13 @@
     <Import Include="System.Data" />
     <Import Include="System.Diagnostics" />
     <Import Include="System.Linq" />
+    <Import Include="System.Windows.Forms" />
     <Import Include="System.Xml.Linq" />
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Serializer.vb" />
-    <Compile Include="LstbxDisplayAndItem.vb" />
+    <Compile Include="ZengFanyun\Serializer.vb" />
+    <Compile Include="ZengFanyun\LstbxDisplayAndItem.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -103,9 +104,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="eZDataGridView.vb">
+    <Compile Include="ZengFanyun\eZDataGridView.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ZengFanyun\Utils.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -114,7 +116,7 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="eZDataGridView.resx">
+    <EmbeddedResource Include="ZengFanyun\eZDataGridView.resx">
       <DependentUpon>eZDataGridView.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>

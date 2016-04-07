@@ -17,4 +17,5 @@ F:\Software\Revit\RevitDevelop\OldW\Projects\Projects_vb\obj\Debug\Projects_vb.d
 F:\Software\Revit\RevitDevelop\OldW\Projects\Projects_vb\obj\Debug\Projects_vb.xml
 F:\Software\Revit\RevitDevelop\OldW\Projects\Projects_vb\obj\Debug\Projects_vb.pdb
 F:\Software\Revit\RevitDevelop\OldW\Projects\Projects_vb\obj\Debug\Resources.resources
-F:\Software\Revit\RevitDevelop\OldW\Projects\Projects_vb\obj\Debug\frm_Excavate.resources
+F:\Software\Revit\RevitDevelop\OldW\Projects\Projects_vb\obj\Debug\frm_ExcavationInfo.resources
+F:\Software\Revit\RevitDevelop\OldW\Projects\Projects_vb\obj\Debug\frm_DrawExcavation.resources

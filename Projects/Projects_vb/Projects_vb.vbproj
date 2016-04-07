@@ -110,28 +110,34 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ZengFanyun\Soil_Element.vb" />
-    <Compile Include="ZengFanyun\UI\frm_Excavate.Designer.vb">
-      <DependentUpon>frm_Excavate.vb</DependentUpon>
+    <Compile Include="ZengFanyun\Excavation\frm_DrawExcavation.Designer.vb">
+      <DependentUpon>frm_DrawExcavation.vb</DependentUpon>
     </Compile>
-    <Compile Include="ZengFanyun\UI\frm_Excavate.vb">
+    <Compile Include="ZengFanyun\Excavation\frm_DrawExcavation.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ZengFanyun\Excavation\Soil_Element.vb" />
+    <Compile Include="ZengFanyun\Excavation\frm_ExcavationInfo.Designer.vb">
+      <DependentUpon>frm_ExcavationInfo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ZengFanyun\Excavation\frm_ExcavationInfo.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ZengFanyun\Analysis.vb" />
-    <Compile Include="ZengFanyun\Chart_MonitorData.Designer.vb">
+    <Compile Include="ZengFanyun\Instrumentations\Chart_MonitorData.Designer.vb">
       <DependentUpon>Chart_MonitorData.vb</DependentUpon>
     </Compile>
-    <Compile Include="ZengFanyun\Chart_MonitorData.vb">
+    <Compile Include="ZengFanyun\Instrumentations\Chart_MonitorData.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ZengFanyun\ElementDataManager.Designer.vb">
+    <Compile Include="ZengFanyun\Instrumentations\ElementDataManager.Designer.vb">
       <DependentUpon>ElementDataManager.vb</DependentUpon>
     </Compile>
-    <Compile Include="ZengFanyun\ElementDataManager.vb">
+    <Compile Include="ZengFanyun\Instrumentations\ElementDataManager.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ZengFanyun\Commands.vb" />
-    <Compile Include="ZengFanyun\ExcavationDoc.vb" />
+    <Compile Include="ZengFanyun\Excavation\ExcavationDoc.vb" />
     <Compile Include="ZengFanyun\Instrumentations\Instrum_StrutAxialForce.vb" />
     <Compile Include="ZengFanyun\Instrumentations\Instrum_ColumnHeave.vb" />
     <Compile Include="ZengFanyun\Instrumentations\Instrum_GroundSettlement.vb" />
@@ -154,21 +160,24 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="ZengFanyun\Instrumentations\Instrum_Line.vb" />
-    <Compile Include="ZengFanyun\Soil_Excav.vb" />
-    <Compile Include="ZengFanyun\Miscellaneous.vb" />
-    <Compile Include="ZengFanyun\Soil_Model.vb" />
+    <Compile Include="ZengFanyun\Excavation\Soil_Excav.vb" />
+    <Compile Include="ZengFanyun\Instrumentations\MonitorData.vb" />
+    <Compile Include="ZengFanyun\Excavation\Soil_Model.vb" />
     <Compile Include="ZengFanyun\OldWApplication.vb" />
     <Compile Include="ZengFanyun\OldWDocument.vb" />
     <Compile Include="ZengFanyun\OldWProjectInfo.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ZengFanyun\UI\frm_Excavate.resx">
-      <DependentUpon>frm_Excavate.vb</DependentUpon>
+    <EmbeddedResource Include="ZengFanyun\Excavation\frm_ExcavationInfo.resx">
+      <DependentUpon>frm_ExcavationInfo.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ZengFanyun\Chart_MonitorData.resx">
+    <EmbeddedResource Include="ZengFanyun\Excavation\frm_DrawExcavation.resx">
+      <DependentUpon>frm_DrawExcavation.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ZengFanyun\Instrumentations\Chart_MonitorData.resx">
       <DependentUpon>Chart_MonitorData.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ZengFanyun\ElementDataManager.resx">
+    <EmbeddedResource Include="ZengFanyun\Instrumentations\ElementDataManager.resx">
       <DependentUpon>ElementDataManager.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -201,9 +210,9 @@
       <Project>{97868dc1-2f53-4874-a7bd-69d36b2d7d47}</Project>
       <Name>Projects_cs</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RevitTools_vb\RevtiTools_vb.vbproj">
+    <ProjectReference Include="..\RevitTools_vb\RevitTools_vb.vbproj">
       <Project>{3fa144c1-2391-45da-b1b2-2ba8e2651712}</Project>
-      <Name>RevtiTools_vb</Name>
+      <Name>RevitTools_vb</Name>
     </ProjectReference>
     <ProjectReference Include="..\std_ez\std_vb.vbproj">
       <Project>{6813ada3-8041-4c64-bba9-f799922c4595}</Project>

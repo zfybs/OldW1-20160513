@@ -11,7 +11,7 @@ Imports OldW.GlobalSettings
 Namespace rvtTools_ez
 
     ''' <summary>
-    ''' 
+    ''' Revit中的一些常规性操作工具
     ''' </summary>
     ''' <remarks></remarks>
     Public Class rvtTools
@@ -54,13 +54,8 @@ Namespace rvtTools_ez
             Return myGroup
         End Function
 
-        Public Shared Sub ShowEnumerable(ByVal V As IEnumerable)
-            Dim str As String = ""
-            For Each o As Object In V
-                str = str & o.ToString & vbCrLf
-            Next
-            TaskDialog.Show("集合", str, TaskDialogCommonButtons.Ok)
-        End Sub
+#Region "   ---   搜索文档中的元素"
+
 
 
         ''' <summary>
@@ -68,49 +63,99 @@ Namespace rvtTools_ez
         ''' </summary>
         ''' <remarks></remarks>
         Public Shared Function FindElements(ByVal rvtDoc As Document, _
-                              ByVal targetType As Type, ByVal targetName As String, _
-                              Optional ByVal targetCategory As BuiltInCategory = Nothing) As IList(Of Element)
+                              ByVal targetType As Type, Optional ByVal targetCategory As BuiltInCategory = Nothing, _
+                              Optional ByVal targetName As String = Nothing) As List(Of Element)
 
             ''  first, narrow down to the elements of the given type and category 
             Dim collector = New FilteredElementCollector(rvtDoc).OfClass(targetType)
+
+            ' 是否要按类别搜索
             If Not (targetCategory = Nothing) Then
                 collector.OfCategory(targetCategory)
             End If
 
-            ''  parse the collection for the given names
-            ''  using LINQ query here.
-            Dim elems = _
-                From element In collector _
-                Where element.Name.Equals(targetName) _
-                Select element
+            ' 是否要按名称搜索
+            If targetName IsNot Nothing Then
+                ''  using LINQ query here.
+                Dim elems = _
+                    From element In collector _
+                    Where element.Name.Equals(targetName) _
+                    Select element
 
-            ''  put the result as a list of element for accessibility. 
-            Return elems.ToList()
-
+                ''  put the result as a list of element for accessibility. 
+                Return elems.ToList()
+            End If
+            Return collector.ToElements
         End Function
 
-        ''  Helper function: searches elements with given Class, Name and Category (optional),  
-        ''  and returns the first in the elements found. 
-        ''  This gets handy when trying to find, for example, Level and View 
-        ''  e.g., FindElement(m_rvtDoc, GetType(Level), "Level 1")
-        ''
+        ''' <summary>
+        '''  Helper function: find a list of element with the given Class, Name and Category (optional). 
+        ''' </summary>
+        ''' <param name="rvtDoc">要进行搜索的Revit文档</param>
+        ''' <param name="SourceElements">要从文档中的哪个集合中来进行搜索</param>
+        ''' <param name="targetType"></param>
+        ''' <param name="targetCategory"></param>
+        ''' <param name="targetName"></param>
+        ''' <returns></returns>
+        ''' <remarks></remarks>
+        Public Shared Function FindElements(ByVal rvtDoc As Document, ByVal SourceElements As ICollection(Of ElementId), _
+                              ByVal targetType As Type, Optional ByVal targetCategory As BuiltInCategory = Nothing, _
+                              Optional ByVal targetName As String = Nothing) As List(Of Element)
+
+
+            Dim collector = New FilteredElementCollector(rvtDoc, SourceElements)
+
+            ' 搜索类型
+            collector.OfClass(targetType)
+
+            ' 是否要搜索类别
+            If Not (targetCategory = Nothing) Then
+                collector.OfCategory(targetCategory)
+            End If
+
+            ' 是否要搜索名称
+            If targetName IsNot Nothing Then
+                Dim elems As IEnumerable(Of Element)
+                ''  parse the collection for the given names
+                ''  using LINQ query here.
+                elems = _
+                    From element In collector _
+                    Where element.Name.Equals(targetName) _
+                    Select element
+                Return elems.ToList
+            End If
+
+            Return collector.ToElements
+        End Function
+
         Public Shared Function FindElement(ByVal rvtDoc As Document, _
-                             ByVal targetType As Type, ByVal targetName As String, _
-                             Optional ByVal targetCategory As BuiltInCategory = Nothing) As Element
+                              ByVal targetType As Type, Optional ByVal targetCategory As BuiltInCategory = Nothing, _
+                              Optional ByVal targetName As String = Nothing) As Element
 
             ''  find a list of elements using the overloaded method. 
-            Dim elems As IList(Of Element) = FindElements(rvtDoc, targetType, targetName, targetCategory)
+            Dim elems As IList(Of Element) = FindElements(rvtDoc, targetType, targetCategory, targetName)
 
             ''  return the first one from the result. 
             If elems.Count > 0 Then
-                Return elems(0)
+                Return elems.Item(0)
             End If
-
             Return Nothing
+        End Function
+        Public Shared Function FindElement(ByVal rvtDoc As Document, ByVal SourceElements As ICollection(Of ElementId), _
+                      ByVal targetType As Type, Optional ByVal targetCategory As BuiltInCategory = Nothing, _
+                      Optional ByVal targetName As String = Nothing) As Element
+            ''  find a list of elements using the overloaded method. 
+            Dim elems As IList(Of Element) = FindElements(rvtDoc, targetType, targetCategory, targetName)
 
+            ''  return the first one from the result. 
+            If elems.Count > 0 Then
+                Return elems.Item(0)
+            End If
+            Return Nothing
         End Function
 
+
+#End Region
+
     End Class
-
-
 End Namespace

@@ -119,15 +119,13 @@ OldWGlobal
  </summary>
 	<remarks></remarks>
 </member><member name="P:OldW.GlobalSettings.Constants.SP_ExcavationCompleted_Guid">
-	<summary>
- 每一个开挖土体单元，都有一个对应的开挖完成的日期数据。
- </summary>
-	<returns></returns>
+	<summary> 每一个开挖土体单元，都有一个对应的开挖完成的日期数据。 </summary>
 </member><member name="F:OldW.GlobalSettings.Constants.SP_ExcavationCompleted">
-	<summary>
- 每一个开挖土体单元，都有一个对应的开挖完成的日期数据。
- </summary>
-	<remarks></remarks>
+	<summary> 每一个开挖土体单元，都有一个对应的开挖完成的日期数据。 </summary>
+</member><member name="P:OldW.GlobalSettings.Constants.SP_ExcavationStarted_Guid">
+	<summary> 每一个开挖土体单元，都有一个对应的开始开挖的日期数据。 </summary>
+</member><member name="F:OldW.GlobalSettings.Constants.SP_ExcavationStarted">
+	<summary> 每一个开挖土体单元，都有一个对应的开始开挖的日期数据。 </summary>
 </member><member name="T:OldW.GlobalSettings.Constants">
 	<summary>
  OldW程序中所用到的一些全局性的常数

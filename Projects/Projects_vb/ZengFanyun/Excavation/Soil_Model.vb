@@ -40,13 +40,15 @@ Namespace OldW.Soil
         ''' <summary>
         ''' 构造函数：不要直接通过New Soil_Model来创建此对象，而应该用 OldWDocument.GetSoilModel，或者是Create静态方法来从模型中返回。
         ''' </summary>
+        ''' <param name="ExcavDoc">模型土体单元所位于的文档</param>
         ''' <param name="ModelSoil">模型中的开挖土体单元</param>
         ''' <remarks></remarks>
-        Private Sub New(ModelSoil As FamilyInstance)
-            MyBase.New(ModelSoil)
+        Private Sub New(ByVal ExcavDoc As ExcavationDoc, ModelSoil As FamilyInstance)
+            MyBase.New(ExcavDoc, ModelSoil)
             ' 检查模型土体单元是否位于一个组中
             F_Group = ModelSoil.GroupId.Element(Doc)
-            If Not F_Group.IsValidObject Then
+            ExcavDoc.ModelSoil = Me
+            If F_Group Is Nothing AndAlso Not F_Group.IsValidObject Then
                 Throw New InvalidOperationException("请先将模型土体放置在一个组中。" & vbCrLf &
                                                     "提示：所有的土体开挖模型都会位于此组中，如果将开挖土体从此组中移除，则有会被识别为开挖土体。")
             End If
@@ -93,8 +95,8 @@ Namespace OldW.Soil
         ''' <param name="SoilElement"></param>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        Public Shared Function Create(ByVal doc As Document, ByVal SoilElement As FamilyInstance) As Soil_Model
-            Return New Soil_Model(SoilElement)
+        Public Shared Function Create(ByVal ExcavDoc As ExcavationDoc, ByVal SoilElement As FamilyInstance) As Soil_Model
+            Return New Soil_Model(ExcavDoc, SoilElement)
         End Function
 
 #End Region
@@ -106,45 +108,48 @@ Namespace OldW.Soil
         ''' <remarks></remarks>
         Public Function RemoveSoil(ByVal SoilToRemove As Soil_Excav) As Boolean
             Dim blnSucceed As Boolean = False
-            Dim removedSoil As FamilyInstance = SoilToRemove.Soil
-            Using tran As New Transaction(Doc, "土体开挖")
-                Try
-                    tran.Start()
-                    ' 将要进行开挖的土体单元也添加进模型土体的组合中 
-                    Dim gp As Group = Me.Group
-                    Dim elems As List(Of ElementId) = gp.GetMemberIds
-                    elems.Add(removedSoil.Id)
-                    '
-                    gp.UngroupMembers()  ' 将Group实例删除
-                    Doc.Delete(gp.GroupType.Id)  ' 删除组类型
+            If SoilToRemove IsNot Nothing Then
+                Dim removedSoil As FamilyInstance = SoilToRemove.Soil
+                Using tran As New Transaction(Doc, "土体开挖")
+                    Try
+                        tran.Start()
+                        ' 将要进行开挖的土体单元也添加进模型土体的组合中 
+                        Dim gp As Group = Me.Group
+                        Dim elems As List(Of ElementId) = gp.GetMemberIds
+                        elems.Add(removedSoil.Id)
+                        '
+                        gp.UngroupMembers()  ' 将Group实例删除
+                        Doc.Delete(gp.GroupType.Id)  ' 删除组类型
 
-                    ' 重新构造Group，它将产生一个新的GroupType
-                    Me.F_Group = Doc.Create.NewGroup(elems)
-                    Me.F_Group.GroupType.Name = "基坑土体"
-                    Doc.Regenerate()
-
-                    ' 进行开挖土体对于模型土体的剪切操作
-                    Dim CFR As CutFailureReason
-                    Dim blnCanCut As Boolean = SolidSolidCutUtils.CanElementCutElement(removedSoil, Me.Soil, CFR)
-                    If blnCanCut Then
-                        SolidSolidCutUtils.AddCutBetweenSolids(Doc, Me.Soil, removedSoil)
-                        ' 将用来剪切的开挖土体在视图中进行隐藏
-                        Dim V As View = Doc.ActiveView
-                        If V Is Nothing Then
-                            Throw New NullReferenceException("未找到有效的视图对象。")
+                        ' 进行开挖土体对于模型土体的剪切操作
+                        Dim CFR As CutFailureReason
+                        Dim blnCanCut As Boolean = SolidSolidCutUtils.CanElementCutElement(removedSoil, Me.Soil, CFR)
+                        If blnCanCut Then
+                            SolidSolidCutUtils.AddCutBetweenSolids(Doc, Me.Soil, removedSoil)
+                            ' 将用来剪切的开挖土体在视图中进行隐藏
+                            Dim V As View = Doc.ActiveView
+                            If V Is Nothing Then
+                                Throw New NullReferenceException("未找到有效的视图对象。")
+                            End If
+                            V.HideElements({removedSoil.Id})
+                        Else
+                            Throw New InvalidOperationException("开挖土体不能对模型土体进行剪切，其原因为：" & vbCrLf &
+                                                                CFR.ToString)
                         End If
-                        V.HideElements({removedSoil.Id})
-                    Else
-                        Throw New InvalidOperationException("开挖土体不能对模型土体进行剪切，其原因为：" & vbCrLf &
-                                                            CFR.ToString)
-                    End If
-                    tran.Commit()
-                    blnSucceed = True
-                Catch ex As Exception
-                    MessageBox.Show("土体开挖失败！" & vbCrLf & ex.Message, "出错", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    tran.RollBack()
-                End Try
-            End Using
+
+                        ' 重新构造Group，它将产生一个新的GroupType
+                        Doc.Regenerate()
+                        Me.F_Group = Doc.Create.NewGroup(elems) ' 	在通过NewGroup创建出组后，可以对组内的元素进行隐藏或移动等操作，但是最好不要再对组内的元素进行剪切，否则还是可能会在UI中出现“the group has changed outside group edit mode.”的警告。
+                        Me.F_Group.GroupType.Name = "基坑土体"
+
+                        tran.Commit()
+                        blnSucceed = True
+                    Catch ex As Exception
+                        MessageBox.Show("土体开挖失败！" & vbCrLf & ex.Message, "出错", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        tran.RollBack()
+                    End Try
+                End Using
+            End If
             Return blnSucceed
         End Function
 

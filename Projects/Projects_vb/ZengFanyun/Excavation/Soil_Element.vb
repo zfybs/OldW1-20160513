@@ -9,6 +9,7 @@ Imports rvtTools_ez
 ''' </summary>
 ''' <remarks></remarks>
 Public MustInherit Class Soil_Element
+
 #Region "   ---   Properties"
 
     Private F_Soil As FamilyInstance
@@ -19,12 +20,20 @@ Public MustInherit Class Soil_Element
         End Get
     End Property
 
+    Protected F_ExcavDoc As ExcavationDoc
+    Public ReadOnly Property ExcavDoc As ExcavationDoc
+        Get
+            Return F_ExcavDoc
+        End Get
+    End Property
+
     Protected Doc As Document
     Public ReadOnly Property Document As Document
         Get
             Return Doc
         End Get
     End Property
+
 
 #End Region
 
@@ -34,10 +43,11 @@ Public MustInherit Class Soil_Element
 
 #Region "   ---   构造函数，通过 OldWDocument.GetSoilModel，或者是Create静态方法"
 
-    Protected Sub New(ByVal SoilElement As FamilyInstance)
+    Protected Sub New(ByVal ExcavDoc As ExcavationDoc, ByVal SoilElement As FamilyInstance)
         If SoilElement IsNot Nothing AndAlso SoilElement.IsValidObject Then
+            Me.F_ExcavDoc = ExcavDoc
             Me.F_Soil = SoilElement
-            Me.Doc = SoilElement.Document
+            Me.Doc = ExcavDoc.Document
         Else
             Throw New NullReferenceException("The specified element is not valid as soil.")
         End If

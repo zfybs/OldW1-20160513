@@ -6,52 +6,37 @@ Projects_vb
 </name>
 </assembly>
 <members>
-<member name="F:OldW.DataManager.Chart_MonitorData.Chart">
-	<summary> 数据图表 </summary>
-</member><member name="M:OldW.DataManager.Chart_MonitorData.#ctor(OldW.GlobalSettings.InstrumentationType)">
+<member name="T:frm_DrawExcavation.Request">
 	<summary>
- 构造函数
- </summary>
-	<param name="Type">窗口的标题：监测类型</param>
-	<remarks></remarks>
-</member><member name="M:OldW.DataManager.Chart_MonitorData.SetupChart">
-	<summary>
- 图表的初始化
- </summary>
-</member><member name="F:OldW.DataManager.ElementDataManager.ActiveElement">
-	<summary> 当前活动的图元 </summary>
-</member><member name="F:OldW.DataManager.ElementDataManager.ActiveMonitorData">
-	<summary> 当前活动的图元中所保存的监测数据 </summary>
-</member><member name="M:OldW.DataManager.ElementDataManager.#ctor(System.Collections.Generic.ICollection{Autodesk.Revit.DB.ElementId},Autodesk.Revit.DB.Document)">
-	<summary>
- 构造函数
- </summary>
-	<param name="eleidCollection">所有要进行处理的测点元素的Id集合</param>
-	<param name="document"></param>
-	<remarks></remarks>
-</member><member name="M:OldW.DataManager.ElementDataManager.SaveTableToElement(System.Object,System.EventArgs)">
-	<summary>
- 将表格中的数据保存到Element的对应参数中。
+ ModelessForm的操作需求，用来从窗口向IExternalEventHandler对象传递需求。
  </summary>
 	<remarks></remarks>
-</member><member name="M:OldW.DataManager.ElementDataManager.FillTableWithElementData(Autodesk.Revit.DB.Element,System.Windows.Forms.DataGridView)">
+</member><member name="F:frm_DrawExcavation.ExEvent">
+	<summary>用来触发外部事件（通过其Raise方法） </summary>
+	<remarks>ExEvent属性是必须有的，它用来执行Raise方法以触发事件。</remarks>
+</member><member name="F:frm_DrawExcavation.RequestId">
+	<summary> Execute方法所要执行的需求 </summary>
+	<remarks>在Form中要执行某一个操作时，先将对应的操作需求信息赋值为一个RequestId枚举值，然后再执行ExternalEvent.Raise()方法。
+ 然后Revit会在会在下个闲置时间（idling time cycle）到来时调用IExternalEventHandler.Excute方法，在这个Execute方法中，
+ 再通过RequestId来提取对应的操作需求，</remarks>
+</member><member name="F:frm_DrawExcavation.Depth">
+	<summary> 要绘制的模型的深度，单位为m </summary>
+</member><member name="F:frm_DrawExcavation.CompletedDate">
+	<summary> 开挖土体开挖完成的日期 </summary>
+</member><member name="F:frm_DrawExcavation.StartedDate">
+	<summary> 开挖土体开始开挖的日期 </summary>
+</member><member name="M:frm_DrawExcavation.Execute(Autodesk.Revit.UI.UIApplication)">
 	<summary>
- 将元素的数据写入表格
+ 在执行ExternalEvent.Raise()方法之前，请先将操作需求信息赋值给其RequestHandler对象的RequestId属性。
+ 当ExternalEvent.Raise后，Revit会在下个闲置时间（idling time cycle）到来时调用IExternalEventHandler.Execute方法的实现。
  </summary>
-	<param name="ele"></param>
-	<param name="Table"></param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:OldW.DataManager.ElementDataManager.DrawData(OldW.Instrumentation.MonitorData_Point)">
-	<summary>
- 绘制图表
- </summary>
-	<param name="Data"></param>
-</member><member name="T:OldW.DataManager.ElementDataManager">
-	<summary>
- 模型中的测点的监测数据的添加，删除，导入导出等
- </summary>
-	<remarks></remarks>
+	<param name="app">此属性由Revit自动提供，其值不是Nothing，而是一个真实的UIApplication对象</param>
+	<remarks>由于在通过外部程序所引发的操作中，如果出现异常，Revit并不会给出任何提示或者报错，
+ 而是直接退出函数。所以要将整个操作放在一个Try代码块中，以处理可能出现的任何报错。</remarks>
+</member><member name="M:frm_DrawExcavation.DozeOff">
+	<summary> 在Revit执行相关操作时，禁用窗口中的控件 </summary>
+</member><member name="M:frm_DrawExcavation.WarmUp">
+	<summary> 在外部事件RequestHandler中的Execute方法执行完成后，用来激活窗口中的控件 </summary>
 </member><member name="P:OldW.Instrumentation.Instrumentation.Monitor">
 	<summary>
  监测仪器，对于点测点，其包括地表沉降、立柱隆起、支撑轴力等；
@@ -99,54 +84,6 @@ Projects_vb
 </member><member name="T:OldW.Instrumentation.Instrum_GroundSettlement">
 	<summary>
  测点_地表垂直位移
- </summary>
-	<remarks></remarks>
-</member><member name="P:OldW.Soil.Soil_Model.Group">
-	<summary>
- 此模型土体所位于的组。
- 注意：所有的土体开挖模型都会位于此组中，如果将开挖土体从此组中移除，则有会被识别为开挖土体。
- </summary>
-	<value></value>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:OldW.Soil.Soil_Model.#ctor(Autodesk.Revit.DB.FamilyInstance)">
-	<summary>
- 构造函数：不要直接通过New Soil_Model来创建此对象，而应该用 OldWDocument.GetSoilModel，或者是Create静态方法来从模型中返回。
- </summary>
-	<param name="ModelSoil">模型中的开挖土体单元</param>
-	<remarks></remarks>
-</member><member name="M:OldW.Soil.Soil_Model.IsSoildModel(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId,System.String@)">
-	<summary>
- 对于一个单元进行全面的检测，以判断其是否为一个模型土体单元。
- </summary>
-	<param name="doc">进行土体单元搜索的文档</param>
-	<param name="SoilElementId">可能的土体单元的ElementId值</param>
-	<param name="FailureMessage">如果不是，则返回不能转换的原因。</param>
-	<returns>如果检查通过，则可以直接通过Create静态方法来创建对应的模型土体</returns>
-	<remarks></remarks>
-</member><member name="M:OldW.Soil.Soil_Model.Create(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.FamilyInstance)">
-	<summary>
- 创建模型土体。除非是在API中创建出来，否则。在创建之前，请先通过静态方法IsSoildModel来判断此族实例是否可以转换为Soil_Model对象。否则，在程序运行过程中可能会出现各种报错。
- </summary>
-	<param name="doc"></param>
-	<param name="SoilElement"></param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:OldW.Soil.Soil_Model.RemoveSoil(OldW.Soil.Soil_Excav)">
-	<summary>
- 从当前的开挖状态中，移除指定的一块土，用来模拟土体的开挖
- </summary>
-	<param name="SoilToRemove"></param>
-	<remarks></remarks>
-</member><member name="M:OldW.Soil.Soil_Model.FillSoil(OldW.Soil.Soil_Excav)">
-	<summary>
- 从当前的开挖状态中，添加进指定的一块土，用来模拟土方的回填，或者反向回滚开挖状态
- </summary>
-	<param name="SoilToRemove"></param>
-	<remarks></remarks>
-</member><member name="T:OldW.Soil.Soil_Model">
-	<summary>
- 基坑中的开挖土体，整个模型中，只有一个土体元素
  </summary>
 	<remarks></remarks>
 </member><member name="F:OldWDocument.Doc">
@@ -221,6 +158,7 @@ Projects_vb
  此OldWDocument对象的标志性特征在于：此Document对象所对应的项目，在其“管理-项目信息”中，有一个参数：OldW_Project。
  在此OldWDocument中，可以在Revit的Document中进行与基坑相关的操作，比如搜索基坑开挖土体，记录测点信息等。
  此对象可以通过静态函数 Create进行构造。
+ 此类中没有具体的操作方法，要进行具体的操作，请创建对应的的派生类，比如ExcavationDoc用来进行与基坑开挖相关的模拟。
  </summary>
 </member><member name="P:OldW.Instrumentation.Instrum_Line.MonitorData">
 	<summary>
@@ -239,6 +177,47 @@ Projects_vb
 </member><member name="T:OldW.Instrumentation.Instrum_Line">
 	<summary>
  所有类型的线监测，包括测斜管
+ </summary>
+	<remarks></remarks>
+</member><member name="P:OldW.Soil.Soil_Model.Group">
+	<summary>
+ 此模型土体所位于的组。
+ 注意：所有的土体开挖模型都会位于此组中，如果将开挖土体从此组中移除，则有会被识别为开挖土体。
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:OldW.Soil.Soil_Model.#ctor(ExcavationDoc,Autodesk.Revit.DB.FamilyInstance)">
+	<summary>
+ 构造函数：不要直接通过New Soil_Model来创建此对象，而应该用 OldWDocument.GetSoilModel，或者是Create静态方法来从模型中返回。
+ </summary>
+	<param name="ExcavDoc">模型土体单元所位于的文档</param>
+	<param name="ModelSoil">模型中的开挖土体单元</param>
+	<remarks></remarks>
+</member><member name="M:OldW.Soil.Soil_Model.IsSoildModel(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId,System.String@)">
+	<summary>
+ 对于一个单元进行全面的检测，以判断其是否为一个模型土体单元。
+ </summary>
+	<param name="doc">进行土体单元搜索的文档</param>
+	<param name="SoilElementId">可能的土体单元的ElementId值</param>
+	<param name="FailureMessage">如果不是，则返回不能转换的原因。</param>
+	<returns>如果检查通过，则可以直接通过Create静态方法来创建对应的模型土体</returns>
+	<remarks></remarks>
+</member><member name="M:OldW.Soil.Soil_Model.RemoveSoil(OldW.Soil.Soil_Excav)">
+	<summary>
+ 从当前的开挖状态中，移除指定的一块土，用来模拟土体的开挖
+ </summary>
+	<param name="SoilToRemove"></param>
+	<remarks></remarks>
+</member><member name="M:OldW.Soil.Soil_Model.FillSoil(OldW.Soil.Soil_Excav)">
+	<summary>
+ 从当前的开挖状态中，添加进指定的一块土，用来模拟土方的回填，或者反向回滚开挖状态
+ </summary>
+	<param name="SoilToRemove"></param>
+	<remarks></remarks>
+</member><member name="T:OldW.Soil.Soil_Model">
+	<summary>
+ 基坑中的开挖土体，整个模型中，只有一个土体元素
  </summary>
 	<remarks></remarks>
 </member><member name="F:OldWApplication.F_Application">
@@ -317,6 +296,86 @@ Projects_vb
  一个OldWDocument的模型中，与基坑相关的一些信息，这些信息是被序列化到模型的项目信息中的参数“OldW_Project”中的。
  </summary>
 	<remarks></remarks>
+</member><member name="P:frm_ExcavationInfo.RequestParameter.sender">
+	<summary> 引发Form事件控件对象 </summary>
+</member><member name="P:frm_ExcavationInfo.RequestParameter.e">
+	<summary> Form中的事件所对应的事件参数 </summary>
+</member><member name="P:frm_ExcavationInfo.RequestParameter.Id">
+	<summary> 具体的需求 </summary>
+</member><member name="M:frm_ExcavationInfo.RequestParameter.#ctor(frm_ExcavationInfo.Request,System.EventArgs,System.Object)">
+	<summary>
+ 定义事件需求与窗口中引发此事件的控件对象及对应的事件参数
+ </summary>
+	<param name="RequestId">具体的需求</param>
+	<param name="e">Form中的事件所对应的事件参数</param>
+	<param name="sender">引发Form事件控件对象</param>
+	<remarks></remarks>
+</member><member name="T:frm_ExcavationInfo.RequestParameter">
+	<summary>
+ 每一个外部事件调用时所提出的需求
+ </summary>
+</member><member name="F:frm_ExcavationInfo.Request.GetExcavationInfo">
+	<summary>
+ 从模型中提取开挖土体的信息，并显示在列表中
+ </summary>
+	<remarks></remarks>
+</member><member name="F:frm_ExcavationInfo.Request.SynToElement">
+	<summary> 将列表中的某一个开挖土体的信息同步到Revit文档中的对应元素中去。 </summary>
+</member><member name="F:frm_ExcavationInfo.Request.SynToMultipleElements">
+	<summary> 将列表中选中的多个开挖土体的信息同步到Revit文档中的对应元素中去。 </summary>
+</member><member name="F:frm_ExcavationInfo.Request.SetVisibility">
+	<summary> 设置选定图元在当前视图中的可见性 </summary>
+</member><member name="T:frm_ExcavationInfo.Request">
+	<summary>
+ ModelessForm的操作需求，用来从窗口向IExternalEventHandler对象传递需求。
+ </summary>
+	<remarks></remarks>
+</member><member name="P:frm_ExcavationInfo.ExcavSoilInfo.Soil">
+	<summary> 开挖土体对象 </summary>
+</member><member name="P:frm_ExcavationInfo.ExcavSoilInfo.Id">
+	<summary> 土体单元的Id值 </summary>
+</member><member name="P:frm_ExcavationInfo.ExcavSoilInfo.StartedDate">
+	<summary> 开挖土体开挖完成的日期 </summary>
+</member><member name="P:frm_ExcavationInfo.ExcavSoilInfo.CompletedDate">
+	<summary> 开挖土体开挖完成的日期 </summary>
+</member><member name="P:frm_ExcavationInfo.ExcavSoilInfo.Visible">
+	<summary> 开挖土体在当前视图中是否可见 </summary>
+</member><member name="T:frm_ExcavationInfo.ExcavSoilInfo">
+	<summary>
+ 列表中的每一行数据所对应的类
+ </summary>
+	<remarks></remarks>
+</member><member name="F:frm_ExcavationInfo.ExEvent">
+	<summary>用来触发外部事件（通过其Raise方法） </summary>
+	<remarks>ExEvent属性是必须有的，它用来执行Raise方法以触发事件。</remarks>
+</member><member name="F:frm_ExcavationInfo.RequestPara">
+	<summary> Execute方法所要执行的需求 </summary>
+	<remarks>在Form中要执行某一个操作时，先将对应的操作需求信息赋值为一个RequestId枚举值，然后再执行ExternalEvent.Raise()方法。
+ 然后Revit会在会在下个闲置时间（idling time cycle）到来时调用IExternalEventHandler.Excute方法，在这个Execute方法中，
+ 再通过RequestId来提取对应的操作需求，</remarks>
+</member><member name="F:frm_ExcavationInfo.ExcavSoilInfos">
+	<summary> 用来与列表框进行交互的开挖土体信息集合 </summary>
+	<remarks></remarks>
+</member><member name="M:frm_ExcavationInfo.SetupGrid">
+	<summary> 将列表框进行初始化 </summary>
+</member><member name="M:frm_ExcavationInfo.DozeOff">
+	<summary> 在Revit执行相关操作时，禁用窗口中的控件 </summary>
+</member><member name="M:frm_ExcavationInfo.WarmUp">
+	<summary> 在外部事件RequestHandler中的Execute方法执行完成后，用来激活窗口中的控件 </summary>
+</member><member name="M:frm_ExcavationInfo.Execute(Autodesk.Revit.UI.UIApplication)">
+	<summary>
+ 在执行ExternalEvent.Raise()方法之前，请先将操作需求信息赋值给其RequestHandler对象的RequestId属性。
+ 当ExternalEvent.Raise后，Revit会在下个闲置时间（idling time cycle）到来时调用IExternalEventHandler.Execute方法的实现。
+ </summary>
+	<param name="app">此属性由Revit自动提供，其值不是Nothing，而是一个真实的UIApplication对象</param>
+	<remarks>由于在通过外部程序所引发的操作中，如果出现异常，Revit并不会给出任何提示或者报错，
+ 而是直接退出函数。所以要将整个操作放在一个Try代码块中，以处理可能出现的任何报错。</remarks>
+</member><member name="M:frm_ExcavationInfo.GetExcavSoilInfo">
+	<summary> 将模型中的开挖土体信息同步到列表中 </summary>
+</member><member name="T:OldW.Commands.cmd_ExcavationInfo">
+	<summary> 提取模型中的开挖土体信息 </summary>
+</member><member name="T:OldW.Commands.cmd_ViewStage">
+	<summary> 查看指定日期的开挖工况 </summary>
 </member><member name="P:Soil_Element.Soil">
 	<summary> 土体单元所对应的族实例对象 </summary>
 </member><member name="M:Soil_Element.IsSoildElement(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId,System.String@)">
@@ -365,64 +424,21 @@ Projects_vb
  所有类型的监测点，包括地表沉降、立柱隆起、支撑轴力等，但不包括测斜管
  </summary>
 	<remarks></remarks>
-</member><member name="P:OldW.Soil.Soil_Excav.ExcavatedDate">
+</member><member name="F:ExcavationDoc.Type.GenericForm">
+	<summary> 公制常规模型 </summary>
+</member><member name="F:ExcavationDoc.Type.AutoAdapt">
+	<summary> 自适应常规模型 </summary>
+</member><member name="T:ExcavationDoc.Type">
+	<summary> 用来创建此开挖土体族样板的类型 </summary>
+</member><member name="P:ExcavationDoc.ModelSoil">
 	<summary>
- 每一个开挖土体都有一个开挖完成的时间。由于记录的不完整，这个时间可能暂时不知道，但是后期要可以指定。
+ 文档中已经检索出来的模型土体，这个对象可能为空，也可能是一个无效的对象。
  </summary>
-</member><member name="M:OldW.Soil.Soil_Excav.#ctor(Autodesk.Revit.DB.FamilyInstance,System.DateTime)">
-	<summary>
- 构造函数：用来模拟分块开挖的土体元素。
- </summary>
-	<param name="SoilRemove">用来模拟土体开挖的土体Element</param>
-	<param name="ExcavatedDate">每一个开挖土体都有一个开挖完成的时间。
- 由于记录的不完整，这个时间可能暂时不知道，但是后期要可以指定。</param>
-	<remarks></remarks>
-</member><member name="M:OldW.Soil.Soil_Excav.IsExcavationModel(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId,System.String@)">
-	<summary>
- 对于一个单元进行全面的检测，以判断其是否为一个开挖土体单元。
- </summary>
-	<param name="doc">进行土体单元搜索的文档</param>
-	<param name="SoilElementId">可能的开挖土体单元的ElementId值</param>
-	<param name="FailureMessage">如果不是，则返回不能转换的原因。</param>
-	<returns>如果检查通过，则可以直接通过Create静态方法来创建对应的模型土体</returns>
-	<remarks></remarks>
-</member><member name="M:OldW.Soil.Soil_Excav.Create(Autodesk.Revit.DB.FamilyInstance,System.DateTime)">
-	<summary>
- 创建开挖土体。除非是在API中创建出来，否则。在创建之前，请先通过静态方法IsExcavationModel来判断此族实例是否可以转换为Soil_Model对象。否则，在程序运行过程中可能会出现各种报错。
- </summary>
-	<param name="SoilElement"></param>
-	<param name="ExcavatedDate">每一个开挖土体都有一个开挖完成的时间。
- 由于记录的不完整，这个时间可能暂时不知道，但是后期要可以指定。</param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:OldW.Soil.Soil_Excav.SetExcavatedDate(Autodesk.Revit.DB.Document,System.Collections.Generic.Dictionary{OldW.Soil.Soil_Excav,System.DateTime})">
-	<summary>
- 为多个开挖土体设置对应的开挖完成的时间
- </summary>
-	<param name="Soil_Date">一个字典集合，其中包括要进行日期设置的所有开挖土体。土体开挖完成的时间，可以精确到分钟</param>
-	<remarks></remarks>
-</member><member name="M:OldW.Soil.Soil_Excav.SetExcavatedDate(System.DateTime)">
-	<summary>
- 为开挖土体设置对应的开挖完成的时间
- </summary>
-	<param name="CompletedDate">土体开挖完成的时间，可以精确到分钟</param>
-	<remarks></remarks>
-</member><member name="T:OldW.Soil.Soil_Excav">
-	<summary> 用来模拟分块开挖的土体元素。 </summary>
-	<remarks></remarks>
 </member><member name="M:ExcavationDoc.CreateModelSoil(System.Double,System.Boolean)">
 	<summary>
  创建模型土体，此土体单元在模型中应该只有一个。
  </summary>
 	<param name="CreateMultipli">是否要在一个族中创建多个实体</param>
-	<param name="Depth">模型土体的深度，单位为m，数值为正表示向下的深度，反之表示向上的高度。</param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:ExcavationDoc.CreateExcavationSoil(System.Double,System.Boolean,System.DateTime)">
-	<summary>
- 创建开挖土体，此土体单元在模型中可以有很多个。
- </summary>
-	<param name="CreateMultipli">在一个实体中是否可以有多个分隔的轮廓面</param>
 	<param name="Depth">模型土体的深度，单位为m，数值为正表示向下的深度，反之表示向上的高度。</param>
 	<returns></returns>
 	<remarks></remarks>
@@ -454,7 +470,7 @@ Projects_vb
 	<param name="CurveAA">用来绘制实体的闭合轮廓</param>
 	<param name="Depth">模型土体的深度，单位为m，数值为正表示向下的深度，反之表示向上的高度。</param>
 	<remarks></remarks>
-</member><member name="M:ExcavationDoc.GetValidExcavationSoilName(Autodesk.Revit.DB.Document,System.DateTime)">
+</member><member name="M:ExcavationDoc.GetValidExcavationSoilNameFromDate(Autodesk.Revit.DB.Document,System.DateTime)">
 	<summary>
  在当前模型文档中，构造出一个有效的名称，来供开挖土体族使用。
  </summary>
@@ -462,20 +478,39 @@ Projects_vb
 	<param name="ExcavationCompleteDate">日期的数据中请保证不包含小时或者更小的值，即请用“Date对象.Date”来进行赋值。</param>
 	<returns></returns>
 	<remarks>其基本格式为：开挖土体-2016/04/03-02</remarks>
-</member><member name="M:ExcavationDoc.GetSoilModel(System.Int32)">
+</member><member name="M:ExcavationDoc.GetValidExcavationSoilName(Autodesk.Revit.DB.Document,System.String)">
 	<summary>
- 模型中的土体单元，此单元与土体
+ 在当前模型文档中，构造出一个有效的名称，来供开挖土体族使用。
+ </summary>
+	<param name="doc"></param>
+	<param name="DesiredName">此开挖土体实例的名称（推荐以开挖完成的日期）。如果此名称已经被使用，则以默认的名称来命名。</param>
+	<returns></returns>
+	<remarks>其基本格式为：“开挖-01”或者“开挖-命名-01”</remarks>
+</member><member name="M:ExcavationDoc.HasSuffixNum(System.String,System.Int32@,System.String@)">
+	<summary>
+ 检查一个字符串是否符合“字符-123456”的格式，如果符合，则将其分割为前缀Prefix与后面的数字两部分
+ </summary>
+</member><member name="M:ExcavationDoc.FindSoilModel(System.Int32)">
+	<summary>
+ 模型中的土体单元
  </summary>
 	<param name="SoilElementId">可能的土体单元的ElementId值，如果没有待选的，可以不指定，此时程序会在整个Document中进行搜索。</param>
 	<returns>如果成功搜索到，则返回对应的土体单元，如果没有找到，则返回Nothing</returns>
 	<remarks></remarks>
-</member><member name="M:ExcavationDoc.FindSoilElement(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId,System.String@)">
+</member><member name="M:ExcavationDoc.GetModelSoil(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId,System.String@)">
 	<summary>
  找到模型中的开挖土体单元
  </summary>
 	<param name="doc">进行土体单元搜索的文档</param>
 	<param name="SoilElementId">可能的土体单元的ElementId值</param>
 	<returns>如果找到有效的土体单元，则返回对应的Soil_Model，否则返回Nothing</returns>
+	<remarks></remarks>
+</member><member name="M:ExcavationDoc.FindExcavSoils(OldW.Soil.Soil_Model)">
+	<summary>
+ 搜索文档中与模型土体位于同一个Group中的所有的开挖土体。
+ </summary>
+	<param name="SoilM">文档中的模型土体单元，可以通过 ExcavationDoc.GetSoilModel 函数获得</param>
+	<returns></returns>
 	<remarks></remarks>
 </member><member name="M:ExcavationDoc.DeleteEmptySoilFamily">
 	<summary>
@@ -490,12 +525,113 @@ Projects_vb
  用来执行基坑开挖模拟中的数据存储与绘制操作
  </summary>
 	<remarks></remarks>
+</member><member name="F:OldW.Soil.Soil_Excav.F_ModelSoil">
+	<summary> 开挖土体单元所附着的模型土体 </summary>
+</member><member name="P:OldW.Soil.Soil_Excav.ModelSoil">
+	<summary> 开挖土体单元所附着的模型土体 </summary>
+</member><member name="P:OldW.Soil.Soil_Excav.CompletedDate">
+	<summary>
+ 每一个开挖土体都有一个开挖完成的时间。由于记录的不完整，这个时间可能暂时不知道，但是后期要可以指定。
+ </summary>
+</member><member name="P:OldW.Soil.Soil_Excav.StartedDate">
+	<summary>
+ 每一个开挖土体都有一个开始开挖的时间。由于记录的不完整，这个时间可能暂时不知道，但是后期要可以指定。
+ </summary>
+</member><member name="M:OldW.Soil.Soil_Excav.#ctor(Autodesk.Revit.DB.FamilyInstance,OldW.Soil.Soil_Model)">
+	<summary>
+ 构造函数：用来模拟分块开挖的土体元素。
+ </summary>
+	<param name="SoilRemove">用来模拟土体开挖的土体Element</param>
+	<param name="BindedModelSoil">开挖土体单元所附着的模型土体。</param>
+	<remarks></remarks>
+</member><member name="M:OldW.Soil.Soil_Excav.IsExcavationModel(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId,System.String@)">
+	<summary>
+ 对于一个单元进行全面的检测，以判断其是否为一个开挖土体单元。
+ </summary>
+	<param name="doc">进行土体单元搜索的文档</param>
+	<param name="SoilElementId">可能的开挖土体单元的ElementId值</param>
+	<param name="FailureMessage">如果不是，则返回不能转换的原因。</param>
+	<returns>如果检查通过，则可以直接通过Create静态方法来创建对应的模型土体</returns>
+	<remarks></remarks>
+</member><member name="M:OldW.Soil.Soil_Excav.Create(Autodesk.Revit.DB.FamilyInstance,OldW.Soil.Soil_Model)">
+	<summary>
+ 创建开挖土体。除非是在API中创建出来，否则。在创建之前，请先通过静态方法IsExcavationModel来判断此族实例是否可以转换为Soil_Model对象。
+ 否则，在程序运行过程中可能会出现各种报错。
+ </summary>
+	<param name="SoilElement">开挖土体单元</param>
+	<param name="BindedModelSoil">开挖土体单元所附着的模型土体。</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:OldW.Soil.Soil_Excav.SetExcavatedDate(Autodesk.Revit.DB.Document,System.Boolean,System.Collections.Generic.Dictionary{OldW.Soil.Soil_Excav,System.DateTime})">
+	<summary>
+ 为多个开挖土体设置对应的开挖完成的时间
+ </summary>
+	<param name="Started">如果要设置土体开始开挖的时间，则设置为True，反之则是设置土体开挖完成的时间</param>
+	<param name="Soil_Date">一个字典集合，其中包括要进行日期设置的所有开挖土体。土体开挖完成的时间，可以精确到分钟</param>
+	<remarks></remarks>
+</member><member name="M:OldW.Soil.Soil_Excav.SetExcavatedDate(Autodesk.Revit.DB.Transaction,System.Boolean,System.Nullable{System.DateTime})">
+	<summary>
+ 为开挖土体设置对应的开挖完成的时间
+ </summary>
+	<param name="Tran">Revit事务对象，在此函数中此事务并不会Start或者Commit，所以在调用此函数时，请确保此事务对象已经Started了。</param>
+	<param name="Started">如果要设置土体开始开挖的时间，则设置为True，反之则是设置土体开挖完成的时间</param>
+	<param name="ResDate">土体开挖开始或者完成的时间，可以精确到分钟。如果要清空日期字符，则设置其为Nothing。</param>
+	<remarks></remarks>
+</member><member name="M:OldW.Soil.Soil_Excav.GetExcavatedDate(System.Boolean)">
+	<summary>
+ 从开挖土体的单元中读取开挖完成的日期
+ </summary>
+	<param name="Started">如果要提取土体开始开挖的时间，则设置为True，反之则是提取土体开挖完成的时间</param>
+</member><member name="M:OldW.Soil.Soil_Excav.GetElevation(System.Boolean)">
+	<summary>
+ 得到开挖土体的顶面或者底面的在模型中的标高
+ </summary>
+	<param name="Top">If true, obtain the elevation of the top surface. If false, obtain the elevation of the bottom surface.  </param>
+	<returns>指定表面的标高值（单位为m）。the elevation of the specified surface, in the unit of meter.</returns>
+	<remarks>不用Element.Geometry（）方法，因为此方法包含大量的数据结构转换，太消耗CPU。而应使用GetBoundingBox与GetTransform等方法。</remarks>
+</member><member name="T:OldW.Soil.Soil_Excav">
+	<summary> 用来模拟分块开挖的土体元素。 </summary>
+	<remarks></remarks>
 </member><member name="M:OldW.Instrumentation.Instrum_ColumnHeave.#ctor(Autodesk.Revit.DB.FamilyInstance)">
 	<summary> 构造函数 </summary>
 	<param name="ColumnHeaveElement">立柱垂直位移测点所对应的图元</param>
 </member><member name="T:OldW.Instrumentation.Instrum_ColumnHeave">
 	<summary>
  测点_立柱垂直位移
+ </summary>
+	<remarks></remarks>
+</member><member name="F:OldW.DataManager.ElementDataManager.ActiveElement">
+	<summary> 当前活动的图元 </summary>
+</member><member name="F:OldW.DataManager.ElementDataManager.ActiveMonitorData">
+	<summary> 当前活动的图元中所保存的监测数据 </summary>
+</member><member name="M:OldW.DataManager.ElementDataManager.#ctor(System.Collections.Generic.ICollection{Autodesk.Revit.DB.ElementId},Autodesk.Revit.DB.Document)">
+	<summary>
+ 构造函数
+ </summary>
+	<param name="eleidCollection">所有要进行处理的测点元素的Id集合</param>
+	<param name="document"></param>
+	<remarks></remarks>
+</member><member name="M:OldW.DataManager.ElementDataManager.SaveTableToElement(System.Object,System.EventArgs)">
+	<summary>
+ 将表格中的数据保存到Element的对应参数中。
+ </summary>
+	<remarks></remarks>
+</member><member name="M:OldW.DataManager.ElementDataManager.FillTableWithElementData(Autodesk.Revit.DB.Element,System.Windows.Forms.DataGridView)">
+	<summary>
+ 将元素的数据写入表格
+ </summary>
+	<param name="ele"></param>
+	<param name="Table"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:OldW.DataManager.ElementDataManager.DrawData(OldW.Instrumentation.MonitorData_Point)">
+	<summary>
+ 绘制图表
+ </summary>
+	<param name="Data"></param>
+</member><member name="T:OldW.DataManager.ElementDataManager">
+	<summary>
+ 模型中的测点的监测数据的添加，删除，导入导出等
  </summary>
 	<remarks></remarks>
 </member><member name="F:OldW.Instrumentation.Instrum_Incline.IsInsideEarth">
@@ -555,6 +691,18 @@ Projects_vb
 	<summary>
 	</summary>
 	<remarks></remarks>
+</member><member name="F:OldW.DataManager.Chart_MonitorData.Chart">
+	<summary> 数据图表 </summary>
+</member><member name="M:OldW.DataManager.Chart_MonitorData.#ctor(OldW.GlobalSettings.InstrumentationType)">
+	<summary>
+ 构造函数
+ </summary>
+	<param name="Type">窗口的标题：监测类型</param>
+	<remarks></remarks>
+</member><member name="M:OldW.DataManager.Chart_MonitorData.SetupChart">
+	<summary>
+ 图表的初始化
+ </summary>
 </member>
 </members>
 </doc>

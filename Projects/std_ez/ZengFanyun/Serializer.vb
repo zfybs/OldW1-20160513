@@ -78,7 +78,7 @@ Namespace std_ez
         ''' 将任意一个声明为Serializable的类或者其List等集合中的数据，以二进制的格式保存到对应的流文件中。
         ''' </summary>
         ''' <param name="fs">推荐使用FileStream对象。此方法中不会对Stream对象进行Close。</param>
-        ''' <param name="Data"></param>
+        ''' <param name="Data">要进行保存的可序列化对象</param>
         ''' <remarks></remarks>
         Public Shared Sub EnCode(ByVal fs As Stream, ByVal Data As Object)
             Dim bf As New System.Runtime.Serialization.Formatters.Binary.BinaryFormatter ' 最关键的对象，用来进行类到二进制的序列化与反序列化操作
@@ -89,7 +89,7 @@ Namespace std_ez
         ''' 从二进制流文件中，将其中的二进制数据反序列化为对应的类或集合对象。
         ''' </summary>
         ''' <param name="fs">推荐使用FileStream对象。此方法中不会对Stream对象进行Close。</param>
-        ''' <returns></returns>
+        ''' <returns>此二进制流文件所对应的可序列化对象</returns>
         ''' <remarks></remarks>
         Public Shared Function DeCode(ByVal fs As Stream) As Object
             Dim bf As New System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
