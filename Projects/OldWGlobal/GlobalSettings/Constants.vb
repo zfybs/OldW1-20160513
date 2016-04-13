@@ -92,22 +92,26 @@ Namespace OldW.GlobalSettings
         ''' <remarks></remarks>
         Public Const SP_OldWProjectInfo As String = "OldW_Project"
 
-
-        ''' <summary>
-        ''' 每一个开挖土体单元，都有一个对应的开挖完成的日期数据。
-        ''' </summary>
-        ''' <returns></returns>
+        ''' <summary> 每一个开挖土体单元，都有一个对应的开挖完成的日期数据。 </summary>
         Public Shared ReadOnly Property SP_ExcavationCompleted_Guid As Guid
             Get
                 Return New Guid("0948fd00-11d6-4ee1-beb7-66ee43fecf75")
             End Get
         End Property
 
-        ''' <summary>
-        ''' 每一个开挖土体单元，都有一个对应的开挖完成的日期数据。
-        ''' </summary>
-        ''' <remarks></remarks>
+        ''' <summary> 每一个开挖土体单元，都有一个对应的开挖完成的日期数据。 </summary>
         Public Const SP_ExcavationCompleted As String = "开挖完成"
+
+        ''' <summary> 每一个开挖土体单元，都有一个对应的开始开挖的日期数据。 </summary>
+        Public Shared ReadOnly Property SP_ExcavationStarted_Guid As Guid
+            Get
+                Return New Guid("ee7193d1-e388-4053-bd6b-d903fad4ad8e")
+            End Get
+        End Property
+
+        ''' <summary> 每一个开挖土体单元，都有一个对应的开始开挖的日期数据。 </summary>
+        Public Const SP_ExcavationStarted As String = "开挖开始"
+
 
 #End Region
 

@@ -4,6 +4,11 @@
         <name>std_cs</name>
     </assembly>
     <members>
+        <member name="M:OldW.DllActivator.DllActivator_std_cs.OldW#DllActivator#IDllActivator#ActivateReferences">
+            <summary>
+            激活本DLL所引用的那些DLLs
+            </summary>
+        </member>
         <member name="M:std_zw.ExtensionMethods.AddRange``1(System.Collections.Generic.ICollection{``0},System.Collections.Generic.IEnumerable{``0})">
             <summary>
             Adds range of items into collection.

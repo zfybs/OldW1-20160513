@@ -1,0 +1,7 @@
+F:\Software\Revit\RevitDevelop\OldW\bin\Projects_cs.dll
+F:\Software\Revit\RevitDevelop\OldW\bin\Projects_cs.pdb
+F:\Software\Revit\RevitDevelop\OldW\Projects\Projects_cs\obj\x64\Debug\Projects_cs.csprojResolveAssemblyReference.cache
+F:\Software\Revit\RevitDevelop\OldW\Projects\Projects_cs\obj\x64\Debug\OldW.Modeling.FormSetWarning.resources
+F:\Software\Revit\RevitDevelop\OldW\Projects\Projects_cs\obj\x64\Debug\Projects_cs.csproj.GenerateResource.Cache
+F:\Software\Revit\RevitDevelop\OldW\Projects\Projects_cs\obj\x64\Debug\Projects_cs.dll
+F:\Software\Revit\RevitDevelop\OldW\Projects\Projects_cs\obj\x64\Debug\Projects_cs.pdb

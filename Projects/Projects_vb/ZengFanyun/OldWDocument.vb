@@ -13,6 +13,7 @@ Imports System.Linq
 ''' 此OldWDocument对象的标志性特征在于：此Document对象所对应的项目，在其“管理-项目信息”中，有一个参数：OldW_Project。
 ''' 在此OldWDocument中，可以在Revit的Document中进行与基坑相关的操作，比如搜索基坑开挖土体，记录测点信息等。
 ''' 此对象可以通过静态函数 Create进行构造。
+''' 此类中没有具体的操作方法，要进行具体的操作，请创建对应的的派生类，比如ExcavationDoc用来进行与基坑开挖相关的模拟。
 ''' </summary>
 Public Class OldWDocument
 

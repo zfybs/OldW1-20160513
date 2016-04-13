@@ -33,6 +33,12 @@ OldWRibbonTab
 	<summary> 添加“分析”的下拉记忆按钮 </summary>
 </member><member name="M:OldW.AppAddRibbonTab.AddPushButtonExcavation(Autodesk.Revit.UI.RibbonPanel)">
 	<summary> 添加“开挖”的下拉记忆按钮 </summary>
+</member><member name="M:OldW.AppAddRibbonTab.AddPushButtonExcavationInfo(Autodesk.Revit.UI.RibbonPanel)">
+	<summary> 添加“开挖信息”的下拉记忆按钮 </summary>
+</member><member name="M:OldW.AppAddRibbonTab.AddTextBoxCurrentDate(Autodesk.Revit.UI.RibbonPanel)">
+	<summary> 添加“当前时间”的文本框 </summary>
+</member><member name="M:OldW.AppAddRibbonTab.AddPushButtViewStage(Autodesk.Revit.UI.RibbonPanel)">
+	<summary> 添加“查看开挖工况”的下拉记忆按钮 </summary>
 </member>
 </members>
 </doc>

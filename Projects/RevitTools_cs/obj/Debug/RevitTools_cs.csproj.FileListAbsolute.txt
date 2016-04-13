@@ -1,9 +1,6 @@
 F:\Software\Revit\RevitDevelop\OldW\bin\RevitTools_cs.xml
 F:\Software\Revit\RevitDevelop\OldW\bin\RevitTools_cs.dll
 F:\Software\Revit\RevitDevelop\OldW\bin\RevitTools_cs.pdb
-F:\Software\Revit\RevitDevelop\OldW\Projects\zwRevtiTools\obj\Debug\RevitTools_cs.csprojResolveAssemblyReference.cache
-F:\Software\Revit\RevitDevelop\OldW\Projects\zwRevtiTools\obj\Debug\RevitTools_cs.dll
-F:\Software\Revit\RevitDevelop\OldW\Projects\zwRevtiTools\obj\Debug\RevitTools_cs.pdb
 F:\Software\Revit\RevitDevelop\OldW\Projects\RevitTools_cs\obj\Debug\RevitTools_cs.csprojResolveAssemblyReference.cache
 F:\Software\Revit\RevitDevelop\OldW\Projects\RevitTools_cs\obj\Debug\RevitTools_cs.dll
 F:\Software\Revit\RevitDevelop\OldW\Projects\RevitTools_cs\obj\Debug\RevitTools_cs.pdb

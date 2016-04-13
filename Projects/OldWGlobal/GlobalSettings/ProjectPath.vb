@@ -22,7 +22,7 @@ Namespace OldW.GlobalSettings
                 If Directory.Exists("F:\Software\Revit\RevitDevelop\OldW\bin") Then
                     Return "F:\Software\Revit\RevitDevelop\OldW\bin"
                 Else
-                    Return My.Application.Info.DirectoryPath
+                    Return My.Application.Info.DirectoryPath   ' 等效于：Dim thisAssemblyPath As String = System.Reflection.Assembly.GetExecutingAssembly().Location
                 End If
             End Get
         End Property

@@ -2,14 +2,19 @@
 Imports System.Collections.Generic
 Imports Autodesk.Revit
 Imports Autodesk.Revit.DB
+Imports System.Math
 
 Namespace rvtTools_ez
     ''' <summary>
     ''' A object to help locating with geometry data.
     ''' </summary>
     Public Class GeoHelper
-        'Defined the precision.
-        Private Const Precision As Double = 0.0001
+
+        ''' <summary>
+        ''' 进行点的距离比较时的容差
+        ''' </summary>
+        ''' <remarks>Revit中，Application.VertexTolerance属性值返回的值为：0.0005233832795</remarks>
+        Private Const VertexTolerance As Double = 0.0005
 
         ''' <summary>
         ''' Find the bottom face of a face array.
@@ -139,20 +144,19 @@ Namespace rvtTools_ez
         ''' <param name="vectorB">The vector B.</param>
         ''' <returns>Return true if two vector are equals, or else return false.</returns>
         Private Shared Function Equal(ByVal vectorA As Autodesk.Revit.DB.XYZ, ByVal vectorB As Autodesk.Revit.DB.XYZ) As Boolean
-            Dim isNotEqual As Boolean = (Precision < Math.Abs(vectorA.X - vectorB.X)) OrElse (Precision < Math.Abs(vectorA.Y - vectorB.Y))
-
+            Dim isNotEqual As Boolean = (VertexTolerance < Math.Abs(vectorA.X - vectorB.X)) OrElse (VertexTolerance < Math.Abs(vectorA.Y - vectorB.Y))
             Return If(isNotEqual, False, True)
         End Function
 
         ''' <summary>
-        ''' 从选择的Curve Elements中，获得连续多段曲线
+        ''' 从选择的Curve Elements中，获得连续多段曲线。此函数经测试，并不能将顺序的连续线转换为从头至尾的连续线。
         ''' Gets a list of curves which are ordered correctly and oriented correctly to form a closed loop.
         ''' </summary>
         ''' <param name="doc">The document.</param>
         ''' <param name="boundaries">The list of curve element references which are the boundaries.
         ''' 注意，boundaries中每一条曲线都必须是有界的（IsBound），否则，其GetEndPoint会报错。</param>
         ''' <returns>The list of curves.</returns>
-        Public Shared Function GetContiguousCurvesFromSelectedCurveElements(ByVal doc As Document, ByVal boundaries As IList(Of Reference)) As IList(Of Curve)
+        Public Shared Function GetContiguousCurvesFromSelectedCurveElementsWithGug(ByVal doc As Document, ByVal boundaries As IList(Of Reference)) As IList(Of Curve)
             Dim curves As New List(Of Curve)()
 
             ' Build a list of curves from the curve elements
@@ -184,6 +188,81 @@ Namespace rvtTools_ez
             Next i
 
             Return curves
+        End Function
+
+        ''' <summary>
+        ''' 从选择的Curve Elements中，获得连续排列的多段曲线（不一定要封闭）。
+        ''' </summary>
+        ''' <param name="doc">曲线所在文档</param>
+        ''' <param name="SelectedCurves">多条曲线元素所对应的Reference，可以通过Selection.PickObjects返回。
+        ''' 注意，SelectedCurves中每一条曲线都必须是有界的（IsBound），否则，其GetEndPoint会报错。</param>
+        ''' <returns>如果输入的曲线可以形成连续的多段线，则返回重新排序后的多段线集合；
+        ''' 如果输入的曲线不能形成连续的多段线，则返回Nothing！</returns>
+        Public Shared Function GetContiguousCurvesFromSelectedCurveElements(ByVal doc As Document, ByVal SelectedCurves As IList(Of Reference)) As IList(Of Curve)
+            Dim curves As New List(Of Curve)()
+
+            ' Build a list of curves from the curve elements
+            For Each reference As Reference In SelectedCurves
+                Dim curveElement As CurveElement = TryCast(doc.GetElement(reference), CurveElement)
+                curves.Add(curveElement.GeometryCurve.Clone())
+            Next reference
+
+            Dim endPoint As XYZ  ' 每一条线的终点，用来与剩下的线段的起点或者终点进行比较
+            Dim blnHasCont As Boolean  ' 此终点是否有对应的点与之对应，如果没有，则说明所有的线段中都不能形成连续的多段线
+
+            ' Walk through each curve (after the first) to match up the curves in order
+            For ThisCurveId As Integer = 0 To curves.Count - 2
+                Dim ThisCurve As Curve = curves(ThisCurveId)
+                blnHasCont = False
+                endPoint = ThisCurve.GetEndPoint(1) ' 第i条线的终点
+                Dim tmpCurve As Curve = curves(ThisCurveId + 1)  ' 当有其余的曲线放置在当ThisCurveId + 1位置时，要将当前状态下的ThisCurveId + 1位置的曲线与对应的曲线对调。
+
+                ' 从剩下的曲线中找出起点与上面的终点重合的曲线 。 find curve with start point = end point
+                For NextCurveId As Integer = ThisCurveId + 1 To curves.Count - 1
+
+                    ' Is there a match end->start, if so this is the next curve
+                    If IsAlmostEqualTo(curves(NextCurveId).GetEndPoint(0), endPoint, VertexTolerance) Then
+                        blnHasCont = True
+                        ' 向上对换
+                        curves(ThisCurveId + 1) = curves(NextCurveId)
+                        curves(NextCurveId) = tmpCurve
+                        Continue For
+
+                        ' Is there a match end->end, if so, reverse the next curve
+                    ElseIf IsAlmostEqualTo(curves(NextCurveId).GetEndPoint(1), endPoint, VertexTolerance) Then
+                        blnHasCont = True
+                        ' 向上对换
+                        curves(ThisCurveId + 1) = curves(NextCurveId).CreateReversed()
+                        If NextCurveId <> ThisCurveId + 1 Then
+                            ' 如果 NextCurveId = ThisCurveId + 1 ，说明 ThisCurveId + 1 就是接下来的那条线，只不过方向反了。
+                            ' 这样就不可以将原来的那条线放回去，而只需要执行上面的反转操作就可以了。
+                            curves(NextCurveId) = tmpCurve
+                        End If
+
+                        Continue For
+                    End If
+
+                Next NextCurveId
+                If Not blnHasCont Then  ' 说明不可能形成连续的多段线了
+                    Return Nothing
+                End If
+            Next ThisCurveId
+
+            Return curves
+        End Function
+
+        ''' <summary> 比较两个点之间的距离是否小于指定的容差 </summary>
+        ''' <remarks>对于Revit中的XYZ对象，其也有一个IsAlmostEqualTo函数，但是要注意，
+        ''' 那个函数是用来比较两个向量的方向是否小于指定的弧度容差。</remarks>
+        Private Shared Function IsAlmostEqualTo(Point1 As XYZ, Point2 As XYZ, ByVal Precision As Double) As Boolean
+            Dim D As Double = Sqrt((Point1.X - Point2.X) ^ 2 +
+                                   (Point1.Y - Point2.Y) ^ 2 +
+                                   (Point1.Z - Point2.Z) ^ 2)
+            If D <= Precision Then
+                Return True
+            Else
+                Return False
+            End If
         End Function
 
         ''' <summary>

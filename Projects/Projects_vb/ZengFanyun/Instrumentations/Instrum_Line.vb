@@ -31,7 +31,6 @@ Namespace OldW.Instrumentation
         ''' <remarks></remarks>
         Public Sub New(MonitorLine As FamilyInstance, Optional ByVal Type As InstrumentationType = InstrumentationType.墙体测斜)
             MyBase.New(MonitorLine, Type)
-
         End Sub
 
 

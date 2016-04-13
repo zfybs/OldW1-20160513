@@ -1,12 +1,6 @@
 F:\Software\Revit\RevitDevelop\OldW\bin\std_vb.dll
 F:\Software\Revit\RevitDevelop\OldW\bin\std_vb.pdb
 F:\Software\Revit\RevitDevelop\OldW\bin\std_vb.xml
-F:\Software\Revit\RevitDevelop\OldW\Projects\eZstd\obj\Debug\std_vb.vbproj.GenerateResource.Cache
-F:\Software\Revit\RevitDevelop\OldW\Projects\eZstd\obj\Debug\std_vb.dll
-F:\Software\Revit\RevitDevelop\OldW\Projects\eZstd\obj\Debug\std_vb.xml
-F:\Software\Revit\RevitDevelop\OldW\Projects\eZstd\obj\Debug\std_vb.pdb
-F:\Software\Revit\RevitDevelop\OldW\Projects\eZstd\obj\Debug\Resources.resources
-F:\Software\Revit\RevitDevelop\OldW\Projects\eZstd\obj\Debug\std_ez.eZDataGridView.resources
 F:\Software\Revit\RevitDevelop\OldW\Projects\std_ez\obj\Debug\Resources.resources
 F:\Software\Revit\RevitDevelop\OldW\Projects\std_ez\obj\Debug\std_ez.eZDataGridView.resources
 F:\Software\Revit\RevitDevelop\OldW\Projects\std_ez\obj\Debug\std_vb.vbproj.GenerateResource.Cache

@@ -4,6 +4,11 @@
         <name>RevitTools_cs</name>
     </assembly>
     <members>
+        <member name="M:OldW.DllActivator.DllActivator_RevitTools_cs.OldW#DllActivator#IDllActivator#ActivateReferences">
+            <summary>
+            激活本DLL所引用的那些DLLs
+            </summary>
+        </member>
         <member name="T:rvtTools_zw.ExtensionRevitLib">
             <summary>
             扩展方法

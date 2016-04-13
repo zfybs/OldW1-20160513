@@ -1,0 +1,9 @@
+F:\Software\Revit\RevitDevelop\OldW\bin\OldWGlobal.dll
+F:\Software\Revit\RevitDevelop\OldW\bin\OldWGlobal.pdb
+F:\Software\Revit\RevitDevelop\OldW\bin\OldWGlobal.xml
+F:\Software\Revit\RevitDevelop\OldW\Projects\OldWGlobal\obj\x86\Debug\OldWGlobal.vbprojResolveAssemblyReference.cache
+F:\Software\Revit\RevitDevelop\OldW\Projects\OldWGlobal\obj\x86\Debug\Resources.resources
+F:\Software\Revit\RevitDevelop\OldW\Projects\OldWGlobal\obj\x86\Debug\OldWGlobal.vbproj.GenerateResource.Cache
+F:\Software\Revit\RevitDevelop\OldW\Projects\OldWGlobal\obj\x86\Debug\OldWGlobal.dll
+F:\Software\Revit\RevitDevelop\OldW\Projects\OldWGlobal\obj\x86\Debug\OldWGlobal.xml
+F:\Software\Revit\RevitDevelop\OldW\Projects\OldWGlobal\obj\x86\Debug\OldWGlobal.pdb

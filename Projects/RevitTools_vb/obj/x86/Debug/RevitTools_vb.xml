@@ -1,0 +1,289 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+RevitTools_vb
+</name>
+</assembly>
+<members>
+<member name="F:rvtTools_ez.GeoHelper.VertexTolerance">
+	<summary>
+ 进行点的距离比较时的容差
+ </summary>
+	<remarks>Revit中，Application.VertexTolerance属性值返回的值为：0.0005233832795</remarks>
+</member><member name="M:rvtTools_ez.GeoHelper.GetBottomFace(Autodesk.Revit.DB.FaceArray)">
+	<summary>
+ Find the bottom face of a face array.
+ </summary>
+	<param name="faces">A face array.</param>
+	<returns>The bottom face of a face array.</returns>
+</member><member name="M:rvtTools_ez.GeoHelper.Distribute(Autodesk.Revit.DB.Mesh,Autodesk.Revit.DB.XYZ@,Autodesk.Revit.DB.XYZ@,Autodesk.Revit.DB.XYZ@)">
+	<summary>
+ Find out the three points which made of a plane.
+ </summary>
+	<param name="mesh">A mesh contains many points.</param>
+	<param name="startPoint">Create a new instance of ReferencePlane.</param>
+	<param name="endPoint">The free end apply to reference plane.</param>
+	<param name="thirdPnt">A third point needed to define the reference plane.</param>
+</member><member name="M:rvtTools_ez.GeoHelper.GetLength(Autodesk.Revit.DB.XYZ,Autodesk.Revit.DB.XYZ)">
+	<summary>
+ Calculate the length between two points.
+ </summary>
+	<param name="startPoint">The start point.</param>
+	<param name="endPoint">The end point.</param>
+	<returns>The length between two points.</returns>
+</member><member name="M:rvtTools_ez.GeoHelper.GetDistance(System.Double,System.Double)">
+	<summary>
+ The distance between two value in a same axis.
+ </summary>
+	<param name="start">start value.</param>
+	<param name="end">end value.</param>
+	<returns>The distance between two value.</returns>
+</member><member name="M:rvtTools_ez.GeoHelper.GetVector(Autodesk.Revit.DB.XYZ,Autodesk.Revit.DB.XYZ)">
+	<summary>
+ Get the vector between two points.
+ </summary>
+	<param name="startPoint">The start point.</param>
+	<param name="endPoint">The end point.</param>
+	<returns>The vector between two points.</returns>
+</member><member name="M:rvtTools_ez.GeoHelper.IsVerticalFace(Autodesk.Revit.DB.Face)">
+	<summary>
+ Determines whether a face is vertical.
+ </summary>
+	<param name="face">The face to be determined.</param>
+	<returns>Return true if this face is vertical, or else return false.</returns>
+</member><member name="M:rvtTools_ez.GeoHelper.IsVerticalEdge(Autodesk.Revit.DB.Edge)">
+	<summary>
+ Determines whether a edge is vertical.
+ </summary>
+	<param name="edge">The edge to be determined.</param>
+	<returns>Return true if this edge is vertical, or else return false.</returns>
+</member><member name="M:rvtTools_ez.GeoHelper.Equal(Autodesk.Revit.DB.XYZ,Autodesk.Revit.DB.XYZ)">
+	<summary>
+ Determines whether two vector are equal in x and y axis.
+ </summary>
+	<param name="vectorA">The vector A.</param>
+	<param name="vectorB">The vector B.</param>
+	<returns>Return true if two vector are equals, or else return false.</returns>
+</member><member name="M:rvtTools_ez.GeoHelper.GetContiguousCurvesFromSelectedCurveElementsWithGug(Autodesk.Revit.DB.Document,System.Collections.Generic.IList{Autodesk.Revit.DB.Reference})">
+	<summary>
+ 从选择的Curve Elements中，获得连续多段曲线。此函数经测试，并不能将顺序的连续线转换为从头至尾的连续线。
+ Gets a list of curves which are ordered correctly and oriented correctly to form a closed loop.
+ </summary>
+	<param name="doc">The document.</param>
+	<param name="boundaries">The list of curve element references which are the boundaries.
+ 注意，boundaries中每一条曲线都必须是有界的（IsBound），否则，其GetEndPoint会报错。</param>
+	<returns>The list of curves.</returns>
+</member><member name="M:rvtTools_ez.GeoHelper.GetContiguousCurvesFromSelectedCurveElements(Autodesk.Revit.DB.Document,System.Collections.Generic.IList{Autodesk.Revit.DB.Reference})">
+	<summary>
+ 从选择的Curve Elements中，获得连续排列的多段曲线（不一定要封闭）。
+ </summary>
+	<param name="doc">曲线所在文档</param>
+	<param name="SelectedCurves">多条曲线元素所对应的Reference，可以通过Selection.PickObjects返回。
+ 注意，SelectedCurves中每一条曲线都必须是有界的（IsBound），否则，其GetEndPoint会报错。</param>
+	<returns>如果输入的曲线可以形成连续的多段线，则返回重新排序后的多段线集合；
+ 如果输入的曲线不能形成连续的多段线，则返回Nothing！</returns>
+</member><member name="M:rvtTools_ez.GeoHelper.IsAlmostEqualTo(Autodesk.Revit.DB.XYZ,Autodesk.Revit.DB.XYZ,System.Double)">
+	<summary> 比较两个点之间的距离是否小于指定的容差 </summary>
+	<remarks>对于Revit中的XYZ对象，其也有一个IsAlmostEqualTo函数，但是要注意，
+ 那个函数是用来比较两个向量的方向是否小于指定的弧度容差。</remarks>
+</member><member name="M:rvtTools_ez.GeoHelper.FindFace(Autodesk.Revit.DB.Extrusion,Autodesk.Revit.DB.XYZ,Autodesk.Revit.DB.ReferencePlane)">
+	<summary>
+ 找到Extrusion中指定法向的平面。如果有多个平面的法向都是指定的法向，则返回第一个找到的平面。
+ Given a solid, find a planar face with the given normal (version 2)
+ this is a slightly enhanced version which checks if the face is on the given reference plane.
+ </summary>
+	<param name="refPlane">除了验证平面的法向外，还可以额外验证一下指定法向的平面是否是在指定的参考平面上。即要同时满足normal与ReferencePlane两个条件。
+ additionally, we want to check if the face is on the reference plane</param>
+	<remarks></remarks>
+</member><member name="M:rvtTools_ez.GeoHelper.IsAlmostEqual(System.Double,System.Double)">
+	<summary>
+ test if a given point lies on the given reference plane. 
+ linear equation of plane: ax + by + cz = d 
+ the normal is orthogonal to any vector on the plane: 
+     n.(p1 - p0) = 0 
+ compare two double values and judges if it is "almost equal".
+ </summary>
+	<remarks>Note: you may need to adjust the tolorance to fit your needs. </remarks>
+</member><member name="T:rvtTools_ez.GeoHelper">
+	<summary>
+ A object to help locating with geometry data.
+ </summary>
+</member><member name="M:rvtTools_ez.Test.Test_ExamplesCodes.GetGeometry">
+	<summary>
+ 返回Element的几何数据
+ </summary>
+	<remarks></remarks>
+</member><member name="M:rvtTools_ez.Test.Test_ExamplesCodes.FindSupporting">
+	<summary> 射线法：找到与梁相交的所有墙对象 </summary>
+</member><member name="M:rvtTools_ez.Test.Test_ExamplesCodes.FindIntersectWallsByElement">
+	<summary> 找到与某Element的几何实体相交的Elements </summary>
+</member><member name="M:rvtTools_ez.Test.Test_ExamplesCodes.FindIntersectWallsByGeometry">
+	<summary>ElementIntersectsSolidFilter: 找到与某Solid相交的Elements </summary>
+</member><member name="M:rvtTools_ez.Test.Test_ExamplesCodes.ElementParameterFilter_FindOjbectsInSpecificRoom(Autodesk.Revit.UI.ExternalCommandData)">
+	<summary>
+ ElementParameterFilter 参数过滤器：找到一个房间内的所有对象
+ </summary>
+	<remarks>提示: 参数过滤条件可能比其他的类型过滤条件要快，但是这要视条件而定。毕竟这是一个慢过，使用时请按照过滤标准的复杂程度而异。</remarks>
+</member><member name="M:rvtTools_ez.Test.Test_ExamplesCodes.ElementParameterFilter_FindRooms(Autodesk.Revit.DB.Document)">
+	<summary>
+ ElementParameterFilter参数过滤器 Creates an ElementParameter filter to find rooms whose area is greater than specified value
+ </summary>
+	<remarks>提示: 参数过滤条件可能比其他的类型过滤条件要快，但是这要视条件而定。毕竟这是一个慢过，使用时请按照过滤标准的复杂程度而异。</remarks>
+</member><member name="T:rvtTools_ez.Test.Test_ExamplesCodes">
+	<summary>
+ 一些效果实现的示例代码
+ </summary>
+	<remarks></remarks>
+</member><member name="P:rvtTools_ez.Test.Template_ModelessForm.RequestParameter.sender">
+	<summary> 引发Form事件控件对象 </summary>
+</member><member name="P:rvtTools_ez.Test.Template_ModelessForm.RequestParameter.e">
+	<summary> Form中的事件所对应的事件参数 </summary>
+</member><member name="P:rvtTools_ez.Test.Template_ModelessForm.RequestParameter.Id">
+	<summary> 具体的需求 </summary>
+</member><member name="M:rvtTools_ez.Test.Template_ModelessForm.RequestParameter.#ctor(rvtTools_ez.Test.Template_ModelessForm.Request,System.EventArgs,System.Object)">
+	<summary>
+ 定义事件需求与窗口中引发此事件的控件对象及对应的事件参数
+ </summary>
+	<param name="RequestId">具体的需求</param>
+	<param name="e">Form中的事件所对应的事件参数</param>
+	<param name="sender">引发Form事件控件对象</param>
+	<remarks></remarks>
+</member><member name="T:rvtTools_ez.Test.Template_ModelessForm.RequestParameter">
+	<summary>
+ 每一个外部事件调用时所提出的需求，为了在Execute方法中充分获取窗口的需求，
+ 所以将调用外部事件的窗口控件以及对应的触发事件参数也传入Execute方法中。
+ </summary>
+	<remarks></remarks>
+</member><member name="F:rvtTools_ez.Test.Template_ModelessForm.Request.Pick">
+	<summary>
+ 与Revit用户界面进行交互。弥补了Form.ShowDialog不能进行Selection.PickObjects等操作的缺陷。
+ </summary>
+	<remarks></remarks>
+</member><member name="F:rvtTools_ez.Test.Template_ModelessForm.Request.Delete">
+	<summary>
+ 开启Revit事务以修改Revit文档。弥补了Form.Show后开启事务时给出报错：
+ “Starting a transaction from an external application running outside of APIcontext is not allowed.”的问题。
+ </summary>
+	<remarks></remarks>
+</member><member name="T:rvtTools_ez.Test.Template_ModelessForm.Request">
+	<summary>
+ ModelessForm的操作需求，用来从窗口向IExternalEventHandler对象传递需求。
+ </summary>
+	<remarks></remarks>
+</member><member name="F:rvtTools_ez.Test.Template_ModelessForm.ExEvent">
+	<summary>用来触发外部事件（通过其Raise方法） </summary>
+	<remarks>ExEvent属性是必须有的，它用来执行Raise方法以触发事件。</remarks>
+</member><member name="F:rvtTools_ez.Test.Template_ModelessForm.RequestPara">
+	<summary> Execute方法所要执行的需求 </summary>
+	<remarks>在Form中要执行某一个操作时，先将对应的操作需求信息赋值为一个RequestId枚举值，然后再执行ExternalEvent.Raise()方法。
+ 然后Revit会在会在下个闲置时间（idling time cycle）到来时调用IExternalEventHandler.Excute方法，在这个Execute方法中，
+ 再通过RequestId来提取对应的操作需求，</remarks>
+</member><member name="M:rvtTools_ez.Test.Template_ModelessForm.DozeOff">
+	<summary> 在Revit执行相关操作时，禁用窗口中的控件 </summary>
+</member><member name="M:rvtTools_ez.Test.Template_ModelessForm.WarmUp">
+	<summary> 在外部事件RequestHandler中的Execute方法执行完成后，用来激活窗口中的控件 </summary>
+</member><member name="M:rvtTools_ez.Test.Template_ModelessForm.Execute(Autodesk.Revit.UI.UIApplication)">
+	<summary>
+ 在执行ExternalEvent.Raise()方法之前，请先将操作需求信息赋值给其RequestHandler对象的RequestId属性。
+ 当ExternalEvent.Raise后，Revit会在下个闲置时间（idling time cycle）到来时调用IExternalEventHandler.Execute方法的实现。
+ </summary>
+	<param name="app">此属性由Revit自动提供，其值不是Nothing，而是一个真实的UIApplication对象</param>
+	<remarks>由于在通过外部程序所引发的操作中，如果出现异常，Revit并不会给出任何提示或者报错，
+ 而是直接退出函数。所以要将整个操作放在一个Try代码块中，以处理可能出现的任何报错。</remarks>
+</member><member name="T:rvtTools_ez.Test.Template_ModelessForm">
+	<summary>
+ 无模态窗口的模板
+ 此窗口可以直接通过Form.Show来进行调用
+ </summary>
+	<remarks></remarks>
+</member><member name="M:rvtTools_ez.rvtTools.GetWarningValue(System.String)">
+	<summary>
+ 提取WarningValueUsing.dat中的WarningValue类
+ </summary>
+	<param name="FullPath">WarningValueUsing.dat的绝对路径</param>
+</member><member name="M:rvtTools_ez.rvtTools.GetOldWDefinitionGroup(Autodesk.Revit.ApplicationServices.Application)">
+	<summary>
+ 获取外部共享参数文件中的参数组“OldW”，然后可以通过DefinitionGroup.Definitions.Item(name As String)来索引其中的共享参数，
+ 也可以通过DefinitionGroup.Definitions.Create(name As String)来创建新的共享参数。
+ </summary>
+	<param name="App"></param>
+</member><member name="M:rvtTools_ez.rvtTools.FindElements(Autodesk.Revit.DB.Document,System.Type,Autodesk.Revit.DB.BuiltInCategory,System.String)">
+	<summary>
+ Helper function: find a list of element with the given Class, Name and Category (optional). 
+ </summary>
+	<remarks></remarks>
+</member><member name="M:rvtTools_ez.rvtTools.FindElements(Autodesk.Revit.DB.Document,System.Collections.Generic.ICollection{Autodesk.Revit.DB.ElementId},System.Type,Autodesk.Revit.DB.BuiltInCategory,System.String)">
+	<summary>
+  Helper function: find a list of element with the given Class, Name and Category (optional). 
+ </summary>
+	<param name="rvtDoc">要进行搜索的Revit文档</param>
+	<param name="SourceElements">要从文档中的哪个集合中来进行搜索</param>
+	<param name="targetType"></param>
+	<param name="targetCategory"></param>
+	<param name="targetName"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="T:rvtTools_ez.rvtTools">
+	<summary>
+ Revit中的一些常规性操作工具
+ </summary>
+	<remarks></remarks>
+</member><member name="M:OldW.DllActivator.DllActivator_RevitTools_vb.ActivateReferences">
+	<summary>
+ 激活本DLL所引用的那些DLLs
+ </summary>
+</member><member name="M:rvtTools_ez.ExtensionMethods.Element(Autodesk.Revit.DB.ElementId,Autodesk.Revit.DB.Document)">
+	<summary> 从ElementId返回其所在的Document中的Element对象 </summary>
+	<param name="elementId"></param>
+	<param name="Doc">此elementId所位于的文档</param>
+</member><member name="M:rvtTools_ez.ExtensionMethods.FindFamily(Autodesk.Revit.DB.Document,System.String,Autodesk.Revit.DB.BuiltInCategory)">
+	<summary> 返回项目文档中指定名称的族Family对象 </summary>
+	<param name="FamilyName">在此文档中，所要搜索的族对象的名称</param>
+	<param name="Category">此族所属的 BuiltInCategory 类别，如果不确定，就不填。</param>
+</member><member name="M:rvtTools_ez.ExtensionMethods.FindFamilies(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.BuiltInCategory)">
+	<summary> 返回项目文档中指定类别的族对象。在函数中会对所有族对象的FamilyCategory进行判断。</summary>
+	<param name="Category">此族所属的 BuiltInCategory 类别，即FamilyCategory属性所对应的类别。</param>
+</member><member name="M:rvtTools_ez.ExtensionMethods.Instances(Autodesk.Revit.DB.Family,Autodesk.Revit.DB.BuiltInCategory)">
+	<summary> 返回项目文档中某族Family的所有实例 </summary>
+	<param name="Category">此族所属的 BuiltInCategory 类别，如果不确定，就不填。</param>
+	<param name="Family"></param>
+</member><member name="M:rvtTools_ez.ExtensionMethods.ReName(Autodesk.Revit.DB.Family,System.String)">
+	<summary> 对Document中加载的族进行重命名 </summary>
+	<param name="Family"></param>
+	<param name="NewName">要重新命名的新名称</param>
+</member><member name="M:rvtTools_ez.ExtensionMethods.Instances(Autodesk.Revit.DB.FamilySymbol)">
+	<summary> 返回项目文档中某族类型FamilySymbol的所有实例 </summary>
+	<param name="FamilySymbol"></param>
+</member><member name="M:rvtTools_ez.ExtensionMethods.ToString_Matrix(Autodesk.Revit.DB.Transform)">
+	<summary> 以矩阵的形式返回变换矩阵，仅作显示之用 </summary>
+	<param name="Trans"></param>
+</member><member name="M:rvtTools_ez.ExtensionMethods.Foot2mm(System.Double)">
+	<summary> 长度单位转换：将英尺转换为毫米 1英尺=304.8mm </summary>
+	<param name="value_foot"></param>
+	<remarks> 1 foot = 12 inches = 304.8 mm</remarks>
+</member><member name="T:rvtTools_ez.ExtensionMethods">
+	<summary>
+ Revit中对象的扩展方法
+ </summary>
+	<remarks></remarks>
+</member><member name="P:My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member><member name="M:rvtTools_ez.Test.ExternalApplication.NewRibbon(Autodesk.Revit.UI.UIControlledApplication)">
+	<summary>
+ 创建一个新的 Ribbon
+ </summary>
+</member>
+</members>
+</doc>

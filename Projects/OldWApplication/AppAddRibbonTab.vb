@@ -46,7 +46,6 @@ Public Class AppAddRibbonTab
 
 #End Region
 
-
     ''' <summary> Ribbon界面设计 </summary>
     Public Function OnStartup(ByVal application As UIControlledApplication) As Result Implements IExternalApplication.OnStartup
         'Create a custom ribbon tab
@@ -54,14 +53,19 @@ Public Class AppAddRibbonTab
         application.CreateRibbonTab(tabName)
 
         ' 建模面板
-        Dim ribbonPanelModeling As RibbonPanel = application.CreateRibbonPanel(tabName, "建模")
-        AddSplitButtonModeling(ribbonPanelModeling)
+        Dim ribbonPanelModeling As RibbonPanel = application.CreateRibbonPanel(tabName, "开挖")
         AddPushButtonExcavation(ribbonPanelModeling)
+        AddPushButtonExcavationInfo(ribbonPanelModeling)
 
         ' 监测数据面板
         Dim ribbonPanelData As RibbonPanel = application.CreateRibbonPanel(tabName, "监测")
+        AddSplitButtonModeling(ribbonPanelData)
         AddPushButtonDataEdit(ribbonPanelData)
 
+        ' 查看面板
+        Dim ribbonPanelView As RibbonPanel = application.CreateRibbonPanel(tabName, "查看")
+        AddTextBoxCurrentDate(ribbonPanelView)
+        AddPushButtViewStage(ribbonPanelView)
 
         ' 分析面板
         Dim ribbonPanelAnalysis As RibbonPanel = application.CreateRibbonPanel(tabName, "分析")
@@ -175,6 +179,58 @@ Public Class AppAddRibbonTab
         pushButton.LargeImage = New BitmapImage(New Uri(Path.Combine(Path_icons, "Excavation-32.png"))) ' "Excavation-32.png"
 
     End Sub
+
+
+    ''' <summary> 添加“开挖信息”的下拉记忆按钮 </summary>
+    Private Sub AddPushButtonExcavationInfo(ByVal panel As RibbonPanel)
+        ' Create a new push button
+        Dim pushButton As PushButton = TryCast(panel.AddItem(New PushButtonData("ExcavationInfo", "开挖信息", Path.Combine(Path_Dlls, Dll_vb), "OldW.Commands.cmd_ExcavationInfo")), PushButton)
+        With pushButton
+            .ToolTip = "提取模型中的基坑开挖模型土体与开挖土体的信息。"
+            ' Set Contextual help
+            Dim contextHelp As New ContextualHelp(ContextualHelpType.Url, "http://www.autodesk.com")
+            .SetContextualHelp(contextHelp)
+            ' Set Icon
+            .LargeImage = New BitmapImage(New Uri(Path.Combine(Path_icons, "ExcavationInfo-32.png"))) ' "Excavation-32.png"
+        End With
+
+    End Sub
+
+    ''' <summary> 添加“当前时间”的文本框 </summary>
+    Private Sub AddTextBoxCurrentDate(ByVal panel As RibbonPanel)
+        ' Create a new push button
+        Dim TextBox As TextBox = TryCast(panel.AddItem(New TextBoxData("CurrentDate")), TextBox)
+
+        ' Set Icon
+        With TextBox
+            .ToolTip = "当前时间，用来查看开挖情况与显示对应的监测数据。可以精确到分钟。"
+            ' Set Contextual help
+            Dim contextHelp As New ContextualHelp(ContextualHelpType.Url, "http://www.autodesk.com")
+            .SetContextualHelp(contextHelp)
+            ' Set Icon
+            .Image = New BitmapImage(New Uri(Path.Combine(Path_icons, "ViewStage-16.png"))) ' "Excavation-32.png"
+            .Width = 100
+            .Value = Date.Today.ToShortDateString()
+            .SelectTextOnFocus = True
+        End With
+    End Sub
+
+    ''' <summary> 添加“查看开挖工况”的下拉记忆按钮 </summary>
+    Private Sub AddPushButtViewStage(ByVal panel As RibbonPanel)
+        ' Create a new push button
+        Dim pushButton As PushButton = TryCast(panel.AddItem(New PushButtonData("ViewStage", "开挖工况", Path.Combine(Path_Dlls, Dll_vb), "OldW.Commands.cmd_ViewStage")), PushButton)
+        With pushButton
+            .ToolTip = "查看指定日期的开挖工况。"
+            ' Set Contextual help
+            Dim contextHelp As New ContextualHelp(ContextualHelpType.Url, "http://www.autodesk.com")
+            .SetContextualHelp(contextHelp)
+            ' Set Icon
+            .LargeImage = New BitmapImage(New Uri(Path.Combine(Path_icons, "ViewStage-32.png"))) ' "Excavation-32.png"
+
+        End With
+
+    End Sub
+
 
 #End Region
 

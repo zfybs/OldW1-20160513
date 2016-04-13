@@ -6,7 +6,6 @@ Imports OldW.Instrumentation
 Imports std_ez
 Imports System.Windows.Forms
 Imports rvtTools_ez.ExtensionMethods
-Imports OldW.Modeling
 Imports System.IO
 Imports rvtTools_ez.rvtTools
 
@@ -39,9 +38,9 @@ Namespace OldW.DataManager
                 ' 判断图形是否是测点
                 If Monitor.Contains(eleId) Then
 
-                    If IsViolated(eleId) Then
-                        ViolateList.Add(eleId)
-                    End If
+                    '   If IsViolated(eleId) Then
+                    '       ViolateList.Add(eleId)
+                    '   End If
                 End If
 
             Next
@@ -70,25 +69,25 @@ Namespace OldW.DataManager
             f.ShowDialog()
         End Sub
 
-        Private Function IsViolated(ByVal eleId As ElementId) As Boolean
-            Dim blnIsViolated As Boolean = False
-            '
-            Dim ele As Element = doc.GetElement(eleId)
-            Dim strData As String = ele.Parameter(Constants.SP_Monitor_Guid).AsString
-            Dim Dt As MonitorData_Point = DirectCast(StringSerializer.Decode64(strData), MonitorData_Point)
-            Dim v As Object
-            With Dt
-                For i As UInt32 = 0 To .arrDate.Length - 1
-                    v = .arrValue(i)
-                    Dim WV As WarningValue = GetWarningValue(GlobalSettings.ProjectPath.Path_WarningValueUsing)
-                    '
-                    If (v IsNot Nothing) AndAlso (v > WV.warningGSetle.sum) Then
-                        Return True
-                    End If
-                Next
-            End With
-            Return blnIsViolated
-        End Function
+        '      Private Function IsViolated(ByVal eleId As ElementId) As Boolean
+        '          Dim blnIsViolated As Boolean = False
+        '          '
+        '          Dim ele As Element = doc.GetElement(eleId)
+        '          Dim strData As String = ele.Parameter(Constants.SP_Monitor_Guid).AsString
+        '          Dim Dt As MonitorData_Point = DirectCast(StringSerializer.Decode64(strData), MonitorData_Point)
+        '          Dim v As Object
+        '          With Dt
+        '              For i As UInt32 = 0 To .arrDate.Length - 1
+        '                  v = .arrValue(i)
+        '                  Dim WV As WarningValue = GetWarningValue(GlobalSettings.ProjectPath.Path_WarningValueUsing)
+        '                  '
+        '                  If (v IsNot Nothing) AndAlso (v > WV.warningGSetle.sum) Then
+        '                      Return True
+        '                  End If
+        '              Next
+        '          End With
+        '          Return blnIsViolated
+        '      End Function
 
     End Class
 End Namespace

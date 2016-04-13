@@ -4,6 +4,11 @@
         <name>Projects_cs</name>
     </assembly>
     <members>
+        <member name="M:OldW.DllActivator.DllActivator_Projects_cs.OldW#DllActivator#IDllActivator#ActivateReferences">
+            <summary>
+            激活本DLL所引用的那些DLLs
+            </summary>
+        </member>
         <member name="M:OldW.Modeling.FormSetWarning.getFormValve">
             <summary>
             读取界面上的值，创建WarningValue对象

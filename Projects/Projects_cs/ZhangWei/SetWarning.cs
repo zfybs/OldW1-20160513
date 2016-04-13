@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Forms;
 
 using Autodesk.Revit.UI;
 using Autodesk.Revit.DB;
-
+using System.IO;
 using rvtTools_zw;
 using std_ez;
 using OldW;
@@ -25,10 +25,12 @@ namespace OldW
 
             public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
             {
+                //Utils.SetDllDirectory(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                //MessageBox.Show(System.Reflection.Assembly.GetExecutingAssembly().Location);
                 try
                 {
                     FormSetWarning formSet = new FormSetWarning();
-                    formSet.Show();
+                    formSet.Show(null);
                 }
                 catch (Exception e)
                 {

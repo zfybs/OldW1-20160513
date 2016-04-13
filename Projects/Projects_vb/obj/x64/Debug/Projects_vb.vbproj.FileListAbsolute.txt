@@ -1,0 +1,15 @@
+F:\Software\Revit\RevitDevelop\OldW\bin\Projects_vb.dll
+F:\Software\Revit\RevitDevelop\OldW\bin\Projects_vb.pdb
+F:\Software\Revit\RevitDevelop\OldW\bin\Projects_vb.xml
+F:\Software\Revit\RevitDevelop\OldW\Projects\Projects_vb\obj\x64\Debug\Projects_vb.vbprojResolveAssemblyReference.cache
+F:\Software\Revit\RevitDevelop\OldW\Projects\Projects_vb\obj\x64\Debug\OldW.Excavation.frm_ExcavationInfo.resources
+F:\Software\Revit\RevitDevelop\OldW\Projects\Projects_vb\obj\x64\Debug\OldW.DataManager.Chart_MonitorData.resources
+F:\Software\Revit\RevitDevelop\OldW\Projects\Projects_vb\obj\x64\Debug\OldW.DataManager.ElementDataManager.resources
+F:\Software\Revit\RevitDevelop\OldW\Projects\Projects_vb\obj\x64\Debug\Resources.resources
+F:\Software\Revit\RevitDevelop\OldW\Projects\Projects_vb\obj\x64\Debug\OldW.Excavation.frm_DrawExcavation.resources
+F:\Software\Revit\RevitDevelop\OldW\Projects\Projects_vb\obj\x64\Debug\Projects_vb.vbproj.GenerateResource.Cache
+F:\Software\Revit\RevitDevelop\OldW\Projects\Projects_vb\obj\x64\Debug\Projects_vb.dll
+F:\Software\Revit\RevitDevelop\OldW\Projects\Projects_vb\obj\x64\Debug\Projects_vb.xml
+F:\Software\Revit\RevitDevelop\OldW\Projects\Projects_vb\obj\x64\Debug\Projects_vb.pdb
+F:\Software\Revit\RevitDevelop\OldW\Projects\Projects_vb\obj\x64\Debug\frm_DataImport.resources
+F:\Software\Revit\RevitDevelop\OldW\Projects\Projects_vb\obj\x64\Debug\frm_DataExport.resources

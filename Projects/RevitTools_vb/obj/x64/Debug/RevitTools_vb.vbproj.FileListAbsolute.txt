@@ -1,0 +1,10 @@
+F:\Software\Revit\RevitDevelop\OldW\bin\RevitTools_vb.dll
+F:\Software\Revit\RevitDevelop\OldW\bin\RevitTools_vb.pdb
+F:\Software\Revit\RevitDevelop\OldW\bin\RevitTools_vb.xml
+F:\Software\Revit\RevitDevelop\OldW\Projects\RevitTools_vb\obj\x64\Debug\RevitTools_vb.vbprojResolveAssemblyReference.cache
+F:\Software\Revit\RevitDevelop\OldW\Projects\RevitTools_vb\obj\x64\Debug\Resources.resources
+F:\Software\Revit\RevitDevelop\OldW\Projects\RevitTools_vb\obj\x64\Debug\rvtTools_ez.Test.Template_ModelessForm.resources
+F:\Software\Revit\RevitDevelop\OldW\Projects\RevitTools_vb\obj\x64\Debug\RevitTools_vb.vbproj.GenerateResource.Cache
+F:\Software\Revit\RevitDevelop\OldW\Projects\RevitTools_vb\obj\x64\Debug\RevitTools_vb.dll
+F:\Software\Revit\RevitDevelop\OldW\Projects\RevitTools_vb\obj\x64\Debug\RevitTools_vb.xml
+F:\Software\Revit\RevitDevelop\OldW\Projects\RevitTools_vb\obj\x64\Debug\RevitTools_vb.pdb

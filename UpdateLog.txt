@@ -40,3 +40,10 @@
 ##2016-03-24
 ###17:09
 1. eZ	添加	 完成模型土体与开挖土体的创建
+
+##2016-04-12
+###22：00
+土体绘制模块基本完成！
+1. 解决了Could not load file or assembly... or one of its dependencies的报错。因此不用将不同的工作任务放置到同一个项目中了；
+2. 解决了Revit中绘制开挖土体（实体剪切操作）时，在Revit中会报出“无法剪切连接的图元”的报错。此报错的原因是Revit中规定了在剪切后的图元不能有任何一条边的长度小于1/32''(即0.79mm，具体说明见Revit官方帮助：http://help.autodesk.com/view/RVT/2016/CHS/?guid=GUID-DB17C879-3A44-471C-8C66-2A1CAD0A6C05)；
+3. 后续要进行监测数据存储的完善，会考虑使用“ Autodesk.Revit.DB.ExtensibleStorage.SchemaBuilder”类，而取消使用序列到字符串的方式来保存监测数据。

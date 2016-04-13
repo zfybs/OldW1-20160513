@@ -6,7 +6,9 @@ Imports System.IO
 Imports Autodesk.Revit.UI.Selection
 Imports Autodesk.Revit.DB.Architecture
 
-Namespace rvtTools_ez
+
+Namespace rvtTools_ez.Test
+
     ''' <summary>
     ''' 一些效果实现的示例代码
     ''' </summary>

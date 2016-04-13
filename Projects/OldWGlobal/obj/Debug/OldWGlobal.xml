@@ -6,7 +6,15 @@ OldWGlobal
 </name>
 </assembly>
 <members>
-<member name="P:My.Resources.Resources.ResourceManager">
+<member name="M:OldW.GlobalSettings.Operations.DeActivateControls(Autodesk.Revit.UI.UIApplication)">
+	<summary>
+ 将程序插件中的所有面板禁用
+ </summary>
+</member><member name="M:OldW.GlobalSettings.Operations.ActivateControls(Autodesk.Revit.UI.UIApplication)">
+	<summary>
+ 将程序插件中的所有面板激活
+ </summary>
+</member><member name="P:My.Resources.Resources.ResourceManager">
 	<summary>
   Returns the cached ResourceManager instance used by this class.
 </summary>
@@ -119,20 +127,22 @@ OldWGlobal
  </summary>
 	<remarks></remarks>
 </member><member name="P:OldW.GlobalSettings.Constants.SP_ExcavationCompleted_Guid">
-	<summary>
- 每一个开挖土体单元，都有一个对应的开挖完成的日期数据。
- </summary>
-	<returns></returns>
+	<summary> 每一个开挖土体单元，都有一个对应的开挖完成的日期数据。 </summary>
 </member><member name="F:OldW.GlobalSettings.Constants.SP_ExcavationCompleted">
-	<summary>
- 每一个开挖土体单元，都有一个对应的开挖完成的日期数据。
- </summary>
-	<remarks></remarks>
+	<summary> 每一个开挖土体单元，都有一个对应的开挖完成的日期数据。 </summary>
+</member><member name="P:OldW.GlobalSettings.Constants.SP_ExcavationStarted_Guid">
+	<summary> 每一个开挖土体单元，都有一个对应的开始开挖的日期数据。 </summary>
+</member><member name="F:OldW.GlobalSettings.Constants.SP_ExcavationStarted">
+	<summary> 每一个开挖土体单元，都有一个对应的开始开挖的日期数据。 </summary>
 </member><member name="T:OldW.GlobalSettings.Constants">
 	<summary>
  OldW程序中所用到的一些全局性的常数
  </summary>
 	<remarks></remarks>
+</member><member name="M:OldW.DllActivator.DllActivator_OldWGlobal.ActivateReferences">
+	<summary>
+ 激活本DLL所引用的那些DLLs
+ </summary>
 </member>
 </members>
 </doc>

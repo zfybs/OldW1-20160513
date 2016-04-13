@@ -7,4 +7,12 @@
     <StartAction>Program</StartAction>
     <StartProgram>D:\Program Files %28x86%29\Civil Engineering\Autodesk Revit 2016\Revit.exe</StartProgram>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <StartProgram>D:\Program Files %28x86%29\Civil Engineering\Autodesk Revit 2016\Revit.exe</StartProgram>
+    <StartAction>Program</StartAction>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <StartAction>Program</StartAction>
+    <StartProgram>D:\Program Files %28x86%29\Civil Engineering\Autodesk Revit 2016\Revit.exe</StartProgram>
+  </PropertyGroup>
 </Project>
